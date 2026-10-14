@@ -6,8 +6,6 @@ df = pd.read_csv("expressed_isoforms_matrix.tsv",
                  index_col=0,
                 )
 
-
-
 import matplotlib.pyplot as plt
 
 column_sums = df.sum(axis=0)
@@ -26,8 +24,8 @@ detected_per_sample = detected_per_sample.sort_values()
 region_colours = {"DLPFC": '#2a78d6', "Hippocampus": '#eb6834', "Caudate": "#1baf7a"}
 regions = [name.split("_")[0] for name in detected_per_sample.index]
 colours = [region_colours[r] for r in regions]   
-"""
- Plot graph showing isoform numbers detected per sample.
+
+# Plot graph showing isoform numbers detected per sample.
 plt.figure(figsize=(12, 5))
 plt.bar(detected_per_sample.index, detected_per_sample.values, color=colours)
 plt.xticks(rotation=90, fontsize=7)
@@ -39,7 +37,6 @@ for region, colour in region_colours.items():
     plt.legend()
 
 plt.tight_layout()
-"""
 
 # Plot graph showing isoform numbers detected per sample.
 plt.figure(figsize=(12, 5))
