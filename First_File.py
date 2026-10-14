@@ -1,12 +1,13 @@
 import pandas as pd
 
 # Loading Expression Matrix (isoform expression levels for 49 samples)
-df = pd.read_csv("expressed_isoforms_matrix.tsv", 
+df = pd.read_csv("Long_Read_Data/expressed_isoforms_matrix.tsv",
                  sep="\t", 
                  index_col=0,
                 )
 
 import matplotlib.pyplot as plt
+from figure_utils import save_figure
 
 column_sums = df.sum(axis=0)
 print(column_sums)
@@ -26,10 +27,10 @@ regions = [name.split("_")[0] for name in detected_per_sample.index]
 colours = [region_colours[r] for r in regions]   
 
 # Plot graph showing isoform numbers detected per sample.
-plt.figure(figsize=(12, 5))
+fig = plt.figure(figsize=(12, 5))
 plt.bar(detected_per_sample.index, detected_per_sample.values, color=colours)
 plt.xticks(rotation=90, fontsize=7)
-plt.ylabel("Number of isoforms detected (TPM>0)")
+plt.ylabel("Number of isoforms detected (CPM>0)")
 plt.title("Isoforms detected per sample")
 # Legend
 for region, colour in region_colours.items():
@@ -37,14 +38,16 @@ for region, colour in region_colours.items():
     plt.legend()
 
 plt.tight_layout()
+save_figure(fig, "First_File", "isoforms_detected_per_sample")
 
 # Plot graph showing isoform numbers detected per sample.
-plt.figure(figsize=(12, 5))
+fig = plt.figure(figsize=(12, 5))
 plt.bar(genes_per_sample.index, genes_per_sample.values)
 plt.xticks(rotation=90, fontsize=7)
-plt.ylabel("Number of genes detected (TPM>0)")
+plt.ylabel("Number of genes detected (CPM>0)")
 plt.title("Genes detected per sample")
 
 
 plt.tight_layout()
+save_figure(fig, "First_File", "genes_detected_per_sample")
 plt.show()
