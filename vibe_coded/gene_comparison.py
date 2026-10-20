@@ -106,8 +106,8 @@ def plot_isoforms_vs_gene(isoforms_b, average_isoform_cpm, top_isoforms, cpm_a, 
 
 
 def main():
-    gene_a = "G49035"
-    gene_b = "G60740"
+    gene_a = "G31709"
+    gene_b = "G3124"
 
     df = load_matrix()
     gene_cpm = sum_by_gene(df)
