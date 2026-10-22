@@ -32,12 +32,13 @@ import os
 import re
 import sys
 from bisect import bisect_right
-from collections import Counter, defaultdict
+from collections import defaultdict
 from datetime import datetime
 
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.patches import Rectangle
+from matplotlib.textpath import TextPath
 
 
 # --- Settings (change these, not the code below) ---------------------------
@@ -56,7 +57,9 @@ SAVE_FIGURE = True          # True = also save a PNG in FIGURES_FOLDER (timestam
 
 FIGURE_WIDTH_INCHES = 14
 ROW_HEIGHT_INCHES = 0.5     # vertical space per isoform
-RULER_HEIGHT_INCHES = 1.0   # height of the coordinate ruler above the isoforms
+RULER_LINES_INCHES = 0.4    # height of the ruler's connector lines; the coordinate labels sit above
+                            # them and get exactly as much room as the longest label needs
+TITLE_SPACE_INCHES = 0.6    # room for the two-line title above the labels
 EXON_HEIGHT = 0.4        # height of an exon block (each isoform row is 1 unit tall)
 EXON_COLOUR = "lightgrey"
 CDS_COLOUR = "red"
@@ -120,22 +123,15 @@ def load_data():
 
 def find_isoforms(gene, transcripts):
     """All transcript IDs belonging to a gene given by name, Ensembl ID or PacBio locus (see top).
-    If a gene name matches transcripts on more than one chromosome / strand (rare, e.g. genes
-    in the X/Y pseudoautosomal regions), keep the place with the most isoforms so they can be
-    drawn on one shared axis."""
+    Returns an empty list if nothing matches.
+    (Every gene in expressed_isoforms.gtf lies on a single chromosome and strand, so all the
+    matches can be drawn on one shared axis.)"""
     query = gene.strip()
     query_no_version = query.split(".")[0]   # ENSG00000162426.16 -> ENSG00000162426
-    hits = [transcript_id for transcript_id, info in transcripts.items()
+    return [transcript_id for transcript_id, info in transcripts.items()
             if info.get("gene_name", "").upper() == query.upper()
             or info.get("gene_id", "").split(".")[0] == query_no_version
             or transcript_id.split(".")[0] == query]
-    if not hits:
-        return []
-    places = Counter((transcripts[t]["chrom"], transcripts[t]["strand"]) for t in hits)
-    if len(places) > 1:
-        print(f"Note: {gene} is found at {len(places)} places {dict(places)}; showing the one with the most isoforms")
-    best_place = places.most_common(1)[0][0]
-    return [t for t in hits if (transcripts[t]["chrom"], transcripts[t]["strand"]) == best_place]
 
 
 def make_x_axis(isoforms, transcripts):
@@ -192,22 +188,11 @@ def spread_labels(targets, gap, low, high):
     return [(f + b) / 2 for f, b in zip(forward, backward)]
 
 
-def draw_ruler(ruler_ax, ax, isoforms, transcripts, to_x, width_inches):
-    """Label every distinct exon boundary once, in a ruler above the isoform rows.
-    Labels are spread out sideways so they never overlap, with a short line pointing each
-    label to its true position, and a faint dotted guide line runs down through every row.
-
-    ruler_ax     = the empty axes above the rows, where the labels go
-    ax           = the isoform axes, which get a faint dotted guide line at each boundary
-    width_inches = width of both axes in inches, used to turn the label spacing into x units
-
-    Ruler layout (y from 0 at the bottom to 1 at the top):
-      0    -> 0.15  vertical tick at the boundary's true x position
-      0.15 -> 0.35  slanted line to the label's (possibly shifted) x position
-      0.38 ->       the coordinate, written vertically"""
-    # Distinct boundaries: exon starts sit at the left edge of a block (to_x(start)),
-    # exon ends at the right edge (to_x(end) + 1). Different coordinates at the same x
-    # (e.g. one isoform's exon ends at 100, another's starts at 101) share one label.
+def exon_boundaries(isoforms, transcripts, to_x):
+    """Every distinct exon boundary of the shown isoforms: sorted x positions and their labels.
+    Exon starts sit at the left edge of a block (to_x(start)), exon ends at the right edge
+    (to_x(end) + 1). Different coordinates at the same x (e.g. one isoform's exon ends at 100,
+    another's starts at 101) share one label, "100/101"."""
     boundaries = defaultdict(set)
     for transcript_id in isoforms:
         for start, end in transcripts[transcript_id]["exons"]:
@@ -215,27 +200,74 @@ def draw_ruler(ruler_ax, ax, isoforms, transcripts, to_x, width_inches):
             boundaries[to_x(end) + 1].add(end)
     xs = sorted(boundaries)
     texts = ["/".join(f"{c:,}" for c in sorted(boundaries[x])) for x in xs]
+    return xs, texts
 
+
+def draw_ruler(fig, ruler_ax, ax, xs, texts):
+    """Label every exon boundary once, in the ruler above the isoform rows. Labels are spread
+    out sideways so they never overlap, with a line pointing each label to its true position.
+    Returns how tall the labels are in inches, so the layout can leave exactly that much room.
+
+    The spacing depends on how wide the axes are in inches RIGHT NOW, so this is called again
+    whenever the window is resized (a figure too big for the screen gets shrunk to fit, but
+    text keeps its size, so labels spaced for the full-size figure would collide).
+
+    Ruler layout (y from 0 at the bottom to 1 at the top of ruler_ax):
+      0   -> 0.4  vertical tick at the boundary's true x position
+      0.4 -> 1    slanted line to the label's (possibly shifted) x position
+      above 1     the coordinate, written vertically, starting 2 points above the axes.
+                  It is placed in points (not axes units) so its size never depends on how
+                  tall the ruler happens to be."""
+    ruler_ax.clear()
     x_low, x_high = ax.get_xlim()
     ruler_ax.set_xlim(x_low, x_high)
     ruler_ax.set_ylim(0, 1)
     ruler_ax.set_autoscale_on(False)   # otherwise plotting the connectors re-fits the limits and
-    ax.set_autoscale_on(False)         # the ruler no longer lines up with the isoform rows
+                                       # the ruler no longer lines up with the isoform rows
     ruler_ax.axis("off")
 
     # Vertical text is about one font-height wide, so labels need ~1.3 x font size (in points)
     # between them. If there are too many boundaries to fit at LABEL_FONT_SIZE, shrink the font.
+    width_inches = ruler_ax.get_position().width * fig.get_size_inches()[0]
     x_units_per_inch = (x_high - x_low) / width_inches
     font_size = min(LABEL_FONT_SIZE, 72 * width_inches / (1.3 * len(xs)))
     gap = 1.3 * font_size / 72 * x_units_per_inch
     label_xs = spread_labels(xs, gap, x_low, x_high)
 
+    # x in data units, y in axes units (0 = bottom of the ruler, 1 = top)
+    x_data_y_axes = ruler_ax.get_xaxis_transform()
     for x, label_x, text in zip(xs, label_xs, texts):
-        # Guide line down through every isoform row, behind the exons
-        ax.axvline(x, color="grey", linestyle=":", linewidth=0.5, zorder=0)
-        # Tick + slanted connector from the true position to the label
-        ruler_ax.plot([x, x, label_x], [0, 0.15, 0.35], color="grey", linewidth=0.5)
-        ruler_ax.text(label_x, 0.38, text, rotation=90, ha="center", va="bottom", fontsize=font_size)
+        ruler_ax.plot([x, x, label_x], [0, 0.4, 1], color="grey", linewidth=0.5)
+        ruler_ax.annotate(text, xy=(label_x, 1), xycoords=x_data_y_axes,
+                          xytext=(0, 2), textcoords="offset points",
+                          rotation=90, ha="center", va="bottom", fontsize=font_size)
+
+    # Length of the longest label (= its height, as it's vertical): TextPath measures the text
+    # in points at this font size without needing to draw it
+    longest = max(TextPath((0, 0), text, size=font_size).get_extents().width for text in texts)
+    return (longest + 2) / 72
+
+
+def place_axes(fig, ax, ruler_ax, title, label_inches, left_inches):
+    """Position everything in inches, measured from the edges of the figure's current size:
+         top:     title (TITLE_SPACE_INCHES), then the ruler labels (label_inches)
+         then:    the ruler's connector lines (RULER_LINES_INCHES)
+         then:    the isoform rows - they get whatever height is left
+         bottom:  0.5 inch for the x-axis label
+         left:    left_inches for the row labels (transcript ID + CPM)
+         right:   0.4 inch for the 3' / 5' marks
+    Because text gets fixed room in inches, nothing overlaps or gets cut off even when the
+    window shrinks the figure; only the drawing area itself gets smaller."""
+    width_inches, height_inches = fig.get_size_inches()
+    bottom, right = 0.5, 0.4
+    top = TITLE_SPACE_INCHES + label_inches
+    rows = max(height_inches - bottom - RULER_LINES_INCHES - top, 0.1)
+    left = left_inches / width_inches                                  # as fractions of the figure
+    width = max(width_inches - left_inches - right, 0.1) / width_inches
+    ax.set_position([left, bottom / height_inches, width, rows / height_inches])
+    ruler_ax.set_position([left, (bottom + rows) / height_inches,
+                           width, RULER_LINES_INCHES / height_inches])
+    title.set_y(1 - 0.1 / height_inches)
 
 
 def plot_gene(gene, max_isoforms=MAX_ISOFORMS, save=SAVE_FIGURE, show=True):
@@ -260,15 +292,12 @@ def plot_gene(gene, max_isoforms=MAX_ISOFORMS, save=SAVE_FIGURE, show=True):
     gene_name = first["gene_name"] or gene
     to_x = make_x_axis(isoforms, transcripts)
 
-    # Figure layout, in inches from the bottom: x-axis label, isoform rows, ruler, title.
-    # The axes are placed by hand (not tight_layout) so the ruler sits exactly above the rows
-    # and its width in inches is known when spacing out the labels.
-    rows_height = ROW_HEIGHT_INCHES * len(isoforms)
-    bottom_margin, top_margin = 0.5, 0.7
-    fig_height = bottom_margin + rows_height + RULER_HEIGHT_INCHES + top_margin
-    fig = plt.figure(figsize=(FIGURE_WIDTH_INCHES, fig_height))
-    axes_left, axes_width = 0.22, 0.74   # fractions of the figure width; the left part holds the row labels
-    ax = fig.add_axes([axes_left, bottom_margin / fig_height, axes_width, rows_height / fig_height])
+    # Two axes placed by hand (not tight_layout) so the ruler sits exactly above the rows:
+    # ax = isoform rows, ruler_ax = coordinate ruler. Their final positions are set by
+    # place_axes() at the end, once the label height is known; these are placeholders.
+    fig = plt.figure(figsize=(FIGURE_WIDTH_INCHES, ROW_HEIGHT_INCHES * len(isoforms) + 3))
+    ax = fig.add_axes([0.2, 0.1, 0.7, 0.6])
+    ruler_ax = fig.add_axes([0.2, 0.7, 0.7, 0.1])
     half = EXON_HEIGHT / 2
     x_min, x_max = float("inf"), float("-inf")
 
@@ -314,6 +343,9 @@ def plot_gene(gene, max_isoforms=MAX_ISOFORMS, save=SAVE_FIGURE, show=True):
         labels.append(label)
     ax.set_yticks(range(len(isoforms)))
     ax.set_yticklabels(labels, fontsize=7)
+    # Left margin = longest row label (measured in points at font size 7) + room for the
+    # tick padding and the 5'/3' mark that sits just left of each isoform
+    left_inches = max(TextPath((0, 0), label, size=7).get_extents().width for label in labels) / 72 + 0.45
     ax.set_ylim(len(isoforms) - 0.4, -0.6)   # flipped: first (most abundant) isoform at the top
 
     # x axis: real coordinates only make sense uncompressed; compressed, the labels carry them
@@ -329,15 +361,33 @@ def plot_gene(gene, max_isoforms=MAX_ISOFORMS, save=SAVE_FIGURE, show=True):
         ax.spines[side].set_visible(False)
     ax.tick_params(axis="y", length=0)
 
-    # Coordinate ruler directly above the isoform rows (drawn last, once the x limits are set)
-    ruler_ax = fig.add_axes([axes_left, (bottom_margin + rows_height) / fig_height,
-                             axes_width, RULER_HEIGHT_INCHES / fig_height])
-    draw_ruler(ruler_ax, ax, isoforms, transcripts, to_x, axes_width * FIGURE_WIDTH_INCHES)
+    ax.set_autoscale_on(False)   # keep these x limits; the ruler copies them
+
+    # Faint dotted guide line down through every isoform row at each exon boundary
+    xs, texts = exon_boundaries(isoforms, transcripts, to_x)
+    for x in xs:
+        ax.axvline(x, color="grey", linestyle=":", linewidth=0.5, zorder=0)
 
     shown = f"top {len(isoforms)} of {n_total}" if len(isoforms) < n_total else f"all {n_total}"
-    fig.suptitle(f"{gene_name} ({first['gene_id']}) - {shown} isoforms, most abundant first\n"
-                 f"grey = exon (UTR), red = CDS, line = intron",
-                 y=1 - 0.1 / fig_height, va="top", fontsize=11)
+    title = fig.suptitle(f"{gene_name} ({first['gene_id']}) - {shown} isoforms, most abundant first\n"
+                         f"grey = exon (UTR), red = CDS, line = intron", va="top", fontsize=11)
+
+    # Final layout: draw the ruler labels to find out how tall they are, set the figure height
+    # so every isoform row gets ROW_HEIGHT_INCHES, then place the axes and title
+    # (place_axes runs first so the ruler's width in inches is right before its labels are spaced)
+    place_axes(fig, ax, ruler_ax, title, 0, left_inches)
+    label_inches = draw_ruler(fig, ruler_ax, ax, xs, texts)
+    fig.set_size_inches(FIGURE_WIDTH_INCHES, 0.5 + ROW_HEIGHT_INCHES * len(isoforms)
+                        + RULER_LINES_INCHES + label_inches + TITLE_SPACE_INCHES)
+    place_axes(fig, ax, ruler_ax, title, label_inches, left_inches)
+
+    # If the window changes size (e.g. shrunk to fit the screen), re-space the labels for the
+    # new width and redo the layout, so nothing overlaps on screen either
+    def on_resize(event):
+        place_axes(fig, ax, ruler_ax, title, label_inches, left_inches)   # new width first
+        new_label_inches = draw_ruler(fig, ruler_ax, ax, xs, texts)
+        place_axes(fig, ax, ruler_ax, title, new_label_inches, left_inches)
+    fig.canvas.mpl_connect("resize_event", on_resize)
 
     if save:
         os.makedirs(FIGURES_FOLDER, exist_ok=True)
