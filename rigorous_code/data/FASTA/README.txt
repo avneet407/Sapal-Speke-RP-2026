@@ -1,0 +1,1 @@
+gffread expressed_isoforms.gtf -g human_GRCh38_no_alt_analysis_set.fasta -x cds_output.fa
