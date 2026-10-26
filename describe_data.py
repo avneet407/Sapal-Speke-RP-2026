@@ -27,6 +27,11 @@ CDS_PATH = "Long_Read_Data/cds_output.fa"                       # coding sequenc
 FIGURE_FOLDER = "Figures/describe_data"                         # where figures are saved
 MAJOR_SHARE = 0.10   # an isoform is "major" if it makes up at least this share of its gene on average
 
+# Ranges for "isoforms per gene", used by both the printed table and the bar chart.
+# Each range includes its right edge, so the edges 2 and 5 make the range 3-5.
+BIN_EDGES = [0, 1, 2, 5, 10, 20, 50, 100, 200, 500, np.inf]
+BIN_LABELS = ["1", "2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-200", "201-500", ">500"]
+
 
 def load_matrix(path):
     """Rows = isoforms (transcript IDs), columns = samples, values = CPM."""
@@ -68,22 +73,36 @@ def count_cds(path):
         return sum(1 for line in file if line.startswith(">"))
 
 
-def plot_isoforms_per_gene(isoforms_per_gene):
-    """Histogram of isoforms per gene. Log x-axis because it ranges from 1 to ~1,400."""
-    # Bin edges spaced evenly on a log scale (1, ~1.3, ~1.6, ... up to the max).
-    # With normal, evenly spaced bins, all the genes with 1-20 isoforms would be squashed into the first bar.
-    bins = np.logspace(0, np.log10(isoforms_per_gene.max() + 1), 30)
+def plot_isoforms_per_gene(binned, max_isoforms):
+    """Histogram of isoforms per gene on a log x-axis, one bar per range (1, 2, 3-5, 6-10, ...),
+    the same ranges as the printed table.
+    Each bar spans its range on the log axis, so wider ranges (e.g. 201-500) give wider bars.
+    Log scale because genes have from 1 to ~1,400 isoforms; on a normal axis the 1-20 bars
+    would be squashed into a sliver at the left.
+    binned       = number of genes in each range (a Series indexed by BIN_LABELS)
+    max_isoforms = the largest gene's isoform count, used as the right edge of the last bar (">500")."""
+    # Bar edges: the counts are whole numbers, so put each edge half-way between two numbers.
+    # The range "3-5" then runs from 2.5 to 5.5 and "1" from 0.5 to 1.5 - no gaps, no overlaps.
+    # (log(0) is impossible, so the first edge must be above 0 anyway.)
+    edges = np.array(BIN_EDGES[:-1] + [max_isoforms]) + 0.5   # replace the last edge (infinity) with the max
+    left, right = edges[:-1], edges[1:]
 
     fig = plt.figure(figsize=(9, 5))                    # new figure, 9 x 5 inches
-    plt.hist(isoforms_per_gene, bins=bins, color="#2a78d6", edgecolor="white")
-    plt.xscale("log")                                   # log x-axis to match the log-spaced bins
-    # Dashed vertical line at the median, so the "typical" gene is visible
-    plt.axvline(isoforms_per_gene.median(), color="black", linestyle="--",
-                label=f"Median = {isoforms_per_gene.median():.0f}")
+    # align="edge" + width = right - left: each bar starts at its range's left edge and ends at its right edge
+    bars = plt.bar(left, binned.values, width=right - left, align="edge",
+                   color="#2a78d6", edgecolor="white")
+    plt.xscale("log")
+    # Write the number of genes on top of each bar
+    plt.bar_label(bars, padding=2, fontsize=9)
+
+    # Label each bar with its range, at the bar's middle. On a log axis the middle is the
+    # geometric mean sqrt(left * right), not (left + right) / 2.
+    plt.xticks(np.sqrt(left * right), BIN_LABELS, fontsize=8)
+    plt.minorticks_off()                                # hide the log axis's own small tick marks
+    plt.xlim(left[0], right[-1])
     plt.xlabel("Number of isoforms in the gene (log scale)")
     plt.ylabel("Number of genes")
-    plt.title(f"Isoforms per gene ({len(isoforms_per_gene)} genes)")
-    plt.legend()
+    plt.title(f"Isoforms per gene ({binned.sum()} genes)")
     plt.tight_layout()                                  # stops labels being cut off
 
     # Save the figure: make the folder if needed, add a timestamp to the file name
@@ -182,12 +201,10 @@ def main():
     print(f"Median {isoforms_per_gene.median():.0f}, mean {isoforms_per_gene.mean():.0f}, "
           f"min {isoforms_per_gene.min()}, max {isoforms_per_gene.max()}")
 
-    # Group the genes into ranges (1, 2, 3-5, ...) and count genes per range.
+    # Group the genes into ranges (1, 2, 3-5, ... - see BIN_EDGES / BIN_LABELS) and count genes per range.
     # pd.cut puts each value into a bin; bins include their right edge, so (2, 5] = 3-5.
-    # reindex(bin_labels) keeps the bins in order (value_counts would sort them by count).
-    bin_edges = [0, 1, 2, 5, 10, 20, 50, 100, 200, 500, np.inf]
-    bin_labels = ["1", "2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-200", "201-500", ">500"]
-    binned = pd.cut(isoforms_per_gene, bins=bin_edges, labels=bin_labels).value_counts().reindex(bin_labels)
+    # reindex(BIN_LABELS) keeps the bins in order (value_counts would sort them by count).
+    binned = pd.cut(isoforms_per_gene, bins=BIN_EDGES, labels=BIN_LABELS).value_counts().reindex(BIN_LABELS)
     print("\nIsoforms per gene -> number of genes")
     print(binned.to_string())
 
@@ -227,8 +244,8 @@ def main():
     print(table.round(2).to_string())
     print(f"\nGenes whose isoforms are ALL .nnc (would vanish if .nnc were removed): {n_only_nnc}")
 
-    # Histogram last, because plt.show() pauses the script until the window is closed
-    plot_isoforms_per_gene(isoforms_per_gene)
+    # Bar chart last, because plt.show() pauses the script until the window is closed
+    plot_isoforms_per_gene(binned, isoforms_per_gene.max())
 
 
 # Only run main() when this file is run directly (python describe_data.py),
