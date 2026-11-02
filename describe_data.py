@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt    # plotting
 # --- Settings (change these, not the code below) ---------------------------
 MATRIX_PATH = "Long_Read_Data/expressed_isoforms_matrix.tsv"   # isoform x sample expression table
 CDS_PATH = "Long_Read_Data/cds_output.fa"                       # coding sequences (FASTA format)
-FIGURE_FOLDER = "Figures/describe_data"                         # where figures are saved
+FIGURE_FOLDER = "Results/describe_data"                       # where figures are saved
 MAJOR_SHARE = 0.10   # an isoform is "major" if it makes up at least this share of its gene on average
 
 # Ranges for "isoforms per gene", used by both the printed table and the bar chart.

@@ -45,7 +45,7 @@ from matplotlib.textpath import TextPath
 # --- Settings (change these, not the code below) ---------------------------
 GTF_PATH = "Long_Read_Data/expressed_isoforms.gtf"
 MATRIX_PATH = "Long_Read_Data/expressed_isoforms_matrix.tsv"
-FIGURES_FOLDER = "Figures/isoform_visualisation"
+FIGURES_FOLDER = "Results/isoform_visualisation"
 
 MAX_ISOFORMS = 20        # show only the N most abundant isoforms; None = show all
                          # (some genes have ~100 isoforms, which makes a very tall figure)
