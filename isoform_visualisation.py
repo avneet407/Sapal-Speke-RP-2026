@@ -9,7 +9,8 @@ Isoform structure viewer: draw every isoform of a gene, one row per isoform, to 
   - isoforms are ordered by mean CPM (most abundant at the top), with the CPM in the row label
 
 Structure comes from Long_Read_Data/expressed_isoforms.gtf ("exon" and "CDS" rows),
-abundance from Long_Read_Data/expressed_isoforms_matrix.tsv (same 61,117 transcript IDs).
+abundance from Long_Read_Data/expressed_isoforms_matrix.tsv (same 61,117 transcript IDs),
+using the 45 adult samples only (the 4 "_Fetal_" columns are dropped straight after loading).
 Non-coding isoforms (~15.6k, no CDS rows) are drawn all grey.
 
 A gene can be given as:
@@ -103,12 +104,14 @@ def read_gtf(gtf_path=GTF_PATH):
 
 
 def read_mean_cpm(matrix_path=MATRIX_PATH):
-    """Mean CPM of each isoform across all samples, as a pandas Series indexed by transcript_id.
+    """Mean CPM of each isoform across the 45 adult samples, as a pandas Series indexed by transcript_id.
     Only used to order the isoforms and label them, so if the matrix is missing return None."""
     if not os.path.exists(matrix_path):
         print(f"Note: {matrix_path} not found - isoforms will be ordered by position, not abundance")
         return None
     matrix = pd.read_csv(matrix_path, sep="\t", index_col=0)
+    # Drop the 4 fetal samples straight after loading, as in gene_spearman.py
+    matrix = matrix[[name for name in matrix.columns if "_Fetal_" not in name]]
     return matrix.mean(axis=1)
 
 

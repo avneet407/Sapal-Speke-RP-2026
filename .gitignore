@@ -1,3 +1,5 @@
 ﻿*.gtf
 *.fa
 *.tsv
+*.parquet
+__pycache__/
