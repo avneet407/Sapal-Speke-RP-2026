@@ -1,0 +1,17 @@
+{
+  "correlation": "spearman_isoform_share_vs_partner_gene_total",
+  "exclude_fetal": true,
+  "input": {
+    "sha256": "06d73f90cdda7f2f05bb316adf4184a4dd4c205e795f3fb407a84264d384cc39",
+    "size": 1169588
+  },
+  "matrix": {
+    "modified_ns": 1792666407016884400,
+    "path": "C:\\Users\\tomsp\\OneDrive - University of Cambridge\\Documents\\Cambridge\\Year 4\\Part III Research Project\\Cloned GitHub Repositary\\Long_Read_Data\\expressed_isoforms_matrix.tsv",
+    "size": 22341140
+  },
+  "min_cpm": 1,
+  "min_fraction_samples": 0.8,
+  "min_share": 0.015,
+  "version": 1
+}

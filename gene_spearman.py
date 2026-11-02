@@ -18,7 +18,9 @@ Spearman correlation between every pair of genes in a chosen range (e.g. genes 1
        "disease"  - Spearman + partial Spearman accounting for disease (Control / MDD / Bipolar / Schizo),
                     ignoring region
        "all"      - Spearman + both partial correlations, in one table
-  5. Save a table (gene IDs, gene names, rhos, p-values) as CSV in Results/gene_spearman/.
+  5. Save a settings-specific CSV in Results/gene_spearman/. If the same analysis, filters,
+     gene range, and input files have already been analyzed, reuse its CSV instead of repeating
+     the pairwise correlations. Options 1-4 have separate output names.
   6. Optional plot (PLOT_PARTIAL_EFFECT): normal rho vs partial rho, one dot per pair, saved next to
      the CSV - one plot per partial correlation (none for "spearman" alone).
 
@@ -37,12 +39,14 @@ Note: Spearman(A, B) is exactly the same as Spearman(B, A) - correlation has no 
 Run from the Sapal-Speke-RP-2026 folder:
     python gene_spearman.py            # asks which analysis to run (or uses ANALYSIS below if set)
     python gene_spearman.py disease    # or spearman / region / all - skips the question
+    python gene_spearman.py 4          # numbered options 1-4 also work
 """
 
+import hashlib
+import json
 import os
 import re
 import sys
-from datetime import datetime
 from itertools import combinations
 
 import matplotlib.pyplot as plt
@@ -81,6 +85,8 @@ PLOT_PARTIAL_EFFECT = True  # True = scatter of normal Spearman rho vs partial r
                             # False = turn the plots off (CSV is still saved)
 MAX_DOTS = 5000             # above this many pairs, dots pile into a blob, so the plot shows
                             # density instead (hexagons coloured by how many pairs fall in each)
+CACHE_VERSION = 1
+ANALYSIS_OPTIONS = {"spearman": 1, "region": 2, "disease": 3, "all": 4}
 
 
 def read_gene_names(gtf_path):
@@ -211,6 +217,92 @@ def plot_partial_effect(results, path, gene_range, covariate):
     plt.show()                                          # opens the figure window (script pauses until closed)
 
 
+def source_fingerprint(path):
+    """Return file identity details used to invalidate results when an input changes."""
+    stat = os.stat(path)
+    return {
+        "path": os.path.abspath(path),
+        "size": stat.st_size,
+        "modified_ns": stat.st_mtime_ns
+    }
+
+
+def expected_result_columns(covariates):
+    columns = {"spearman_rho", "p_value"}
+    for covariate in covariates:
+        columns.update({
+            f"partial_rho_{covariate}",
+            f"partial_p_value_{covariate}"
+        })
+    return columns
+
+
+def result_matches_cache(path, expected_rows, covariates, legacy_region=False):
+    """Validate a cached CSV's shape and required analysis columns."""
+    if not os.path.isfile(path):
+        return False
+    header = pd.read_csv(path, nrows=0)
+    if legacy_region and "partial_p_value_region" not in header.columns:
+        header = header.rename(columns={"partial_p_value": "partial_p_value_region"})
+    if not expected_result_columns(covariates).issubset(header.columns):
+        return False
+    with open(path, encoding="utf-8") as result_file:
+        row_count = sum(1 for _ in result_file) - 1
+    return row_count == expected_rows
+
+
+def write_cache_manifest(path, settings):
+    temporary_path = path + ".tmp"
+    with open(temporary_path, "w", encoding="utf-8") as manifest:
+        json.dump(settings, manifest, indent=2, sort_keys=True)
+    os.replace(temporary_path, path)
+
+
+def find_legacy_result(results_folder, prefix, analysis, inputs_mtime_ns,
+                       expected_rows, covariates):
+    """Find timestamped results from earlier versions, when their filename identifies settings."""
+    if (
+        not FILTER_LOW_EXPRESSION
+        or MIN_CPM != 1
+        or MIN_FRACTION_SAMPLES != 0.8
+        or ORDER_BY != "expression"
+    ):
+        return None
+
+    candidates = []
+    legacy_analyses = [analysis]
+    if analysis == "spearman":
+        legacy_analyses.extend(["region", "disease", "all"])
+    for legacy_analysis in legacy_analyses:
+        analysis_prefix = os.path.basename(f"{prefix}_{legacy_analysis}_")
+        candidates.extend(
+            os.path.join(results_folder, name)
+            for name in os.listdir(results_folder)
+            if name.startswith(analysis_prefix) and name.endswith(".csv")
+        )
+    if analysis in {"region", "spearman"}:
+        legacy_prefix = os.path.join(results_folder, f"{prefix}_")
+        candidates.extend(
+            os.path.join(results_folder, name)
+            for name in os.listdir(results_folder)
+            if name.startswith(os.path.basename(legacy_prefix))
+            and name[len(os.path.basename(legacy_prefix)):].startswith("20")
+            and name.endswith(".csv")
+        )
+
+    for candidate in sorted(candidates, key=os.path.getmtime, reverse=True):
+        if os.stat(candidate).st_mtime_ns < inputs_mtime_ns:
+            continue
+        if result_matches_cache(
+            candidate,
+            expected_rows,
+            covariates,
+            legacy_region=(analysis == "region")
+        ):
+            return candidate
+    return None
+
+
 def main():
     # ---- 0. Which analysis: "spearman", "region", "disease" or "all" ----
     # Asked first, so the question comes before the slow loading
@@ -225,7 +317,6 @@ def main():
     # ---- 2. Gene CPM = sum of each gene's isoforms ----
     # groupby with sort=False keeps genes in the order they first appear in the file
     gene_cpm = df.groupby([gene_of(i) for i in df.index], sort=False).sum()
-    names = read_gene_names(GTF_PATH)   # G locus -> gene name, e.g. G35694 -> NRXN1
 
     # ---- 2b. Drop low-expressed genes (turn off with FILTER_LOW_EXPRESSION = False) ----
     if FILTER_LOW_EXPRESSION:
@@ -249,63 +340,141 @@ def main():
     print(f"Genes {gene_range} (ordered by {ORDER_BY}): {len(selected)} genes, "
           f"{n_pairs:,} pairs, {df.shape[1]} adult samples")
 
-    # For each partial correlation chosen (region and/or disease), work out once for all genes:
-    #   - the group of each sample (in the same order as the columns)
-    #   - k = number of groups - 1 (3 regions -> 2, 4 diseases -> 3: one group is the baseline)
-    #   - the within-group ranks, reused for every pair
-    within_group_ranks, n_covariates = {}, {}
-    for covariate in covariates:
-        group_of = COVARIATES[covariate][0]            # region_of or disease_of
-        groups = [group_of(name) for name in selected.columns]
-        n_covariates[covariate] = len(set(groups)) - 1
-        print(f"Samples per {covariate}:", pd.Series(groups).value_counts().to_dict())
-        within_group_ranks[covariate] = ranks_within_group(selected, groups)
-
-    # ---- 4. Spearman (and the chosen partial Spearmans) for every pair ----
-    # combinations(..., 2) gives each pair once: (g1, g2), (g1, g3), ... but never (g2, g1)
-    n_samples = selected.shape[1]
-    rows = []
-    for pair_number, (gene_a, gene_b) in enumerate(combinations(selected.index, 2), start=1):
-        if pair_number % 20000 == 0:   # progress, so a long run doesn't look frozen
-            print(f"  {pair_number:,} / {n_pairs:,} pairs done")
-        rho, p_value = spearmanr(selected.loc[gene_a], selected.loc[gene_b])
-        row = {"gene_a": gene_a, "gene_a_name": names.get(gene_a, ""),
-               "gene_b": gene_b, "gene_b_name": names.get(gene_b, ""),
-               "spearman_rho": rho, "p_value": p_value}
-        for covariate in covariates:
-            # Partial Spearman = ordinary (Pearson) correlation of the within-group ranks
-            ranks = within_group_ranks[covariate]
-            partial_rho = np.corrcoef(ranks.loc[gene_a], ranks.loc[gene_b])[0, 1]
-            # Columns e.g. "partial_rho_disease" and "partial_p_value_disease"
-            row[f"partial_rho_{covariate}"] = partial_rho
-            row[f"partial_p_value_{covariate}"] = partial_p_value(partial_rho, n_samples,
-                                                                  n_covariates[covariate])
-        row["n_samples"] = n_samples
-        rows.append(row)
-
-    # Strongest correlations (positive or negative) first
-    results = pd.DataFrame(rows)
-    results = results.reindex(results["spearman_rho"].abs().sort_values(ascending=False).index)
-    print()
-    print(results.head(20).to_string(index=False, float_format=lambda v: f"{v:.3g}"))
-
-    # ---- 5. Save ----
-    os.makedirs(RESULTS_FOLDER, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-    # "filtered" in the file name, because gene numbers mean different genes with the filter on/off
+    # Cache identity includes every analysis setting and both source-file fingerprints.
+    # Changing a setting or either input creates a separate result rather than overwriting another run.
     filter_tag = "_filtered" if FILTER_LOW_EXPRESSION else ""
-    # The analysis name is in the file name too, so the different runs are easy to tell apart
-    path = os.path.join(RESULTS_FOLDER,
-                        f"gene_spearman_{gene_range}_{ORDER_BY}{filter_tag}_{analysis}_{timestamp}.csv")
-    results.to_csv(path, index=False)
-    print(f"\nSaved: {path}")
-    partial_ranks_path = path.replace(".csv", "_partial_ranks.npz")
-    np.savez_compressed(
-        partial_ranks_path,
-        gene_ids=selected.index.to_numpy(dtype=str),
-        partial_ranks=region_ranks.to_numpy(dtype=float)
+    matrix_fingerprint = source_fingerprint(MATRIX_PATH)
+    gtf_fingerprint = source_fingerprint(GTF_PATH)
+    cache_settings = {
+        "cache_version": CACHE_VERSION,
+        "analysis": analysis,
+        "analysis_option": ANALYSIS_OPTIONS[analysis],
+        "covariates": covariates,
+        "first_gene": FIRST_GENE,
+        "last_gene": LAST_GENE,
+        "gene_range": gene_range,
+        "order_by": ORDER_BY,
+        "filter_low_expression": FILTER_LOW_EXPRESSION,
+        "min_cpm": MIN_CPM,
+        "min_fraction_samples": MIN_FRACTION_SAMPLES,
+        "adult_samples": list(map(str, selected.columns)),
+        "selected_gene_ids": list(map(str, selected.index)),
+        "matrix": matrix_fingerprint,
+        "gtf": gtf_fingerprint
+    }
+    cache_key = hashlib.sha256(
+        json.dumps(cache_settings, sort_keys=True).encode("utf-8")
+    ).hexdigest()[:10]
+    os.makedirs(RESULTS_FOLDER, exist_ok=True)
+    descriptive_stem = (
+        f"gene_spearman_{gene_range}_{ORDER_BY}{filter_tag}_"
+        f"cpm{MIN_CPM:g}_frac{MIN_FRACTION_SAMPLES:.0%}_"
+        f"{ANALYSIS_OPTIONS[analysis]:02d}_{analysis}_adults_"
+        f"{len(selected.columns)}samples_{cache_key}"
     )
-    print(f"Saved PMS rank residuals: {partial_ranks_path}")
+    path = os.path.join(RESULTS_FOLDER, descriptive_stem + ".csv")
+    manifest_path = os.path.join(RESULTS_FOLDER, descriptive_stem + ".json")
+    partial_ranks_path = os.path.join(
+        RESULTS_FOLDER,
+        descriptive_stem + "_partial_ranks.npz"
+    )
+
+    input_mtime_ns = max(
+        matrix_fingerprint["modified_ns"],
+        gtf_fingerprint["modified_ns"]
+    )
+    results = None
+    current_cache_hit = False
+    if os.path.isfile(path) and os.path.isfile(manifest_path):
+        with open(manifest_path, encoding="utf-8") as manifest:
+            cached_settings = json.load(manifest)
+        if cached_settings == cache_settings:
+            if result_matches_cache(path, n_pairs, covariates):
+                results = pd.read_csv(path)
+                current_cache_hit = True
+                print(f"Reusing cached analysis: {path}")
+            else:
+                print("Cached CSV does not match the expected rows/columns; recalculating.")
+
+    if results is None:
+        legacy_path = find_legacy_result(
+            RESULTS_FOLDER,
+            f"gene_spearman_{gene_range}_{ORDER_BY}{filter_tag}",
+            analysis,
+            input_mtime_ns,
+            n_pairs,
+            covariates
+        )
+        if legacy_path is not None:
+            results = pd.read_csv(legacy_path)
+            print(f"Reusing compatible timestamped result: {legacy_path}")
+            if analysis == "spearman":
+                results = results.loc[:, ~results.columns.str.startswith("partial_")]
+            elif analysis == "region" and "partial_p_value_region" not in results.columns:
+                results = results.rename(
+                    columns={"partial_p_value": "partial_p_value_region"}
+                )
+
+    needs_region_ranks = "region" in covariates
+    if results is None or (
+        needs_region_ranks and not os.path.isfile(partial_ranks_path)
+    ):
+        within_group_ranks, n_covariates = {}, {}
+        for covariate in covariates:
+            group_of = COVARIATES[covariate][0]
+            groups = [group_of(name) for name in selected.columns]
+            n_covariates[covariate] = len(set(groups)) - 1
+            print(f"Samples per {covariate}:", pd.Series(groups).value_counts().to_dict())
+            within_group_ranks[covariate] = ranks_within_group(selected, groups)
+    else:
+        within_group_ranks = {}
+        n_covariates = {}
+
+    if results is None:
+        names = read_gene_names(GTF_PATH)
+        # ---- 4. Spearman (and chosen partial Spearmans) for every pair ----
+        n_samples = selected.shape[1]
+        rows = []
+        for pair_number, (gene_a, gene_b) in enumerate(combinations(selected.index, 2), start=1):
+            if pair_number % 20000 == 0:
+                print(f"  {pair_number:,} / {n_pairs:,} pairs done")
+            rho, p_value = spearmanr(selected.loc[gene_a], selected.loc[gene_b])
+            row = {"gene_a": gene_a, "gene_a_name": names.get(gene_a, ""),
+                   "gene_b": gene_b, "gene_b_name": names.get(gene_b, ""),
+                   "spearman_rho": rho, "p_value": p_value}
+            for covariate in covariates:
+                ranks = within_group_ranks[covariate]
+                partial_rho = np.corrcoef(ranks.loc[gene_a], ranks.loc[gene_b])[0, 1]
+                row[f"partial_rho_{covariate}"] = partial_rho
+                row[f"partial_p_value_{covariate}"] = partial_p_value(
+                    partial_rho,
+                    n_samples,
+                    n_covariates[covariate]
+                )
+            row["n_samples"] = n_samples
+            rows.append(row)
+
+        results = pd.DataFrame(rows)
+        results = results.reindex(
+            results["spearman_rho"].abs().sort_values(ascending=False).index
+        )
+        print()
+        print(results.head(20).to_string(index=False, float_format=lambda v: f"{v:.3g}"))
+
+    # Save under a stable, settings-specific name. A sidecar is only written for analyses
+    # containing region-adjusted ranks, which are the residuals PMS consumes.
+    if not current_cache_hit:
+        results.to_csv(path, index=False)
+    if needs_region_ranks and not os.path.isfile(partial_ranks_path):
+        np.savez_compressed(
+            partial_ranks_path,
+            gene_ids=selected.index.to_numpy(dtype=str),
+            partial_ranks=within_group_ranks["region"].to_numpy(dtype=float)
+        )
+        print(f"Saved PMS partial-rank residuals: {partial_ranks_path}")
+    if not current_cache_hit:
+        write_cache_manifest(manifest_path, cache_settings)
+        print(f"Saved analysis result: {path}")
 
     # ---- 6. Plot: normal vs partial rho, one plot per covariate (turn off with PLOT_PARTIAL_EFFECT = False) ----
     # e.g. ..._region_effect.png and/or ..._disease_effect.png; nothing for "spearman" alone

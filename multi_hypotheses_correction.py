@@ -15,6 +15,7 @@ from matplotlib.widgets import Button
 from matplotlib.patches import Circle
 from itertools import combinations
 from pms import pms_correction
+from describe_data import gene_of, load_matrix
 
 PMS_ALPHA = 0.5
 PMS_N_PERMUTATIONS = 10_000
@@ -169,6 +170,65 @@ data['by_adjusted_p'], data['by_significant'] = benjamini_yekutieli_correction(
     q=BY_Q
 )
 
+# Calculate the same correction methods from ordinary Spearman p-values.
+data['bonferroni_raw_adjusted_p'], data['bonferroni_raw_significant'] = bonferroni_correction(
+    data['p_value'],
+    alpha=BONFERRONI_ALPHA
+)
+data['holm_bonferroni_raw_adjusted_p'], data['holm_bonferroni_raw_significant'] = (
+    holm_bonferroni_correction(data['p_value'], alpha=HOLM_ALPHA)
+)
+data['bh_raw_adjusted_p'], data['bh_raw_significant'] = benjamini_hochberg_correction(
+    data['p_value'],
+    q=BH_Q
+)
+data['by_raw_adjusted_p'], data['by_raw_significant'] = benjamini_yekutieli_correction(
+    data['p_value'],
+    q=BY_Q
+)
+
+# PMS needs a permutation null built from the same raw gene ranks being tested.
+raw_expression = load_matrix("Long_Read_Data/expressed_isoforms_matrix.tsv")
+raw_expression = raw_expression[
+    [sample for sample in raw_expression.columns if "_Fetal_" not in sample]
+]
+raw_gene_expression = raw_expression.groupby(
+    [gene_of(isoform_id) for isoform_id in raw_expression.index],
+    sort=False
+).sum()
+missing_raw_genes = set(pms_gene_ids).difference(raw_gene_expression.index)
+if missing_raw_genes:
+    raise ValueError(
+        "Raw expression matrix is missing genes from the PMS rank file: "
+        f"{sorted(missing_raw_genes)[:5]}"
+    )
+raw_gene_ranks = raw_gene_expression.loc[pms_gene_ids].rank(axis=1).to_numpy(dtype=float)
+raw_pms_distribution_path = pms_distribution_path.replace(
+    "_pms_distribution.npz",
+    "_pms_raw_distribution.npz"
+)
+raw_pair_adjusted_p, raw_pair_significant, raw_max_statistics = pms_correction(
+    raw_gene_ranks,
+    alpha=PMS_ALPHA,
+    n_permutations=PMS_N_PERMUTATIONS,
+    random_state=PMS_RANDOM_STATE,
+    cache_path=raw_pms_distribution_path,
+    force_recompute=PMS_FORCE_RECOMPUTE
+)
+raw_pair_results = [
+    (
+        raw_pair_adjusted_p[pair_index[(gene_a, gene_b)]]
+        if (gene_a, gene_b) in pair_index
+        else raw_pair_adjusted_p[pair_index[(gene_b, gene_a)]],
+        raw_pair_significant[pair_index[(gene_a, gene_b)]]
+        if (gene_a, gene_b) in pair_index
+        else raw_pair_significant[pair_index[(gene_b, gene_a)]]
+    )
+    for gene_a, gene_b in zip(data["gene_a"], data["gene_b"])
+]
+data["pms_raw_adjusted_p"] = [result[0] for result in raw_pair_results]
+data["pms_raw_significant"] = [result[1] for result in raw_pair_results]
+
 ## Methods Evaluation ######################################################################################################################
 
 
@@ -216,6 +276,13 @@ counts = [
     data['pms_significant'].sum(),
     data['bh_significant'].sum(),
     data['by_significant'].sum()
+]
+raw_counts = [
+    data['bonferroni_raw_significant'].sum(),
+    data['holm_bonferroni_raw_significant'].sum(),
+    data['pms_raw_significant'].sum(),
+    data['bh_raw_significant'].sum(),
+    data['by_raw_significant'].sum()
 ]
 adjusted_p_columns = {
     'Holm-Bonferroni': ('holm_bonferroni_adjusted_p', 'FWER'),
@@ -281,9 +348,7 @@ fig.subplots_adjust(bottom=0.12)
 
 # Overall comparison panel
 overall_ax = fig.add_subplot(111)
-overall_ax.set_position([0.08, 0.18, 0.84, 0.72])
-bars = overall_ax.bar(methods, counts)
-overall_ax.bar_label(bars, padding=3)
+overall_ax.set_position([0.08, 0.24, 0.84, 0.66])
 thresholds = [
     threshold_label("FWER", BONFERRONI_ALPHA),
     threshold_label("FWER", HOLM_ALPHA),
@@ -291,22 +356,36 @@ thresholds = [
     threshold_label("FDR", BH_Q),
     threshold_label("FDR", BY_Q)
 ]
-for bar, count, threshold in zip(bars, counts, thresholds):
-    overall_ax.annotate(
-        threshold,
-        (bar.get_x() + bar.get_width() / 2, count),
-        xytext=(0, 22),
-        textcoords="offset points",
-        ha="center",
-        va="bottom",
-        fontsize=9
-    )
-max_count = max(counts, default=0)
-overall_ax.set_ylim(0, max_count * 1.2 if max_count else 1)
+bar_positions = np.arange(len(methods))
+bar_width = 0.38
+adjusted_bars = overall_ax.bar(
+    bar_positions - bar_width / 2,
+    counts,
+    width=bar_width,
+    color="#4c78a8",
+    label="Region-adjusted partial Spearman"
+)
+raw_bars = overall_ax.bar(
+    bar_positions + bar_width / 2,
+    raw_counts,
+    width=bar_width,
+    color="#d62728",
+    label="Raw Spearman"
+)
+overall_ax.bar_label(adjusted_bars, padding=2, fontsize=8)
+overall_ax.bar_label(raw_bars, padding=2, fontsize=8)
+max_count = max([*counts, *raw_counts], default=0)
+overall_ax.set_ylim(0, max_count * 1.16 if max_count else 1)
+overall_ax.set_xticks(
+    bar_positions,
+    [f"{method}\n{threshold}" for method, threshold in zip(methods, thresholds)],
+    rotation=25,
+    ha="right"
+)
 overall_ax.set_xlabel('Correction Method')
 overall_ax.set_ylabel('Number of Significant Results')
-overall_ax.set_title('Comparison of Multiple Hypothesis Correction Methods')
-overall_ax.tick_params(axis='x', rotation=45)
+overall_ax.set_title('Significant tests: region-adjusted partial vs raw Spearman')
+overall_ax.legend(loc="upper left", fontsize=8)
 
 # Histogram panel for all methods: 2 rows x 3 columns with independent axes.
 all_adjusted = {
@@ -316,10 +395,17 @@ all_adjusted = {
     'Benjamini-Hochberg': data['bh_adjusted_p'],
     'Benjamini-Yekutieli': data['by_adjusted_p']
 }
+all_raw_adjusted = {
+    'Bonferroni': data['bonferroni_raw_adjusted_p'],
+    'Holm-Bonferroni': data['holm_bonferroni_raw_adjusted_p'],
+    'PMS': data['pms_raw_adjusted_p'],
+    'Benjamini-Hochberg': data['bh_raw_adjusted_p'],
+    'Benjamini-Yekutieli': data['by_raw_adjusted_p']
+}
 
 finite_values = [
     np.asarray(values, dtype=float)[np.isfinite(np.asarray(values, dtype=float))]
-    for values in all_adjusted.values()
+    for values in [*all_adjusted.values(), *all_raw_adjusted.values()]
 ]
 values_below_one = [values[values < 1.0] for values in finite_values]
 global_min_p_value = min(
@@ -368,6 +454,57 @@ for idx, (method, values) in enumerate(all_adjusted.items()):
 
 # There are five methods, so leave the sixth grid position empty.
 hist_axes[1, 2].set_axis_off()
+
+raw_hist_axes = fig.subplots(
+    2,
+    3,
+    sharex=False,
+    sharey=False,
+    gridspec_kw={
+        'left': 0.06,
+        'right': 0.94,
+        'bottom': 0.08,
+        'top': 0.92,
+        'wspace': 0.20,
+        'hspace': 0.28
+    }
+)
+for idx, (method, values) in enumerate(all_raw_adjusted.items()):
+    row, col = divmod(idx, 3)
+    ax = raw_hist_axes[row, col]
+    p_values = np.asarray(values, dtype=float)
+    p_values = p_values[np.isfinite(p_values)]
+    equal_to_one = p_values == 1.0
+    below_one = np.clip(p_values[~equal_to_one], 1e-12, 1.0)
+
+    bin_counts, _, patches = ax.hist(
+        below_one,
+        bins=histogram_bins,
+        alpha=0.7,
+        color="#d62728"
+    )
+    ax.bar_label(
+        patches,
+        labels=[f'{int(count)}' if count else '' for count in bin_counts],
+        padding=2,
+        fontsize=7
+    )
+    ax.set_xscale('log')
+    ax.set_xlim(global_min_p_value, 1.0)
+    ax.set_title(f"{method}\nRaw Spearman")
+    ax.set_xlabel('Adjusted p-value (log scale)', fontsize=9)
+    ax.set_ylabel('Frequency')
+    ax.text(
+        0.97,
+        0.95,
+        f'p = 1: {equal_to_one.sum():,}',
+        transform=ax.transAxes,
+        ha='right',
+        va='top',
+        fontsize=9,
+        bbox={'facecolor': 'white', 'alpha': 0.8, 'edgecolor': 'none'}
+    )
+raw_hist_axes[1, 2].set_axis_off()
 
 partial_rhos = np.asarray(data["partial_rho_region"], dtype=float)
 partial_rhos = partial_rhos[np.isfinite(partial_rhos)]
@@ -431,6 +568,71 @@ comparison_axes[1, 1].set_title("Absolute PMS permutation maxima")
 comparison_axes[1, 1].set_xlabel("Maximum |partial Spearman rho|")
 comparison_axes[1, 1].set_ylabel("Number of permutations")
 comparison_axes[1, 1].legend()
+
+raw_rhos = np.asarray(data["spearman_rho"], dtype=float)
+raw_rhos = raw_rhos[np.isfinite(raw_rhos)]
+if not raw_rhos.size:
+    raise ValueError("No finite raw Spearman values are available to plot")
+
+raw_comparison_axes = fig.subplots(
+    2,
+    2,
+    sharex="col",
+    gridspec_kw={
+        'left': 0.08,
+        'right': 0.94,
+        'bottom': 0.10,
+        'top': 0.90,
+        'wspace': 0.28,
+        'hspace': 0.35
+    }
+)
+raw_comparison_axes[0, 0].hist(
+    raw_rhos, bins=120, range=(-1, 1), alpha=0.75, color="#d62728"
+)
+raw_comparison_axes[0, 0].set_xlim(-1, 1)
+raw_comparison_axes[0, 0].set_title("Observed raw Spearman values")
+raw_comparison_axes[0, 0].set_xlabel("Spearman rho")
+raw_comparison_axes[0, 0].set_ylabel("Number of gene pairs")
+
+raw_comparison_axes[0, 1].hist(
+    np.abs(raw_rhos), bins=120, range=(0, 1), alpha=0.75, color="#d62728"
+)
+raw_critical_value = float(np.quantile(np.abs(raw_max_statistics), 1 - PMS_ALPHA))
+raw_comparison_axes[0, 1].axvline(
+    raw_critical_value,
+    color="black",
+    linestyle="--",
+    label=f"{1 - PMS_ALPHA:.0%} null quantile = {raw_critical_value:.3f}"
+)
+raw_comparison_axes[0, 1].set_xlim(0, 1)
+raw_comparison_axes[0, 1].set_title("Absolute observed raw Spearman values")
+raw_comparison_axes[0, 1].set_xlabel("|Spearman rho|")
+raw_comparison_axes[0, 1].set_ylabel("Number of gene pairs")
+raw_comparison_axes[0, 1].legend()
+
+raw_comparison_axes[1, 0].hist(
+    raw_max_statistics, bins=120, range=(-1, 1), alpha=0.75, color="#2ca02c"
+)
+raw_comparison_axes[1, 0].set_xlim(-1, 1)
+raw_comparison_axes[1, 0].set_title("Signed raw PMS permutation maxima")
+raw_comparison_axes[1, 0].set_xlabel("Spearman rho at maximum |rho|")
+raw_comparison_axes[1, 0].set_ylabel("Number of permutations")
+
+raw_comparison_axes[1, 1].hist(
+    np.abs(raw_max_statistics), bins=120, range=(0, 1), alpha=0.75, color="#2ca02c"
+)
+raw_comparison_axes[1, 1].axvline(
+    raw_critical_value,
+    color="black",
+    linestyle="--",
+    label=f"{1 - PMS_ALPHA:.0%} null quantile = {raw_critical_value:.3f}"
+)
+raw_comparison_axes[1, 1].set_xlim(0, 1)
+raw_comparison_axes[1, 1].set_title("Absolute raw PMS permutation maxima")
+raw_comparison_axes[1, 1].set_xlabel("Maximum |Spearman rho|")
+raw_comparison_axes[1, 1].set_ylabel("Number of permutations")
+raw_comparison_axes[1, 1].legend()
 
 fwer_methods = [
     ("Bonferroni", data["bonferroni_adjusted_p"], BONFERRONI_ALPHA),
@@ -849,7 +1051,11 @@ p_value_axes = tuple(p_value_axes.flat)
 # Hide graph pages initially and show the comparison plot.
 for ax in hist_axes.flat:
     ax.set_visible(False)
+for ax in raw_hist_axes.flat:
+    ax.set_visible(False)
 for ax in comparison_axes.flat:
+    ax.set_visible(False)
+for ax in raw_comparison_axes.flat:
     ax.set_visible(False)
 for ax in sensitivity_axes:
     ax.set_visible(False)
@@ -871,21 +1077,25 @@ button_next = Button(button_next_ax, '>')
 
 def show_view(index):
     global view_index
-    view_index = index % 9
+    view_index = index % 11
     overall_ax.set_visible(view_index == 0)
     for ax in hist_axes.flat:
         ax.set_visible(view_index == 1)
-    for ax in comparison_axes.flat:
+    for ax in raw_hist_axes.flat:
         ax.set_visible(view_index == 2)
-    for ax in sensitivity_axes:
+    for ax in comparison_axes.flat:
         ax.set_visible(view_index == 3)
+    for ax in raw_comparison_axes.flat:
+        ax.set_visible(view_index == 4)
+    for ax in sensitivity_axes:
+        ax.set_visible(view_index == 5)
     for page_index, axes in enumerate(jaccard_page_axes):
         for ax in axes:
-            ax.set_visible(view_index == page_index + 4)
+            ax.set_visible(view_index == page_index + 6)
     for page_index, ax in enumerate(venn_page_axes):
-        ax.set_visible(view_index == page_index + 6)
+        ax.set_visible(view_index == page_index + 8)
     for ax in p_value_axes:
-        ax.set_visible(view_index == 8)
+        ax.set_visible(view_index == 10)
     fig.canvas.draw_idle()
 
 button_prev.on_clicked(lambda event: show_view(view_index - 1))
@@ -897,7 +1107,9 @@ plot_output_dir.mkdir(parents=True, exist_ok=True)
 plot_files = [
     "significant_tests_by_method.png",
     "adjusted_p_value_histograms.png",
+    "raw_spearman_adjusted_p_value_histograms.png",
     "partial_spearman_and_pms_histograms.png",
+    "raw_spearman_and_pms_histograms.png",
     "fwer_fdr_thresholds_by_significant_tests.png",
     *[comparison['filename'] for comparison in jaccard_comparisons],
     "significant_methods_venn_fwer50_fdr5.png",
