@@ -218,6 +218,13 @@ def main():
                         f"gene_spearman_{gene_range}_{ORDER_BY}{filter_tag}_{timestamp}.csv")
     results.to_csv(path, index=False)
     print(f"\nSaved: {path}")
+    partial_ranks_path = path.replace(".csv", "_partial_ranks.npz")
+    np.savez_compressed(
+        partial_ranks_path,
+        gene_ids=selected.index.to_numpy(dtype=str),
+        partial_ranks=region_ranks.to_numpy(dtype=float)
+    )
+    print(f"Saved PMS rank residuals: {partial_ranks_path}")
 
     # ---- 6. Plot: normal vs region-corrected rho (turn off with PLOT_REGION_EFFECT = False) ----
     if PLOT_REGION_EFFECT:
