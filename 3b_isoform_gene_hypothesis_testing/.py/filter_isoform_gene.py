@@ -23,7 +23,7 @@ import pandas as pd
 ROOT_FOLDER = Path(__file__).resolve().parents[2]   # the Sapal-Speke-RP-2026 folder
 sys.path.insert(0, str(ROOT_FOLDER))                # so "from functions..." works from any folder
 
-from functions.graphs.pair_matrix import plot_pair_matrix
+from functions.graphs.pair_matrix import plot_gene_pair_matrix
 from functions.hypothesis_testing.fdr import adjust_p_values
 
 
@@ -77,7 +77,7 @@ def main():
     # round_trip: read back exactly the values that were calculated
     result_table = pd.read_csv(input_path, float_precision="round_trip")
     required_columns = {
-        "pair_id", "gene_a", "gene_a_name", "gene_b", "gene_b_name",
+        "pair_id", "gene_a", "gene_b",
         "component_a", "component_a_type", "component_b", "component_b_type",
         "spearman_rho", "p_value", "n_samples", "gene_pair_by_adjusted_p_value",
         "gene_pair_by_significant", "correction_family"
@@ -89,9 +89,6 @@ def main():
             f"{', '.join(sorted(missing_columns))}"
         )
     print(f"Loaded {len(result_table):,} correlation rows.", flush=True)
-    result_table[["gene_a_name", "gene_b_name"]] = result_table[
-        ["gene_a_name", "gene_b_name"]
-    ].fillna("")
 
     isoform_gene_tests = (
         (result_table["component_a_type"] == "isoform_percent_share")
@@ -162,58 +159,13 @@ def main():
         selected_pairs.itertuples(index=False),
         start=1
     ):
-        pair_rows = result_table[
-            (result_table["gene_a"] == pair.gene_a)
-            & (result_table["gene_b"] == pair.gene_b)
-        ]
-        a_rows = pair_rows.loc[
-            pair_rows["component_a_type"] == "isoform_percent_share"
-        ].sort_values(
-            "component_a",
-            key=lambda values: values.str.extract(r"(\d+)")[0].astype(int)
-        )
-        b_rows = pair_rows.loc[
-            pair_rows["component_b_type"] == "isoform_percent_share"
-        ].sort_values(
-            "component_b",
-            key=lambda values: values.str.extract(r"(\d+)")[0].astype(int)
-        )
-        column_labels = ["A"] + a_rows["component_a"].tolist()
-        row_labels = ["B"] + b_rows["component_b"].tolist()
-        rho_matrix = np.full(
-            (len(row_labels), len(column_labels)),
-            np.nan,
-            dtype=float
-        )
-        adjusted_p_matrix = np.full_like(rho_matrix, np.nan)
-        gene_row = pair_rows.loc[
-            (pair_rows["component_a"] == "A")
-            & (pair_rows["component_b"] == "B")
-        ].iloc[0]
-        rho_matrix[0, 0] = gene_row["spearman_rho"]
-        adjusted_p_matrix[0, 0] = gene_row["mht_adjusted_p_value"]
-        for column_index, row in enumerate(a_rows.itertuples(index=False), start=1):
-            rho_matrix[0, column_index] = row.spearman_rho
-            adjusted_p_matrix[0, column_index] = row.mht_adjusted_p_value
-        for row_index, row in enumerate(b_rows.itertuples(index=False), start=1):
-            rho_matrix[row_index, 0] = row.spearman_rho
-            adjusted_p_matrix[row_index, 0] = row.mht_adjusted_p_value
-
         filename = (
             f"{output_path.stem}_example{example_number}_"
             f"{pair.gene_a}_{pair.gene_b}.png"
         )
         plot_path = FIGURES_FOLDER / filename
         print(f"Saving example matrix {example_number}/{len(selected_pairs)}...", flush=True)
-        plot_pair_matrix(
-            pair,
-            rho_matrix,
-            adjusted_p_matrix,
-            row_labels,
-            column_labels,
-            plot_path,
-            MHT_METHOD
-        )
+        plot_gene_pair_matrix(result_table, pair, plot_path, MHT_METHOD)
         print(f"Saved example matrix: {plot_path}")
 
 

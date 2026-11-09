@@ -16,13 +16,12 @@ Non-coding isoforms (~15.6k, no CDS rows) are drawn all grey.
 A gene can be given as:
     gene name        SLC45A1
     Ensembl gene ID  ENSG00000162426 (version .16 optional)
-    PacBio locus     G249            (the part of the transcript ID before the first ".")
 
 Usage:
     python 1_data_processing/.py/isoform_visualisation.py SLC45A1          # one gene, top MAX_ISOFORMS isoforms
     python 1_data_processing/.py/isoform_visualisation.py SLC45A1 all      # every isoform of the gene
     python 1_data_processing/.py/isoform_visualisation.py SLC45A1 40       # top 40 isoforms
-    python 1_data_processing/.py/isoform_visualisation.py SLC45A1 G70506   # several genes, one figure each
+    python 1_data_processing/.py/isoform_visualisation.py SLC45A1 GABBR2   # several genes, one figure each
     python 1_data_processing/.py/isoform_visualisation.py                  # asks for gene names one at a time
 The drawing itself (and its settings: intron compression, colours, sizes) is in
 functions/graphs/isoform_structure.py.

@@ -29,7 +29,7 @@ LABEL_FONT_SIZE = 5
 
 
 def find_isoforms(gene, transcripts):
-    """All transcript IDs belonging to a gene given by name, Ensembl ID or PacBio locus (see top).
+    """All transcript IDs belonging to a gene given by name or Ensembl ID.
     Returns an empty list if nothing matches.
     (Every gene in expressed_isoforms.gtf lies on a single chromosome and strand, so all the
     matches can be drawn on one shared axis.)"""
@@ -37,8 +37,7 @@ def find_isoforms(gene, transcripts):
     query_no_version = query.split(".")[0]   # ENSG00000162426.16 -> ENSG00000162426
     return [transcript_id for transcript_id, info in transcripts.items()
             if info.get("gene_name", "").upper() == query.upper()
-            or info.get("gene_id", "").split(".")[0] == query_no_version
-            or transcript_id.split(".")[0] == query]
+            or info.get("gene_id", "").split(".")[0] == query_no_version]
 
 
 def make_x_axis(isoforms, transcripts):

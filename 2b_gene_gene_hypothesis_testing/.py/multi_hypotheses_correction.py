@@ -16,7 +16,7 @@ import numpy as np
 ROOT_FOLDER = Path(__file__).resolve().parents[2]   # the Sapal-Speke-RP-2026 folder
 sys.path.insert(0, str(ROOT_FOLDER))                # so "from functions..." works from any folder
 
-from functions.data_loading.expression_data import gene_of, load_matrix
+from functions.data_loading.expression_data import load_matrix, read_isoform_genes
 from functions.graphs.correction_comparison import plot_correction_comparison, threshold_label
 from functions.hypothesis_testing.fdr import benjamini_hochberg_correction, benjamini_yekutieli_correction
 from functions.hypothesis_testing.fwer import bonferroni_correction, holm_bonferroni_correction
@@ -145,7 +145,7 @@ raw_expression = raw_expression[
     [sample for sample in raw_expression.columns if "_Fetal_" not in sample]
 ]
 raw_gene_expression = raw_expression.groupby(
-    [gene_of(isoform_id) for isoform_id in raw_expression.index],
+    read_isoform_genes(str(ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms.gtf"))[raw_expression.index],
     sort=False
 ).sum()
 missing_raw_genes = set(pms_gene_ids).difference(raw_gene_expression.index)

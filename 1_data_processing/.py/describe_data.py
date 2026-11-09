@@ -22,12 +22,13 @@ import pandas as pd                # tables: DataFrame (2D table) and Series (on
 ROOT_FOLDER = Path(__file__).resolve().parents[2]   # the Sapal-Speke-RP-2026 folder
 sys.path.insert(0, str(ROOT_FOLDER))                # so "from functions..." works from any folder
 
-from functions.data_loading.expression_data import load_matrix, gene_of
+from functions.data_loading.expression_data import load_matrix, read_isoform_genes
 from functions.graphs.isoforms_per_gene import plot_isoforms_per_gene
 
 
 # --- Settings (change these, not the code below) ---------------------------
 MATRIX_PATH = str(ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms_matrix.tsv")   # isoform x sample expression table
+GTF_PATH = str(ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms.gtf")                  # gene name of each isoform
 CDS_PATH = str(ROOT_FOLDER / "Long_Read_Data" / "cds_output.fa")                      # coding sequences (FASTA format)
 FIGURE_FOLDER = str(ROOT_FOLDER / "1_data_processing" / "Figures")                  # where figures are saved
 MAJOR_SHARE = 0.10   # an isoform is "major" if it makes up at least this share of its gene on average
@@ -63,15 +64,15 @@ def count_cds(path):
         return sum(1 for line in file if line.startswith(">"))
 
 
-def expression_by_category(df):
+def expression_by_category(df, genes):
     """Table: how much expression each isoform category (known / ism / nic / nnc) carries.
 
     Share of gene = isoform CPM / gene CPM in a sample, averaged over the samples where
     the gene is expressed. "Major" isoforms have an average share of at least MAJOR_SHARE."""
     # Two labels for every isoform (row), lined up with df by using the same index (row names):
-    #   genes:      G249.3.nnc -> "G249"
+    #   genes:      G249.3.nnc -> "SLC45A1"
     #   categories: G249.3.nnc -> "nnc"
-    genes = pd.Series([gene_of(i) for i in df.index], index=df.index)
+    genes = genes[df.index]
     categories = pd.Series([isoform_category(i) for i in df.index], index=df.index)
 
     # Total CPM of each isoform, added up over all samples (axis=1 = sum across the columns)
@@ -125,7 +126,7 @@ def expression_by_category(df):
 def main():
     # Load the matrix and label every isoform (row) with its gene
     df = load_matrix(MATRIX_PATH)
-    genes = pd.Series([gene_of(i) for i in df.index], index=df.index)
+    genes = read_isoform_genes(GTF_PATH)[df.index]
 
     # ---- 1. Headline numbers ----
     n_cds = count_cds(CDS_PATH)
@@ -189,7 +190,7 @@ def main():
     # Drop isoforms that are 0 in every adult sample (fetal-only isoforms).
     # (adult > 0).any(axis=1) is True for a row if ANY sample is above 0.
     adult = adult[(adult > 0).any(axis=1)]
-    table, n_only_nnc = expression_by_category(adult)
+    table, n_only_nnc = expression_by_category(adult, genes)
     print(table.round(2).to_string())
     print(f"\nGenes whose isoforms are ALL .nnc (would vanish if .nnc were removed): {n_only_nnc}")
 

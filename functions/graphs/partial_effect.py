@@ -26,11 +26,11 @@ def plot_partial_effect(results, path, gene_range, covariate, wording, max_dots)
     plt.plot([-1, 1], [-1, 1], color="grey", linestyle="--", linewidth=1,
              label=f"y = x ({wording} has no effect)", zorder=3)
 
-    # Label the 3 pairs that the covariate changed the most, using gene names (G locus if no name)
+    # Label the 3 pairs that the covariate changed the most, using gene names
     change = (results["spearman_rho"] - partial).abs()
     for index in change.nlargest(3).index:
         row = results.loc[index]
-        label = f"{row['gene_a_name'] or row['gene_a']}–{row['gene_b_name'] or row['gene_b']}"
+        label = f"{row['gene_a']}–{row['gene_b']}"
         # Dots on the right get their label on the left, so it doesn't run off the plot
         on_right = row["spearman_rho"] > 0.5
         plt.annotate(label, (row["spearman_rho"], partial[index]),

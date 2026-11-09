@@ -3,12 +3,12 @@ Isoform shares: for every gene, each isoform's CPM and its percentage of the gen
 
   1. Load the matrix (adults only by default - the 4 fetal DLPFC samples are dropped, as in
      gene_spearman.py).
-  2. Gene = G locus (e.g. G249), gene name from the GTF (e.g. SLC45A1).
+  2. Gene = gene name from the GTF (e.g. SLC45A1).
   3. Gene CPM = sum of all its isoforms' CPM, per sample.
   4. Isoform % = isoform CPM / gene CPM * 100, per sample. The isoforms of a gene add up to 100%
      in every sample. If the gene has CPM 0 in a sample, the % is left blank (0 / 0 is undefined).
   5. Save one row per isoform as CSV in 1_data_processing/CSV/:
-       gene, gene_name, isoform,
+       gene, isoform,
        mean_cpm, mean_pct            - summary over the samples (mean_pct = isoform's share of the
                                        gene's mean CPM, so it still adds up to 100% within a gene)
        <sample>_cpm, <sample>_pct    - one pair of columns for every sample
@@ -27,7 +27,7 @@ import pandas as pd
 ROOT_FOLDER = Path(__file__).resolve().parents[2]   # the Sapal-Speke-RP-2026 folder
 sys.path.insert(0, str(ROOT_FOLDER))                # so "from functions..." works from any folder
 
-from functions.data_loading.expression_data import load_matrix, gene_of, read_gene_names
+from functions.data_loading.expression_data import load_matrix, read_isoform_genes
 
 
 # --- Settings (change these, not the code below) ---------------------------
@@ -46,9 +46,8 @@ def main():
         df = df[[name for name in df.columns if "_Fetal_" not in name]]
     samples = list(df.columns)
 
-    # ---- 2. Which gene (G locus) each isoform belongs to, and the gene names ----
-    genes = pd.Series([gene_of(i) for i in df.index], index=df.index)
-    names = read_gene_names(GTF_PATH)   # G locus -> gene name, e.g. G35694 -> NRXN1
+    # ---- 2. Which gene each isoform belongs to ----
+    genes = read_isoform_genes(GTF_PATH)[df.index]
 
     # ---- 3. Gene CPM per sample, repeated on every isoform row of that gene ----
     # transform("sum") gives each isoform row its gene's total, so the division below lines up
@@ -65,7 +64,6 @@ def main():
 
     # ---- 5. Build the table: CPM and % next to each other for every sample ----
     table = pd.DataFrame({"gene": genes,
-                          "gene_name": genes.map(names).fillna(""),
                           "isoform": df.index,
                           "mean_cpm": mean_cpm,
                           "mean_pct": mean_pct,
@@ -85,7 +83,7 @@ def main():
     table = table.drop(columns="gene_mean_cpm")
 
     print()
-    print(table[["gene", "gene_name", "isoform", "mean_cpm", "mean_pct"]].head(15)
+    print(table[["gene", "isoform", "mean_cpm", "mean_pct"]].head(15)
           .to_string(index=False, float_format=lambda v: f"{v:.3g}"))
 
     # ---- 6. Save ----

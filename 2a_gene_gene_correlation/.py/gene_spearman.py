@@ -7,7 +7,7 @@ Spearman correlation between every pair of genes in a chosen range (e.g. genes 1
      step (gene sums, expression filter, ordering, all correlations) uses adults only.
      Fetal brain expression differs hugely from adult and they are all one region / diagnosis,
      so keeping them would create strong correlations that only reflect fetal vs adult.
-  2. Gene CPM = sum of all its isoforms' CPM, per sample.
+  2. Gene = gene name from the GTF. Gene CPM = sum of all its isoforms' CPM, per sample.
      Optional filter (FILTER_LOW_EXPRESSION): keep only genes with CPM > MIN_CPM in at least
      MIN_FRACTION_SAMPLES of the adult samples (default: CPM > 1 in >= 80% -> 572 of 816 genes).
      Genes that are zero in most samples give mostly tied ranks, so their rho is unreliable.
@@ -53,7 +53,7 @@ from scipy.stats import spearmanr
 ROOT_FOLDER = Path(__file__).resolve().parents[2]   # the Sapal-Speke-RP-2026 folder
 sys.path.insert(0, str(ROOT_FOLDER))                # so "from functions..." works from any folder
 
-from functions.data_loading.expression_data import load_matrix, gene_of, read_gene_names, region_of, disease_of
+from functions.data_loading.expression_data import load_matrix, read_isoform_genes, region_of, disease_of
 from functions.graphs.partial_effect import plot_partial_effect
 from functions.partial_spearman.partial_spearman import ranks_within_group, partial_p_value
 
@@ -134,7 +134,7 @@ def main():
 
     # ---- 2. Gene CPM = sum of each gene's isoforms ----
     # groupby with sort=False keeps genes in the order they first appear in the file
-    gene_cpm = df.groupby([gene_of(i) for i in df.index], sort=False).sum()
+    gene_cpm = df.groupby(read_isoform_genes(GTF_PATH)[df.index], sort=False).sum()
 
     # ---- 2b. Drop low-expressed genes (turn off with FILTER_LOW_EXPRESSION = False) ----
     if FILTER_LOW_EXPRESSION:
@@ -183,7 +183,6 @@ def main():
         print(f"Samples per {covariate}:", pd.Series(groups).value_counts().to_dict())
         within_group_ranks[covariate] = ranks_within_group(selected, groups)
 
-    names = read_gene_names(GTF_PATH)
     # ---- 4. Spearman (and chosen partial Spearmans) for every pair ----
     n_samples = selected.shape[1]
     rows = []
@@ -191,9 +190,7 @@ def main():
         if pair_number % 20000 == 0:
             print(f"  {pair_number:,} / {n_pairs:,} pairs done")
         rho, p_value = spearmanr(selected.loc[gene_a], selected.loc[gene_b])
-        row = {"gene_a": gene_a, "gene_a_name": names.get(gene_a, ""),
-               "gene_b": gene_b, "gene_b_name": names.get(gene_b, ""),
-               "spearman_rho": rho, "p_value": p_value}
+        row = {"gene_a": gene_a, "gene_b": gene_b, "spearman_rho": rho, "p_value": p_value}
         for covariate in covariates:
             ranks = within_group_ranks[covariate]
             partial_rho = np.corrcoef(ranks.loc[gene_a], ranks.loc[gene_b])[0, 1]

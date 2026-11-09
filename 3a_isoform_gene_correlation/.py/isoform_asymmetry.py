@@ -41,9 +41,7 @@ one region as the baseline), so k = 1 + 2 = 3. If rho_partial is high but rho_pa
 near 0, the link came from the isoform and gene B both differing between regions.
 
 pair_id is the two gene names in alphabetical order ("GENE1__GENE2"), so both directions of a pair
-share one ID. A few gene names
-belong to more than one locus (e.g. ESR1 has 3); those get the locus added ("ESR1_G60428") so
-every gene has its own label.
+share one ID.
 
 Run with:
     python 3a_isoform_gene_correlation/.py/isoform_asymmetry.py
@@ -60,7 +58,7 @@ import pandas as pd
 ROOT_FOLDER = Path(__file__).resolve().parents[2]   # the Sapal-Speke-RP-2026 folder
 sys.path.insert(0, str(ROOT_FOLDER))                # so "from functions..." works from any folder
 
-from functions.data_loading.expression_data import load_matrix, gene_of, read_gene_names, region_of
+from functions.data_loading.expression_data import load_matrix, read_isoform_genes, region_of
 from functions.partial_spearman.partial_spearman import partial_p_value, residuals
 from functions.spearman.spearman import correlate_columns
 
@@ -76,13 +74,6 @@ GTF_PATH = str(ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms.gtf")
 RESULTS_FOLDER = str(ROOT_FOLDER / "3a_isoform_gene_correlation" / "CSV")
 
 
-def gene_labels(names):
-    """G locus -> label used in the table: the gene name, or "name_locus" if that name belongs to
-    more than one locus, so two different genes never share a label."""
-    repeated = names.duplicated(keep=False)   # True for every locus whose name appears more than once
-    return pd.Series(np.where(repeated, names + "_" + names.index, names), index=names.index)
-
-
 def main():
     # ---- 1. Load, adults only ----
     df = load_matrix(MATRIX_PATH)
@@ -90,9 +81,8 @@ def main():
     n_samples = df.shape[1]
 
     # ---- 2. Gene CPM = sum of each gene's isoforms ----
-    locus_of_isoform = pd.Series([gene_of(i) for i in df.index], index=df.index)
-    gene_cpm = df.groupby(locus_of_isoform, sort=False).sum()
-    labels = gene_labels(read_gene_names(GTF_PATH))   # G locus -> e.g. "NRXN1"
+    gene_of_isoform = read_isoform_genes(GTF_PATH)[df.index]
+    gene_cpm = df.groupby(gene_of_isoform, sort=False).sum()
 
     # ---- 3. Expressed genes only ----
     # (gene_cpm > MIN_CPM) is True/False per sample; .mean(axis=1) = fraction of samples that are True
@@ -102,15 +92,15 @@ def main():
           f"kept {len(kept_genes)} of {len(gene_cpm)} genes")
 
     # ---- 4. Isoforms that are at least MIN_SHARE of their gene on average ----
-    isoforms = df[locus_of_isoform.isin(kept_genes)]
-    isoform_locus = locus_of_isoform[isoforms.index]
+    isoforms = df[gene_of_isoform.isin(kept_genes)]
+    isoform_gene = gene_of_isoform[isoforms.index]
     # Each isoform's row divided by its gene's row; gene = 0 gives 0/0 = NaN, which .mean() skips
-    own_gene_cpm = gene_cpm.loc[isoform_locus].set_axis(isoforms.index)
+    own_gene_cpm = gene_cpm.loc[isoform_gene].set_axis(isoforms.index)
     share = (isoforms / own_gene_cpm.replace(0, np.nan)).mean(axis=1)
     keep = share >= MIN_SHARE
     print(f"Isoforms of these genes: kept {keep.sum()} of {len(isoforms)} "
           f"(mean share >= {MIN_SHARE:.1%})")
-    isoforms, isoform_locus, share = isoforms[keep], isoform_locus[keep], share[keep]
+    isoforms, isoform_gene, share = isoforms[keep], isoform_gene[keep], share[keep]
     gene_cpm = gene_cpm.loc[kept_genes]
     n_nonzero = (isoforms > 0).sum(axis=1)
     mean_cpm = isoforms.mean(axis=1)
@@ -135,18 +125,18 @@ def main():
     # ---- 6. Every gene A: its isoforms against every other gene's total ----
     # One block of rows per gene A (its isoforms x all partner genes), joined at the end
     blocks = []
-    for number, locus_a in enumerate(kept_genes, start=1):
+    for number, gene_a in enumerate(kept_genes, start=1):
         if number % 100 == 0:   # progress, so a long run doesn't look frozen
             print(f"  {number} / {len(kept_genes)} genes done")
-        isoforms_of_a = isoform_locus.index[isoform_locus == locus_a]
+        isoforms_of_a = isoform_gene.index[isoform_gene == gene_a]
         if len(isoforms_of_a) == 0:
             continue
-        partners = [locus for locus in kept_genes if locus != locus_a]
+        partners = [gene for gene in kept_genes if gene != gene_a]
 
         # Covariates for this gene: 1s + rank of gene A's own total (+ region for the second one)
         isoform_values = isoform_ranks[isoforms_of_a].to_numpy()
         partner_values = gene_ranks[partners].to_numpy()
-        covariates = np.column_stack([intercept, gene_ranks[locus_a].to_numpy()])
+        covariates = np.column_stack([intercept, gene_ranks[gene_a].to_numpy()])
         covariates_region = np.column_stack([covariates, region_columns])
         partial_rhos = correlate_columns(residuals(isoform_values, covariates),
                                          residuals(partner_values, covariates))
@@ -159,20 +149,17 @@ def main():
         # isoform once per partner, np.tile repeats the partner list once per isoform, and
         # .ravel() reads the rho arrays (isoforms x partners) in that same order
         n_partners = len(partners)
-        label_a = labels[locus_a]
-        partner_labels = labels[partners].to_numpy()
-        partner_column = np.tile(partner_labels, len(isoforms_of_a))
-        a_first = label_a < partner_column   # is gene A first alphabetically in the pair?
-        first = np.where(a_first, label_a, partner_column)
-        second = np.where(a_first, partner_column, label_a)
+        partner_column = np.tile(np.array(partners, dtype=object), len(isoforms_of_a))
+        a_first = gene_a < partner_column   # is gene A first alphabetically in the pair?
+        first = np.where(a_first, gene_a, partner_column)
+        second = np.where(a_first, partner_column, gene_a)
         partial_column = partial_rhos.ravel()
         partial_region_column = partial_region_rhos.ravel()
         blocks.append(pd.DataFrame({
             "pair_id": pd.Series(first) + "__" + pd.Series(second),
-            "iso_gene": label_a,
+            "iso_gene": gene_a,
             "isoform_id": np.repeat(isoforms_of_a, n_partners),
             "partner_gene": partner_column,
-            "partner_gene_id": np.tile(partners, len(isoforms_of_a)),   # its G-number, e.g. G35694
             "n_samples": n_samples,
             "n_nonzero": np.repeat(n_nonzero[isoforms_of_a].to_numpy(), n_partners),
             "iso_mean_cpm": np.repeat(mean_cpm[isoforms_of_a].to_numpy(), n_partners),

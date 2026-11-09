@@ -27,7 +27,7 @@ import pandas as pd
 ROOT_FOLDER = Path(__file__).resolve().parents[2]   # the Sapal-Speke-RP-2026 folder
 sys.path.insert(0, str(ROOT_FOLDER))                # so "from functions..." works from any folder
 
-from functions.data_loading.expression_data import gene_of, load_matrix
+from functions.data_loading.expression_data import load_matrix, read_isoform_genes
 from functions.spearman.spearman import correlation
 
 
@@ -40,6 +40,7 @@ MIN_SHARE = 0.015
 PROGRESS_INTERVAL_SECONDS = 15
 
 MATRIX_PATH = "Long_Read_Data/expressed_isoforms_matrix.tsv"
+GTF_PATH = "Long_Read_Data/expressed_isoforms.gtf"
 INPUT_FOLDER = ROOT_FOLDER / "2b_gene_gene_hypothesis_testing" / "CSV"
 CSV_FOLDER = ROOT_FOLDER / "3a_isoform_gene_correlation" / "CSV"
 
@@ -95,9 +96,7 @@ def add_result(
     results.append({
         "pair_id": f"{pair.gene_a}__{pair.gene_b}",
         "gene_a": pair.gene_a,
-        "gene_a_name": pair.gene_a_name,
         "gene_b": pair.gene_b,
-        "gene_b_name": pair.gene_b_name,
         "component_a": component_a,
         "component_a_type": component_a_type,
         "isoform_a_id": isoform_a_id,
@@ -132,7 +131,7 @@ def main():
     input_path = find_input_file()
     pairs = pd.read_csv(input_path)
     required_columns = {
-        "gene_a", "gene_a_name", "gene_b", "gene_b_name", "spearman_rho",
+        "gene_a", "gene_b", "spearman_rho",
         "p_value", "by_adjusted_p_value", "by_significant"
     }
     missing_columns = required_columns.difference(pairs.columns)
@@ -143,9 +142,6 @@ def main():
         )
     if pairs.empty:
         raise ValueError(f"Input gene-pair dataset is empty: {input_path}")
-    pairs[["gene_a_name", "gene_b_name"]] = pairs[
-        ["gene_a_name", "gene_b_name"]
-    ].fillna("")
     if pairs.duplicated(["gene_a", "gene_b"]).any():
         raise ValueError(f"Input has duplicate gene pairs: {input_path}")
     if "by_significant" in pairs and not pairs["by_significant"].all():
@@ -166,10 +162,7 @@ def main():
     if expression.empty:
         raise ValueError(f"No adult samples found in {matrix_path}.")
 
-    isoform_gene = pd.Series(
-        [gene_of(str(isoform_id)) for isoform_id in expression.index],
-        index=expression.index
-    )
+    isoform_gene = read_isoform_genes(ROOT_FOLDER / GTF_PATH)[expression.index]
     gene_cpm = expression.groupby(isoform_gene, sort=False).sum()
     fraction_expressed = (gene_cpm > MIN_CPM).mean(axis=1)
     kept_genes = gene_cpm.index[
