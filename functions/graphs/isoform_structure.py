@@ -177,17 +177,22 @@ def place_axes(fig, ax, ruler_ax, title, label_inches, left_inches):
     title.set_y(1 - 0.1 / height_inches)
 
 
-def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_isoforms, save, show=True):
+def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_isoforms, save, show=True,
+                           isoform_ids=None, plot_title=None, include_gene_names=False,
+                           filename_prefix=None, preserve_isoform_order=False):
     """Draw the isoform structures of one gene. Returns the matplotlib figure (None if not found)."""
-    isoforms = find_isoforms(gene, transcripts)
+    if isoform_ids is None:
+        isoforms = find_isoforms(gene, transcripts)
+    else:
+        isoforms = [transcript_id for transcript_id in isoform_ids if transcript_id in transcripts]
     if not isoforms:
         print(f"No isoforms found for '{gene}' - check the gene name / ID")
         return None
 
     # Order: most abundant first (or by start position if there is no matrix), then keep the top N
-    if mean_cpm is not None:
+    if mean_cpm is not None and not preserve_isoform_order:
         isoforms.sort(key=lambda t: -mean_cpm.get(t, 0))
-    else:
+    elif mean_cpm is None and not preserve_isoform_order:
         isoforms.sort(key=lambda t: transcripts[t]["exons"][0][0])
     n_total = len(isoforms)
     if max_isoforms is not None:
@@ -242,6 +247,8 @@ def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_iso
     labels = []
     for transcript_id in isoforms:
         label = transcript_id
+        if include_gene_names and transcripts[transcript_id].get("gene_name"):
+            label = f"{transcripts[transcript_id]['gene_name']} | {label}"
         if mean_cpm is not None:
             label += f"  ({mean_cpm.get(transcript_id, 0):.1f} CPM)"
         if not transcripts[transcript_id]["cds"]:
@@ -275,8 +282,9 @@ def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_iso
         ax.axvline(x, color="grey", linestyle=":", linewidth=0.5, zorder=0)
 
     shown = f"top {len(isoforms)} of {n_total}" if len(isoforms) < n_total else f"all {n_total}"
-    title = fig.suptitle(f"{gene_name} ({first['gene_id']}) - {shown} isoforms, most abundant first\n"
-                         f"grey = exon (UTR), red = CDS, line = intron", va="top", fontsize=11)
+    default_title = (f"{gene_name} ({first['gene_id']}) - {shown} isoforms, most abundant first\n"
+                     f"grey = exon (UTR), red = CDS, line = intron")
+    title = fig.suptitle(plot_title or default_title, va="top", fontsize=11)
 
     # Final layout: draw the ruler labels to find out how tall they are, set the figure height
     # so every isoform row gets ROW_HEIGHT_INCHES, then place the axes and title
@@ -298,7 +306,7 @@ def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_iso
     if save:
         os.makedirs(figures_folder, exist_ok=True)
         timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-        path = os.path.join(figures_folder, f"{gene_name}_{timestamp}.png")
+        path = os.path.join(figures_folder, f"{filename_prefix or gene_name}_{timestamp}.png")
         fig.savefig(path, dpi=300, bbox_inches="tight")
         print(f"Saved figure: {path}")
     if show:
