@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from matplotlib.textpath import TextPath
 
+from functions.data_loading.expression_data import rank_isoforms_by_share
+
 
 # --- Settings (change these, not the code below) ---------------------------
 COMPRESS_INTRONS = True  # True = shrink long introns so the exons are wide enough to see.
@@ -175,15 +177,20 @@ def place_axes(fig, ax, ruler_ax, title, label_inches, left_inches):
     title.set_y(1 - 0.1 / height_inches)
 
 
-def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_isoforms, save, show=True):
-    """Draw the isoform structures of one gene. Returns the matplotlib figure (None if not found)."""
+def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_isoforms, save, show=True,
+                            mean_share=None):
+    """Draw the isoform structures of one gene. Returns the matplotlib figure (None if not found).
+    With mean_share, isoforms are ordered and numbered by mean % share of the gene (1 = highest);
+    otherwise by mean CPM; with neither, by start position."""
     isoforms = find_isoforms(gene, transcripts)
     if not isoforms:
         print(f"No isoforms found for '{gene}' - check the gene name / ID")
         return None
 
-    # Order: most abundant first (or by start position if there is no matrix), then keep the top N
-    if mean_cpm is not None:
+    # Order: highest mean share first (or mean CPM, or start position), then keep the top N
+    if mean_share is not None:
+        isoforms = rank_isoforms_by_share(isoforms, mean_share)
+    elif mean_cpm is not None:
         isoforms.sort(key=lambda t: -mean_cpm.get(t, 0))
     else:
         isoforms.sort(key=lambda t: transcripts[t]["exons"][0][0])
@@ -236,11 +243,13 @@ def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_iso
         ax.text(left, row, left_end + " ", ha="right", va="center", fontsize=7, fontweight="bold")
         ax.text(right, row, " " + right_end, ha="left", va="center", fontsize=7, fontweight="bold")
 
-    # Row labels: transcript ID, mean CPM, and "non-coding" if there is no CDS
+    # Row labels: isoform number, transcript ID, mean share and CPM, and "non-coding" if there is no CDS
     labels = []
-    for transcript_id in isoforms:
-        label = transcript_id
-        if mean_cpm is not None:
+    for number, transcript_id in enumerate(isoforms, start=1):
+        label = f"{number}. {transcript_id}"
+        if mean_share is not None:
+            label += f"  ({mean_share.get(transcript_id, 0):.2f}% share, {mean_cpm.get(transcript_id, 0):.1f} CPM)"
+        elif mean_cpm is not None:
             label += f"  ({mean_cpm.get(transcript_id, 0):.1f} CPM)"
         if not transcripts[transcript_id]["cds"]:
             label += "  non-coding"
@@ -273,7 +282,9 @@ def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_iso
         ax.axvline(x, color="grey", linestyle=":", linewidth=0.5, zorder=0)
 
     shown = f"top {len(isoforms)} of {n_total}" if len(isoforms) < n_total else f"all {n_total}"
-    title = fig.suptitle(f"{gene_name} ({first['gene_id']}) - {shown} isoforms, most abundant first\n"
+    order = ("highest mean share of the gene first" if mean_share is not None
+             else "most abundant first" if mean_cpm is not None else "by start position")
+    title = fig.suptitle(f"{gene_name} ({first['gene_id']}) - {shown} isoforms, {order}\n"
                          f"grey = exon (UTR), red = CDS, line = intron", va="top", fontsize=11)
 
     # Final layout: draw the ruler labels to find out how tall they are, set the figure height

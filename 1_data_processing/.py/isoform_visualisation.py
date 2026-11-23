@@ -6,7 +6,10 @@ Isoform structure viewer: draw every isoform of a gene, one row per isoform, to 
   - a coordinate ruler above the isoforms labels every distinct exon start / end once, with a
     dotted guide line down through every row (exon edges on the same line = shared splice site)
   - each isoform has 5' and 3' written at its ends (which side is 5' depends on the strand)
-  - isoforms are ordered by mean CPM (most abundant at the top), with the CPM in the row label
+  - isoforms are ordered by mean % share of the gene (highest at the top), and numbered 1, 2, 3, ...
+    Share = isoform CPM / gene total CPM * 100 in each adult sample, averaged across samples - the
+    same measure as the 1.5% share filter, so this numbering matches the tables in
+    4_identifying_candidates (isoform_consistency_*.csv). Each row label shows the mean share and CPM.
 
 Structure comes from Long_Read_Data/expressed_isoforms.gtf ("exon" and "CDS" rows),
 abundance from Long_Read_Data/expressed_isoforms_matrix.tsv (same 61,117 transcript IDs),
@@ -38,6 +41,7 @@ import pandas as pd
 ROOT_FOLDER = Path(__file__).resolve().parents[2]   # the Sapal-Speke-RP-2026 folder
 sys.path.insert(0, str(ROOT_FOLDER))                # so "from functions..." works from any folder
 
+from functions.data_loading.expression_data import mean_isoform_share
 from functions.graphs.isoform_structure import find_isoforms, plot_isoform_structures
 
 
@@ -83,16 +87,19 @@ def read_gtf(gtf_path=GTF_PATH):
     return dict(transcripts)
 
 
-def read_mean_cpm(matrix_path=MATRIX_PATH):
-    """Mean CPM of each isoform across the 45 adult samples, as a pandas Series indexed by transcript_id.
-    Only used to order the isoforms and label them, so if the matrix is missing return None."""
+def read_abundance(transcripts, matrix_path=MATRIX_PATH):
+    """Mean CPM and mean % share of each isoform across the 45 adult samples, as two pandas Series
+    indexed by transcript_id. Only used to order and label the isoforms, so if the matrix is
+    missing return (None, None)."""
     if not os.path.exists(matrix_path):
         print(f"Note: {matrix_path} not found - isoforms will be ordered by position, not abundance")
-        return None
+        return None, None
     matrix = pd.read_csv(matrix_path, sep="\t", index_col=0)
     # Drop the 4 fetal samples straight after loading, as in gene_spearman.py
     matrix = matrix[[name for name in matrix.columns if "_Fetal_" not in name]]
-    return matrix.mean(axis=1)
+    # Gene = gene name from the GTF transcript lines, as in the rest of the pipeline
+    isoform_gene = pd.Series({t: info.get("gene_name", "") for t, info in transcripts.items()})
+    return matrix.mean(axis=1), mean_isoform_share(matrix, isoform_gene)
 
 
 def main():
@@ -111,12 +118,13 @@ def main():
     # Read the files once, so plotting several genes doesn't re-read the 110 MB GTF
     print("Reading GTF and expression matrix...")
     transcripts = read_gtf()
-    mean_cpm = read_mean_cpm()
+    mean_cpm, mean_share = read_abundance(transcripts)
 
     if genes:
         for gene in genes:
             plot_isoform_structures(
-                gene, transcripts, mean_cpm, FIGURES_FOLDER, max_isoforms, SAVE_FIGURE
+                gene, transcripts, mean_cpm, FIGURES_FOLDER, max_isoforms, SAVE_FIGURE,
+                mean_share=mean_share
             )
         return
 
@@ -125,7 +133,8 @@ def main():
         if not gene:
             break
         plot_isoform_structures(
-            gene, transcripts, mean_cpm, FIGURES_FOLDER, max_isoforms, SAVE_FIGURE
+            gene, transcripts, mean_cpm, FIGURES_FOLDER, max_isoforms, SAVE_FIGURE,
+            mean_share=mean_share
         )
 
 

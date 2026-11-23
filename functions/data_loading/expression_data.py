@@ -28,6 +28,27 @@ def read_isoform_genes(gtf_path):
     return pd.Series(gene_names, index=isoforms)
 
 
+def mean_isoform_share(matrix, isoform_gene):
+    """Mean % share of each isoform within its own gene, across the samples in `matrix`.
+
+    Per sample: isoform CPM / gene total CPM * 100, where the gene total is the sum of ALL the
+    gene's isoforms (gene = gene name in `isoform_gene`). Samples where the gene total is 0 are
+    skipped (a gene that is 0 in every sample gives 0). This is the same mean share used by the
+    1.5% filter in isoform_gene_correlation.py, and it is the measure isoforms are numbered by
+    (1 = highest mean share)."""
+    isoform_gene = isoform_gene.reindex(matrix.index)
+    gene_total = matrix.groupby(isoform_gene, sort=False).sum()
+    own_total = gene_total.loc[isoform_gene].set_axis(matrix.index)
+    shares = matrix.div(own_total.where(own_total > 0)) * 100
+    return shares.mean(axis=1).fillna(0)
+
+
+def rank_isoforms_by_share(isoforms, mean_share):
+    """Order isoform IDs by mean share, highest first. Ties (e.g. isoforms with share 0) keep the
+    order they were given in, so the numbering is the same wherever this is used."""
+    return sorted(isoforms, key=lambda isoform_id: -mean_share.get(isoform_id, 0))
+
+
 def region_of(sample_name):
     """Sample names look like "Caudate_MDD_Adult_R17353" - the region is the text before the first "_"."""
     return sample_name.split("_")[0]
