@@ -3,3 +3,6 @@
 *.tsv
 *.parquet
 __pycache__/
+Long_Read_Data/interproscan_jobs.sqlite3*
+Long_Read_Data/interproscan_jobs/
+5a_protein_sequence/interproscan_jobs/

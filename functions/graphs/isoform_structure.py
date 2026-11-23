@@ -3,7 +3,6 @@
 import os
 from bisect import bisect_right
 from collections import defaultdict
-from datetime import datetime
 
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
@@ -296,8 +295,7 @@ def plot_isoform_structures(gene, transcripts, mean_cpm, figures_folder, max_iso
 
     if save:
         os.makedirs(figures_folder, exist_ok=True)
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-        path = os.path.join(figures_folder, f"{gene_name}_{timestamp}.png")
+        path = os.path.join(figures_folder, f"{gene_name}_isoforms.png")
         fig.savefig(path, dpi=300, bbox_inches="tight")
         print(f"Saved figure: {path}")
     if show:

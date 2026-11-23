@@ -38,7 +38,7 @@ import pandas as pd
 ROOT_FOLDER = Path(__file__).resolve().parents[2]   # the Sapal-Speke-RP-2026 folder
 sys.path.insert(0, str(ROOT_FOLDER))                # so "from functions..." works from any folder
 
-from functions.graphs.isoform_structure import plot_isoform_structures
+from functions.graphs.isoform_structure import find_isoforms, plot_isoform_structures
 
 
 # --- Settings (change these, not the code below) ---------------------------
@@ -48,7 +48,7 @@ FIGURES_FOLDER = str(ROOT_FOLDER / "1_data_processing" / "Figures")
 
 MAX_ISOFORMS = 20        # show only the N most abundant isoforms; None = show all
                          # (some genes have ~100 isoforms, which makes a very tall figure)
-SAVE_FIGURE = True          # True = also save a PNG in FIGURES_FOLDER (timestamped, never overwritten)
+SAVE_FIGURE = True       # Save as <gene>_isoforms.png, replacing any previous figure.
 
 
 def read_gtf(gtf_path=GTF_PATH):
@@ -115,14 +115,18 @@ def main():
 
     if genes:
         for gene in genes:
-            plot_isoform_structures(gene, transcripts, mean_cpm, FIGURES_FOLDER, max_isoforms, SAVE_FIGURE)
+            plot_isoform_structures(
+                gene, transcripts, mean_cpm, FIGURES_FOLDER, max_isoforms, SAVE_FIGURE
+            )
         return
 
     while True:
         gene = input("Gene name / ID (blank to quit): ").strip()
         if not gene:
             break
-        plot_isoform_structures(gene, transcripts, mean_cpm, FIGURES_FOLDER, max_isoforms, SAVE_FIGURE)
+        plot_isoform_structures(
+            gene, transcripts, mean_cpm, FIGURES_FOLDER, max_isoforms, SAVE_FIGURE
+        )
 
 
 if __name__ == "__main__":
