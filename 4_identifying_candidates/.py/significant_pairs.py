@@ -5,6 +5,10 @@ and draw the matrix of rho and adjusted p-values for the strongest of those pair
 The input is the corrected table from filter_isoform_gene.py. It also holds one gene-total row per
 gene pair, which are significant by construction, so only isoform-vs-gene tests are counted here.
 
+When run, it asks whether to draw the top N_MATRIX_PAIRS pairs or one specific gene pair
+(e.g. NOVA1 NRXN1, in either order). A specific pair only needs to be in the 3b table
+(i.e. significant at the gene-gene stage); its isoform tests do not need to be significant.
+
 Run with:
     python 4_identifying_candidates/.py/significant_pairs.py
 """
@@ -49,7 +53,38 @@ def find_input_file():
     return max(candidates, key=lambda path: path.stat().st_mtime_ns)
 
 
+def choose_mode():
+    """Ask for 'top' (the strongest N_MATRIX_PAIRS pairs) or a specific gene pair.
+
+    Returns None for the top pairs, or a (gene_1, gene_2) tuple for one pair."""
+    print(f"1 = top {N_MATRIX_PAIRS} significant pairs")
+    print("2 = a specific gene pair")
+    choice = input("Enter 1 or 2: ").strip()
+    while choice not in ("1", "2"):
+        choice = input("Please type 1 or 2: ").strip()
+    if choice == "1":
+        return None
+
+    genes = input("Type the two gene names separated by a space (e.g. NOVA1 NRXN1): ").upper().split()
+    while len(genes) != 2:
+        genes = input("Please type exactly two gene names: ").upper().split()
+    return tuple(genes)
+
+
+def find_gene_pair(results, gene_1, gene_2):
+    """Return the pair_id for two genes, whichever of them is gene A, or None if absent."""
+    match = results.loc[
+        ((results["gene_a"] == gene_1) & (results["gene_b"] == gene_2))
+        | ((results["gene_a"] == gene_2) & (results["gene_b"] == gene_1)),
+        "pair_id",
+    ]
+    return match.iloc[0] if len(match) else None
+
+
 def main():
+    # Asked first, so the question comes before the slow loading
+    chosen_pair = choose_mode()
+
     input_path = find_input_file()
     print(f"Reading: {input_path}")
     results = pd.read_csv(input_path, low_memory=False)
@@ -71,15 +106,35 @@ def main():
     significant.to_csv(output_path, index=False)
     print(f"Saved significant tests: {output_path}")
 
-    # Rank each pair by its smallest adjusted p-value; ties stay in pair_id order
-    strongest = significant.groupby("pair_id")["mht_adjusted_p_value"].min().sort_values(kind="stable")
-    selected_pairs = strongest.index[:N_MATRIX_PAIRS]
+    if chosen_pair is None:
+        # Rank each pair by its smallest adjusted p-value; ties stay in pair_id order
+        strongest = significant.groupby("pair_id")["mht_adjusted_p_value"].min().sort_values(kind="stable")
+        selected_pairs = strongest.index[:N_MATRIX_PAIRS]
+        file_prefix = "candidate"
+    else:
+        pair_id = find_gene_pair(results, *chosen_pair)
+        if pair_id is None:
+            print(
+                f"{chosen_pair[0]}-{chosen_pair[1]} is not in {input_path.name}. "
+                "Only pairs that passed the gene-gene BY filter (2b) have isoform tests."
+            )
+            return
+        pair_tests = results.loc[isoform_gene_tests & (results["pair_id"] == pair_id)]
+        print(
+            f"{pair_id}: {len(pair_tests)} isoform-gene tests, "
+            f"{int(pair_tests['mht_significant'].sum())} significant, "
+            f"smallest adjusted p = {pair_tests['mht_adjusted_p_value'].min():.3g}"
+        )
+        selected_pairs = [pair_id]
+        file_prefix = "pair"
+
     gene_rows = results.loc[~isoform_gene_tests].set_index("pair_id", drop=False).loc[selected_pairs]
     mht_method = results.loc[isoform_gene_tests, "mht_method"].iloc[0]
 
     FIGURES_FOLDER.mkdir(parents=True, exist_ok=True)
     for rank, pair in enumerate(gene_rows.itertuples(index=False), start=1):
-        plot_path = FIGURES_FOLDER / f"candidate{rank}_{pair.gene_a}_{pair.gene_b}.png"
+        name = f"{file_prefix}{rank}" if chosen_pair is None else file_prefix
+        plot_path = FIGURES_FOLDER / f"{name}_{pair.gene_a}_{pair.gene_b}.png"
         print(f"Saving matrix {rank}/{len(gene_rows)}...", flush=True)
         plot_gene_pair_matrix(results, pair, plot_path, mht_method)
         print(f"Saved matrix: {plot_path}")
