@@ -7,8 +7,11 @@ correlated). For each pair there are two sides:
     side B = each isoform share of gene B tested against the total of gene A
 
 A pair is a promising candidate when one side is asymmetric and the other is silent:
-    - the asymmetric side has at least one significant isoform, but not all of its isoforms are
-      significant (so the isoform mix matters, not just how much of the gene there is), and
+    - the asymmetric side has at least one significant isoform, and either
+        * not all of its tested isoforms are significant, or
+        * all of them are significant but with opposite signs (at least one positive and one
+          negative rho), so the isoform mix shifts with the partner gene rather than every
+          isoform moving the same way, and
     - the silent side has isoforms that were tested, and none of them are significant.
 
 Only isoforms that were tested count (mean share >= 1.5%, and a rho could be calculated).
@@ -64,6 +67,10 @@ def summarise_side(tests, isoform_column):
     summary = tests.groupby("pair_id").agg(n_tested=(isoform_column, "size"))
     summary["n_significant"] = significant.groupby("pair_id").size()
     summary["n_significant"] = summary["n_significant"].fillna(0).astype(int)
+    # Signs of the significant rhos, to tell "all significant, opposite signs" apart
+    summary["n_positive"] = significant.loc[significant["spearman_rho"] > 0].groupby("pair_id").size()
+    summary["n_negative"] = significant.loc[significant["spearman_rho"] < 0].groupby("pair_id").size()
+    summary[["n_positive", "n_negative"]] = summary[["n_positive", "n_negative"]].fillna(0).astype(int)
 
     # Details of the significant isoforms, for the asymmetric side
     summary["significant_isoforms"] = significant.groupby("pair_id")[isoform_column].agg(";".join)
@@ -95,12 +102,20 @@ def main():
     summary_a = summarise_side(side_a, "isoform_a_id")
     summary_b = summarise_side(side_b, "isoform_b_id")
     pairs = gene_rows.join(summary_a.add_suffix("_a")).join(summary_b.add_suffix("_b"))
-    for column in ["n_tested_a", "n_significant_a", "n_tested_b", "n_significant_b"]:
-        pairs[column] = pairs[column].fillna(0).astype(int)
+    for side in ["a", "b"]:
+        for column in ["n_tested", "n_significant", "n_positive", "n_negative"]:
+            pairs[f"{column}_{side}"] = pairs[f"{column}_{side}"].fillna(0).astype(int)
 
-    # Asymmetric = some but not all tested isoforms significant; silent = tested, none significant
-    asymmetric_a = (pairs["n_significant_a"] >= 1) & (pairs["n_significant_a"] < pairs["n_tested_a"])
-    asymmetric_b = (pairs["n_significant_b"] >= 1) & (pairs["n_significant_b"] < pairs["n_tested_b"])
+    # Asymmetric = some but not all tested isoforms significant, OR all significant with opposite
+    # signs; silent = tested, none significant
+    def is_asymmetric(side):
+        n_sig, n_tested = pairs[f"n_significant_{side}"], pairs[f"n_tested_{side}"]
+        some_not_all = (n_sig >= 1) & (n_sig < n_tested)
+        all_opposite = (n_sig >= 1) & (n_sig == n_tested) & (pairs[f"n_positive_{side}"] >= 1) & (pairs[f"n_negative_{side}"] >= 1)
+        return some_not_all | all_opposite
+
+    asymmetric_a = is_asymmetric("a")
+    asymmetric_b = is_asymmetric("b")
     silent_a = (pairs["n_tested_a"] >= 1) & (pairs["n_significant_a"] == 0)
     silent_b = (pairs["n_tested_b"] >= 1) & (pairs["n_significant_b"] == 0)
 
@@ -108,8 +123,12 @@ def main():
     print(f"Pairs with any significant isoform test: {((pairs['n_significant_a'] + pairs['n_significant_b']) > 0).sum():,}")
     print(f"Pairs failing because both sides have significant isoforms: "
           f"{((pairs['n_significant_a'] > 0) & (pairs['n_significant_b'] > 0)).sum():,}")
-    print(f"Pairs failing because every tested isoform on the significant side is significant: "
-          f"{(((pairs['n_significant_a'] > 0) & ~asymmetric_a & silent_b) | ((pairs['n_significant_b'] > 0) & ~asymmetric_b & silent_a)).sum():,}")
+    all_sig_a = (pairs["n_significant_a"] > 0) & (pairs["n_significant_a"] == pairs["n_tested_a"]) & silent_b
+    all_sig_b = (pairs["n_significant_b"] > 0) & (pairs["n_significant_b"] == pairs["n_tested_b"]) & silent_a
+    print(f"Pairs where every tested isoform on the significant side is significant: "
+          f"{(all_sig_a | all_sig_b).sum():,}")
+    print(f"  kept (opposite signs): {((all_sig_a & asymmetric_a) | (all_sig_b & asymmetric_b)).sum():,}")
+    print(f"  failing (all the same sign): {((all_sig_a & ~asymmetric_a) | (all_sig_b & ~asymmetric_b)).sum():,}")
     print(f"Pairs failing because the other side has no tested isoforms: "
           f"{(((pairs['n_significant_a'] > 0) & (pairs['n_tested_b'] == 0)) | ((pairs['n_significant_b'] > 0) & (pairs['n_tested_a'] == 0))).sum():,}")
 
