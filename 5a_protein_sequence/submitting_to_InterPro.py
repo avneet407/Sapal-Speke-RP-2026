@@ -12,7 +12,9 @@ needs to be copied or reparsed:
 
 Running without a subcommand starts an interactive prompt for submit, check,
 and export operations. Exports are saved automatically in
-5a_protein_sequence/CSV with a gene-specific or all-genes filename.
+5a_protein_sequence/CSV as four linked tables, named
+interproscan_<gene|all_genes>_{proteins,matches,signatures,entries}.csv
+(see "Condensed CSV export" below; read_condensed_export joins them back).
 
 The API job registry, raw responses, and normalized annotations are stored in
 5a_protein_sequence/interproscan_jobs/results.sqlite3. InterProScan 6's
@@ -677,7 +679,8 @@ def parse_interproscan_json(raw_result: str) -> list[dict[str, Any]]:
             if not isinstance(match, dict):
                 continue
             signature = match.get("signature") or {}
-            entry = match.get("entry") or {}
+            # InterProScan nests the integrated InterPro entry inside the signature.
+            entry = signature.get("entry") or match.get("entry") or {}
             library_release = signature.get("signatureLibraryRelease") or {}
             go_terms = match.get("goXRefs") or entry.get("goXRefs") or match.get("goTerms") or []
             pathways = (
@@ -889,6 +892,70 @@ def _parse_result(raw_result: str, result_type: str) -> list[dict[str, Any]]:
     raise ValueError(f"Unsupported InterProScan result type: {result_type}")
 
 
+def _replace_annotations(
+    connection: sqlite3.Connection,
+    job_pk: int,
+    sequence_hash: str,
+    annotations: list[dict[str, Any]],
+) -> None:
+    connection.execute("DELETE FROM annotations WHERE job_pk = ?", (job_pk,))
+    for annotation in annotations:
+        connection.execute(
+            """
+            INSERT INTO annotations(
+                job_pk, sequence_hash, match_index, location_index,
+                sequence_identifier, interpro_accession, interpro_description,
+                entry_type, member_database, signature_accession,
+                signature_description, start, end, score, evalue,
+                go_terms_json, pathways_json, raw_match_json, raw_location_json
+            ) VALUES (
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            )
+            """,
+            (
+                job_pk,
+                sequence_hash,
+                annotation["match_index"],
+                annotation["location_index"],
+                annotation["sequence_identifier"],
+                annotation["interpro_accession"],
+                annotation["interpro_description"],
+                annotation["entry_type"],
+                annotation["member_database"],
+                annotation["signature_accession"],
+                annotation["signature_description"],
+                annotation["start"],
+                annotation["end"],
+                annotation["score"],
+                annotation["evalue"],
+                annotation["go_terms_json"],
+                annotation["pathways_json"],
+                annotation["raw_match_json"],
+                annotation["raw_location_json"],
+            ),
+        )
+
+
+def reparse_stored_results(db_path: str | Path = DEFAULT_DB_PATH) -> int:
+    """Rebuild the annotations table from every stored raw result.
+
+    Raw API responses are kept in ``jobs.raw_result``, so parser fixes can be
+    applied to finished jobs without resubmitting them.
+    """
+    initialize_database(db_path)
+    with _database(db_path) as connection:
+        jobs = connection.execute(
+            """
+            SELECT id, sequence_hash, result_type, raw_result FROM jobs
+            WHERE status = 'FINISHED' AND raw_result IS NOT NULL
+            """
+        ).fetchall()
+        for job in jobs:
+            annotations = _parse_result(job["raw_result"], job["result_type"] or "json")
+            _replace_annotations(connection, job["id"], job["sequence_hash"], annotations)
+    return len(jobs)
+
+
 def _store_result(
     db_path: str | Path,
     job: sqlite3.Row,
@@ -898,42 +965,7 @@ def _store_result(
 ) -> None:
     now = _utc_now()
     with _database(db_path) as connection:
-        connection.execute("DELETE FROM annotations WHERE job_pk = ?", (job["id"],))
-        for annotation in annotations:
-            connection.execute(
-                """
-                INSERT INTO annotations(
-                    job_pk, sequence_hash, match_index, location_index,
-                    sequence_identifier, interpro_accession, interpro_description,
-                    entry_type, member_database, signature_accession,
-                    signature_description, start, end, score, evalue,
-                    go_terms_json, pathways_json, raw_match_json, raw_location_json
-                ) VALUES (
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-                )
-                """,
-                (
-                    job["id"],
-                    job["sequence_hash"],
-                    annotation["match_index"],
-                    annotation["location_index"],
-                    annotation["sequence_identifier"],
-                    annotation["interpro_accession"],
-                    annotation["interpro_description"],
-                    annotation["entry_type"],
-                    annotation["member_database"],
-                    annotation["signature_accession"],
-                    annotation["signature_description"],
-                    annotation["start"],
-                    annotation["end"],
-                    annotation["score"],
-                    annotation["evalue"],
-                    annotation["go_terms_json"],
-                    annotation["pathways_json"],
-                    annotation["raw_match_json"],
-                    annotation["raw_location_json"],
-                ),
-            )
+        _replace_annotations(connection, job["id"], job["sequence_hash"], annotations)
         connection.execute(
             """
             UPDATE jobs SET status = 'FINISHED', result_type = ?, raw_result = ?,
@@ -1396,6 +1428,413 @@ def load_jobs(
     return jobs
 
 
+# --- Condensed CSV export -------------------------------------------------
+#
+# The export is split into four linked tables so nothing is repeated:
+#   proteins   one row per unique protein sequence (isoforms sharing it are listed)
+#   matches    one row per hit location, keyed by protein_id
+#   signatures one row per member-database signature, linked to its InterPro entry
+#   entries    one row per InterPro entry, with its GO terms and pathways
+# Fields that are specific to a few databases (PANTHER subfamily nodes, PRINTS
+# motifs, PROSITE alignments, CDD sites, discontinuous fragments, ...) are kept
+# in the matches ``extra`` column as compact JSON, so no InterPro data is lost.
+
+EXPORT_TABLES = ("proteins", "matches", "signatures", "entries")
+EXPORT_COLUMNS = {
+    "proteins": [
+        "protein_id", "gene_name", "isoform_ranks", "transcript_ids", "length",
+        "status", "job_id", "completed_at", "interproscan_version",
+        "interpro_version", "sequence_hash", "protein_sequence",
+    ],
+    "matches": [
+        "protein_id", "database", "signature_accession", "model", "start", "end",
+        "score", "evalue", "seq_score", "seq_evalue", "hmm_start", "hmm_end",
+        "hmm_length", "hmm_bounds", "envelope_start", "envelope_end",
+        "representative", "extra",
+    ],
+    "signatures": [
+        "database", "database_version", "signature_accession", "signature_name",
+        "signature_description", "signature_type", "interpro_accession",
+    ],
+    "entries": [
+        "interpro_accession", "interpro_name", "interpro_description",
+        "interpro_type", "go_terms", "pathways",
+    ],
+}
+LIST_SEPARATOR = " | "
+GO_CATEGORY_CODES = {
+    "MOLECULAR_FUNCTION": "MF",
+    "BIOLOGICAL_PROCESS": "BP",
+    "CELLULAR_COMPONENT": "CC",
+}
+# Match/location keys written to dedicated columns; every other non-empty key
+# goes to ``extra``.
+_MATCH_COLUMN_KEYS = {"signature", "locations", "score", "evalue", "model-ac", "goXRefs", "source"}
+_LOCATION_COLUMN_KEYS = {
+    "start", "end", "score", "evalue", "hmmStart", "hmmEnd", "hmmLength",
+    "hmmBounds", "envelopeStart", "envelopeEnd", "representative",
+    "location-fragments", "fragments",
+}
+
+
+def _is_empty(value: Any) -> bool:
+    return value is None or value == "" or value == [] or value == {}
+
+
+def _format_go_terms(terms: Any) -> str | None:
+    labels = []
+    for term in terms or []:
+        if isinstance(term, str):
+            labels.append(term)
+            continue
+        if not isinstance(term, Mapping) or not term.get("id"):
+            continue
+        label = str(term["id"])
+        if term.get("name"):
+            label += f" {term['name']}"
+        category = str(term.get("category") or "").upper()
+        if category:
+            label += f" ({GO_CATEGORY_CODES.get(category, category)})"
+        labels.append(label)
+    return LIST_SEPARATOR.join(dict.fromkeys(labels)) or None
+
+
+def _format_pathways(pathways: Any) -> str | None:
+    labels = []
+    for pathway in pathways or []:
+        if isinstance(pathway, str):
+            labels.append(pathway)
+            continue
+        if not isinstance(pathway, Mapping) or not pathway.get("id"):
+            continue
+        label = f"{pathway.get('databaseName') or 'Pathway'}:{pathway['id']}"
+        if pathway.get("name"):
+            label += f" {pathway['name']}"
+        labels.append(label)
+    return LIST_SEPARATOR.join(sorted(dict.fromkeys(labels))) or None
+
+
+def _compact_json(value: Mapping[str, Any]) -> str | None:
+    if not value:
+        return None
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def _condense_json_result(
+    raw_result: str,
+) -> tuple[list[dict[str, Any]], dict[tuple, dict], dict[str, dict], dict[str, Any]]:
+    """Split one InterProScan JSON result into match, signature and entry records."""
+    payload = json.loads(raw_result)
+    versions = {
+        "interproscan_version": payload.get("interproscan-version"),
+        "interpro_version": payload.get("interpro-version"),
+    } if isinstance(payload, dict) else {}
+    results = payload.get("results", []) if isinstance(payload, dict) else payload
+    if isinstance(results, dict):
+        results = [results]
+
+    matches: list[dict[str, Any]] = []
+    signatures: dict[tuple, dict] = {}
+    entries: dict[str, dict] = {}
+    for result in results or []:
+        raw_matches = result.get("matches") or [] if isinstance(result, dict) else []
+        if isinstance(raw_matches, dict):
+            raw_matches = [raw_matches]
+        for match in raw_matches:
+            if not isinstance(match, dict):
+                continue
+            signature = match.get("signature") or {}
+            release = signature.get("signatureLibraryRelease") or {}
+            entry = signature.get("entry") or match.get("entry") or {}
+            database = release.get("library") or match.get("source")
+            accession = signature.get("accession") or match.get("model-ac")
+            entry_accession = entry.get("accession")
+
+            signatures[(database, accession)] = {
+                "database": database,
+                "database_version": release.get("version"),
+                "signature_accession": accession,
+                "signature_name": signature.get("name"),
+                "signature_description": signature.get("description"),
+                "signature_type": signature.get("type"),
+                "interpro_accession": entry_accession,
+            }
+            if entry_accession:
+                entries[entry_accession] = {
+                    "interpro_accession": entry_accession,
+                    "interpro_name": entry.get("name"),
+                    "interpro_description": entry.get("description"),
+                    "interpro_type": entry.get("type"),
+                    "go_terms": _format_go_terms(entry.get("goXRefs")),
+                    "pathways": _format_pathways(entry.get("pathwayXRefs")),
+                }
+
+            match_extra = {
+                key: value
+                for key, value in match.items()
+                if key not in _MATCH_COLUMN_KEYS and not _is_empty(value)
+            }
+            if match.get("source") and match["source"] != database:
+                match_extra["source"] = match["source"]
+            # Match-level GO terms (e.g. PANTHER subfamily annotations) differ
+            # from the InterPro entry's GO terms, so keep them when present.
+            match_go = _format_go_terms(match.get("goXRefs"))
+            if match_go and match_go != _format_go_terms(entry.get("goXRefs")):
+                match_extra["go_terms"] = match_go
+            model = match.get("model-ac")
+
+            locations = match.get("locations") or [{}]
+            if isinstance(locations, dict):
+                locations = [locations]
+            for location in locations:
+                if not isinstance(location, dict):
+                    location = {}
+                fragments = [
+                    fragment
+                    for fragment in (
+                        location.get("location-fragments") or location.get("fragments") or []
+                    )
+                    if isinstance(fragment, dict)
+                ]
+                start = _as_int(location.get("start"))
+                end = _as_int(location.get("end"))
+                if start is None and fragments:
+                    start = min(_as_int(f.get("start")) or 0 for f in fragments) or None
+                if end is None and fragments:
+                    end = max(_as_int(f.get("end")) or 0 for f in fragments) or None
+
+                extra = dict(match_extra)
+                extra.update(
+                    {
+                        key: value
+                        for key, value in location.items()
+                        if key not in _LOCATION_COLUMN_KEYS and not _is_empty(value)
+                    }
+                )
+                trivial_fragments = len(fragments) <= 1 and all(
+                    _as_int(f.get("start")) == start
+                    and _as_int(f.get("end")) == end
+                    and f.get("dc-status", "CONTINUOUS") == "CONTINUOUS"
+                    for f in fragments
+                )
+                if not trivial_fragments:
+                    extra["fragments"] = fragments
+
+                matches.append(
+                    {
+                        "database": database,
+                        "signature_accession": accession,
+                        "model": model if model and model != accession else None,
+                        "start": start,
+                        "end": end,
+                        "score": location.get("score"),
+                        "evalue": location.get("evalue"),
+                        "seq_score": match.get("score"),
+                        "seq_evalue": match.get("evalue"),
+                        "hmm_start": location.get("hmmStart"),
+                        "hmm_end": location.get("hmmEnd"),
+                        "hmm_length": location.get("hmmLength"),
+                        "hmm_bounds": location.get("hmmBounds"),
+                        "envelope_start": location.get("envelopeStart"),
+                        "envelope_end": location.get("envelopeEnd"),
+                        "representative": location.get("representative"),
+                        "extra": _compact_json(extra),
+                    }
+                )
+    return matches, signatures, entries, versions
+
+
+def _condense_parsed_result(
+    raw_result: str, result_type: str
+) -> tuple[list[dict[str, Any]], dict[tuple, dict], dict[str, dict], dict[str, Any]]:
+    """Fallback for TSV/XML results, using the generic parsed annotation rows."""
+    matches: list[dict[str, Any]] = []
+    signatures: dict[tuple, dict] = {}
+    entries: dict[str, dict] = {}
+    for row in _parse_result(raw_result, result_type):
+        database, accession = row["member_database"], row["signature_accession"]
+        signatures[(database, accession)] = {
+            "database": database,
+            "signature_accession": accession,
+            "signature_description": row["signature_description"],
+            "interpro_accession": row["interpro_accession"],
+        }
+        if row["interpro_accession"]:
+            entries[row["interpro_accession"]] = {
+                "interpro_accession": row["interpro_accession"],
+                "interpro_description": row["interpro_description"],
+                "interpro_type": row["entry_type"],
+                "go_terms": _format_go_terms(json.loads(row["go_terms_json"])),
+                "pathways": _format_pathways(json.loads(row["pathways_json"])),
+            }
+        matches.append(
+            {
+                "database": database,
+                "signature_accession": accession,
+                "start": row["start"],
+                "end": row["end"],
+                "score": row["score"],
+                "evalue": row["evalue"],
+                "extra": row["raw_match_json"],
+            }
+        )
+    return matches, signatures, entries, {}
+
+
+def build_condensed_export(
+    db_path: str | Path = DEFAULT_DB_PATH,
+    *,
+    gene_name: str | None = None,
+) -> dict[str, pd.DataFrame]:
+    """Build the four linked export tables (see EXPORT_TABLES) from raw results.
+
+    Every isoform mapped in the database is listed in ``proteins`` (with its job
+    status), including proteins with no hits or jobs that have not finished.
+    """
+    initialize_database(db_path)
+    with _database(db_path) as connection:
+        isoform_rows = connection.execute(
+            """
+            SELECT i.sequence_hash, i.gene_name, i.isoform_rank, i.transcript_id,
+                   s.protein_sequence
+            FROM isoforms AS i JOIN sequences AS s USING (sequence_hash)
+            ORDER BY i.gene_name, i.isoform_rank, i.transcript_id
+            """
+        ).fetchall()
+        jobs = connection.execute("SELECT * FROM jobs ORDER BY id").fetchall()
+        names_by_hash = _sequence_names_by_hash(connection)
+
+    isoforms_by_hash: dict[str, list[sqlite3.Row]] = {}
+    for row in isoform_rows:
+        isoforms_by_hash.setdefault(row["sequence_hash"], []).append(row)
+    if gene_name is not None:
+        wanted = gene_name.casefold()
+        isoforms_by_hash = {
+            sequence_hash: rows
+            for sequence_hash, rows in isoforms_by_hash.items()
+            if any(str(row["gene_name"]).casefold() == wanted for row in rows)
+        }
+
+    latest_job: dict[str, sqlite3.Row] = {}
+    latest_finished: dict[str, sqlite3.Row] = {}
+    for job in jobs:
+        latest_job[job["sequence_hash"]] = job
+        if job["status"] == "FINISHED" and job["raw_result"]:
+            latest_finished[job["sequence_hash"]] = job
+
+    records: dict[str, list[dict]] = {table: [] for table in EXPORT_TABLES}
+    signatures: dict[tuple, dict] = {}
+    entries: dict[str, dict] = {}
+    used_ids: set[str] = set()
+    for sequence_hash, rows in isoforms_by_hash.items():
+        protein_id = names_by_hash.get(sequence_hash, (f"protseq-{sequence_hash[:12]}",))[0]
+        protein_id = protein_id.removeprefix("protseq-")
+        if protein_id in used_ids:
+            protein_id = f"{protein_id}-{sequence_hash[:8]}"
+        used_ids.add(protein_id)
+
+        genes = list(dict.fromkeys(str(row["gene_name"]) for row in rows))
+        ranks = [
+            str(row["isoform_rank"]) if len(genes) == 1
+            else f"{row['gene_name']}:{row['isoform_rank']}"
+            for row in rows
+        ]
+        job = latest_finished.get(sequence_hash) or latest_job.get(sequence_hash)
+        versions: dict[str, Any] = {}
+        if sequence_hash in latest_finished:
+            result_type = job["result_type"] or "json"
+            if result_type.casefold() == "json":
+                condensed = _condense_json_result(job["raw_result"])
+            else:
+                condensed = _condense_parsed_result(job["raw_result"], result_type)
+            protein_matches, protein_signatures, protein_entries, versions = condensed
+            for match in protein_matches:
+                records["matches"].append({"protein_id": protein_id, **match})
+            signatures.update(protein_signatures)
+            entries.update(protein_entries)
+
+        records["proteins"].append(
+            {
+                "protein_id": protein_id,
+                "gene_name": ";".join(genes),
+                "isoform_ranks": ";".join(ranks),
+                "transcript_ids": ";".join(str(row["transcript_id"]) for row in rows),
+                "length": len(rows[0]["protein_sequence"]),
+                "status": job["status"] if job is not None else "NOT_SUBMITTED",
+                "job_id": job["job_id"] if job is not None else None,
+                "completed_at": job["completed_at"] if job is not None else None,
+                **versions,
+                "sequence_hash": sequence_hash,
+                "protein_sequence": rows[0]["protein_sequence"],
+            }
+        )
+
+    records["signatures"] = sorted(
+        signatures.values(),
+        key=lambda row: (str(row["database"]), str(row["signature_accession"])),
+    )
+    records["entries"] = [entries[accession] for accession in sorted(entries)]
+
+    tables = {
+        table: pd.DataFrame(records[table], columns=EXPORT_COLUMNS[table])
+        for table in EXPORT_TABLES
+    }
+    integer_columns = ["start", "end", "hmm_start", "hmm_end", "hmm_length", "envelope_start", "envelope_end"]
+    tables["matches"][integer_columns] = (
+        tables["matches"][integer_columns].apply(pd.to_numeric, errors="coerce").astype("Int64")
+    )
+    protein_order = {pid: index for index, pid in enumerate(tables["proteins"]["protein_id"])}
+    tables["matches"] = (
+        tables["matches"]
+        .assign(_order=tables["matches"]["protein_id"].map(protein_order))
+        .sort_values(["_order", "start", "end", "database"], kind="stable")
+        .drop(columns="_order")
+        .reset_index(drop=True)
+    )
+    return tables
+
+
+def _export_output_paths(gene_name: str | None) -> dict[str, Path]:
+    if gene_name:
+        label = re.sub(r"[^A-Za-z0-9._-]+", "_", gene_name).strip("._-") or "gene"
+    else:
+        label = "all_genes"
+    return {table: EXPORT_FOLDER / f"interproscan_{label}_{table}.csv" for table in EXPORT_TABLES}
+
+
+def read_condensed_export(path: str | Path) -> pd.DataFrame:
+    """Read an exported table set back into one row per transcript and hit.
+
+    ``path`` may be any of the four CSVs; its siblings are found by name. The
+    result has the transcript, protein, location, signature and InterPro entry
+    columns side by side (the long format used by the visualisation code).
+    """
+    path = Path(path)
+    prefix = path.name
+    for table in EXPORT_TABLES:
+        prefix = prefix.removesuffix(f"_{table}.csv")
+    tables = {
+        table: pd.read_csv(path.with_name(f"{prefix}_{table}.csv"), dtype=str, keep_default_na=False)
+        .replace("", pd.NA)
+        for table in EXPORT_TABLES
+    }
+    isoforms = tables["proteins"][["protein_id", "gene_name", "isoform_ranks", "transcript_ids", "protein_sequence"]].copy()
+    isoforms["transcript_id"] = isoforms["transcript_ids"].str.split(";")
+    isoforms["isoform_rank"] = isoforms["isoform_ranks"].str.split(";")
+    isoforms = isoforms.explode(["transcript_id", "isoform_rank"]).drop(
+        columns=["transcript_ids", "isoform_ranks"]
+    )
+    expanded = (
+        tables["matches"]
+        .merge(isoforms, on="protein_id", how="left")
+        .merge(tables["signatures"], on=["database", "signature_accession"], how="left")
+        .merge(tables["entries"], on="interpro_accession", how="left")
+    )
+    for column in ("start", "end"):
+        expanded[column] = pd.to_numeric(expanded[column], errors="coerce")
+    return expanded
+
+
 def _pipeline_proteins(
     gene_name: str,
     isoform_numbers: list[int],
@@ -1518,16 +1957,6 @@ def _run_interactive() -> int:
             return result
 
 
-def _export_output_path(gene_name: str | None) -> Path:
-    if gene_name:
-        gene_label = re.sub(r"[^A-Za-z0-9._-]+", "_", gene_name).strip("._-")
-        gene_label = gene_label or "gene"
-    else:
-        gene_label = "all_genes"
-
-    return EXPORT_FOLDER / f"interproscan_annotations_{gene_label}.csv"
-
-
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Submit pipeline protein isoforms to InterProScan and retrieve results later."
@@ -1617,11 +2046,14 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     gene_filter = args.gene.strip() if args.gene and args.gene.strip() else None
-    annotations = load_annotations(args.db, gene_name=gene_filter)
-    output = _export_output_path(gene_filter)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    annotations.to_csv(output, index=False)
-    print(f"Exported {len(annotations)} annotation rows to {output}")
+    # Re-parse stored raw results so earlier parser fixes reach the database too.
+    reparse_stored_results(args.db)
+    tables = build_condensed_export(args.db, gene_name=gene_filter)
+    outputs = _export_output_paths(gene_filter)
+    EXPORT_FOLDER.mkdir(parents=True, exist_ok=True)
+    for table, frame in tables.items():
+        frame.to_csv(outputs[table], index=False)
+        print(f"Exported {len(frame)} {table} rows to {outputs[table]}")
     return 0
 
 

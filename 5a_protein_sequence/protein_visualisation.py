@@ -55,6 +55,7 @@ from submitting_to_InterPro import (
     DEFAULT_DB_PATH,
     load_annotations,
     load_completed_isoforms,
+    read_condensed_export,
 )
 
 GTF_PATH = ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms.gtf"
@@ -90,11 +91,11 @@ def _find_annotation_csv(
     candidates = []
     for candidate_gene in (gene_name, entered_gene):
         candidate = CSV_FOLDER / (
-            f"interproscan_annotations_{_safe_gene_token(candidate_gene)}.csv"
+            f"interproscan_{_safe_gene_token(candidate_gene)}_matches.csv"
         )
         if candidate not in candidates:
             candidates.append(candidate)
-    candidates.append(CSV_FOLDER / "interproscan_annotations_all_genes.csv")
+    candidates.append(CSV_FOLDER / "interproscan_all_genes_matches.csv")
 
     for candidate in candidates:
         if candidate.is_file():
@@ -556,7 +557,7 @@ def plot_gene(
     if csv_path is None:
         annotations = load_annotations(db_path, gene_name=gene_name)
     else:
-        annotations = pd.read_csv(csv_path, low_memory=False)
+        annotations = read_condensed_export(csv_path)
     required_columns = {"transcript_id", "protein_sequence", "start", "end"}
     missing_columns = required_columns - set(annotations.columns)
     if missing_columns:

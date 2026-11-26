@@ -1,0 +1,272 @@
+protein_id,database,signature_accession,model,start,end,score,evalue,seq_score,seq_evalue,hmm_start,hmm_end,hmm_length,hmm_bounds,envelope_start,envelope_end,representative,extra
+mef2c-Iso-1-4,SMART,SM00432,,1,49,93.6,2.3e-23,93.6,2.3e-23,1,60,60,COMPLETE,,,False,
+mef2c-Iso-1-4,PROSITE profiles,PS50066,,1,50,23.67473,,,,,,,,,,False,"{""alignment"":""-----------MDERNRQVTFTKRKFGLMKKAYELSVLCDCEIALIIFNSTNKLFQYASTD"",""cigarAlignment"":""11D50M""}"
+mef2c-Iso-1-4,CDD,cd00265,,1,67,117.653,7.75021e-33,,,,,,,,,False,"{""sites"":[{""description"":""putative phosphorylation site"",""numLocations"":1,""siteLocations"":[{""end"":48,""residue"":""S"",""start"":48}]},{""description"":""dimerization interface"",""numLocations"":19,""siteLocations"":[{""end"":10,""residue"":""F"",""start"":10},{""end"":17,""residue"":""L"",""start"":17},{""end"":18,""residue"":""M"",""start"":18},{""end"":21,""residue"":""A"",""start"":21},{""end"":22,""residue"":""Y"",""start"":22},{""end"":24,""residue"":""L"",""start"":24},{""end"":25,""residue"":""S"",""start"":25},{""end"":28,""residue"":""C"",""start"":28},{""end"":33,""residue"":""A"",""start"":33},{""end"":35,""residue"":""I"",""start"":35},{""end"":37,""residue"":""F"",""start"":37},{""end"":43,""residue"":""L"",""start"":43},{""end"":45,""residue"":""Q"",""start"":45},{""end"":58,""residue"":""Y"",""start"":58},{""end"":51,""residue"":""M"",""start"":51},{""end"":54,""residue"":""V"",""start"":54},{""end"":55,""residue"":""L"",""start"":55},{""end"":61,""residue"":""Y"",""start"":61},{""end"":62,""residue"":""N"",""start"":62}]}]}"
+mef2c-Iso-1-4,Pfam,PF00319,,2,46,80.0,2.1e-19,80.8,1.2e-19,4,48,48,C_TERMINAL_COMPLETE,1,46,False,
+mef2c-Iso-1-4,SUPERFAMILY,SSF55455,0041235,2,78,,1.44e-25,,,,,93,,,,False,
+mef2c-Iso-1-4,PANTHER,PTHR11945,PTHR11945:SF534,2,81,87.3,3.5e-21,87.3,3.5e-21,12,85,130,INCOMPLETE,1,228,True,"{""ancestralNode"":""AN34"",""go_terms"":""GO:0000981 DNA-binding transcription factor activity, RNA polymerase II-specific (MF) | GO:0006357 regulation of transcription by RNA polymerase II (BP) | GO:0000978 RNA polymerase II cis-regulatory region sequence-specific DNA binding (MF) | GO:0030154 cell differentiation (BP) | GO:0042826 histone deacetylase binding (MF) | GO:0045944 positive regulation of transcription by RNA polymerase II (BP)"",""graftPoint"":""PTN002485166"",""name"":""MADS BOX PROTEIN""}"
+mef2c-Iso-1-4,CATH-Gene3D,G3DSA:3.40.1810.10,6byyD01,2,83,114.4,7.6e-33,115.6,3.4e-33,1,79,83,N_TERMINAL_COMPLETE,2,83,True,
+mef2c-Iso-1-4,CATH-FunFam,G3DSA:3.40.1810.10:FF:000001,3.40.1810.10-FF-000001,2,84,181.8,5.1e-54,182.5,3.2e-54,1,82,83,N_TERMINAL_COMPLETE,2,84,False,
+mef2c-Iso-1-4,PRINTS,PR00404,,12,27,1.47e-10,,,1e-15,,,,,,,False,"{""graphscan"":"".II"",""motifNumber"":2,""pvalue"":77.98}"
+mef2c-Iso-1-4,PRINTS,PR00404,,27,48,3.07e-12,,,1e-15,,,,,,,False,"{""graphscan"":"".II"",""motifNumber"":3,""pvalue"":54.67}"
+mef2c-Iso-1-4,MobiDB-lite,mobidb-lite,,80,107,,,,,,,,,,,False,
+mef2c-Iso-1-4,Pfam,PF12347,,84,143,63.6,3.5e-14,66.6,4.2e-15,1,59,60,N_TERMINAL_COMPLETE,84,144,True,
+mef2c-Iso-1-4,MobiDB-lite,mobidb-lite,,169,213,,,,,,,,,,,False,
+mef2c-Iso-1-4,MobiDB-lite,mobidb-lite,,364,379,,,,,,,,,,,False,"{""sequence-feature"":""Polar""}"
+mef2c-Iso-1-4,MobiDB-lite,mobidb-lite,,364,462,,,,,,,,,,,False,
+mef2c-Iso-1-4,MobiDB-lite,mobidb-lite,,408,421,,,,,,,,,,,False,"{""sequence-feature"":""Low complexity""}"
+mef2c-Iso-1-4,MobiDB-lite,mobidb-lite,,422,432,,,,,,,,,,,False,"{""sequence-feature"":""Polyampholyte""}"
+mef2c-Iso-2,SMART,SM00432,,1,49,93.6,2.3e-23,93.6,2.3e-23,1,60,60,COMPLETE,,,False,
+mef2c-Iso-2,PROSITE profiles,PS50066,,1,50,23.67473,,,,,,,,,,False,"{""alignment"":""-----------MDERNRQVTFTKRKFGLMKKAYELSVLCDCEIALIIFNSTNKLFQYASTD"",""cigarAlignment"":""11D50M""}"
+mef2c-Iso-2,CDD,cd00265,,1,67,117.653,5.07978e-33,,,,,,,,,False,"{""sites"":[{""description"":""putative phosphorylation site"",""numLocations"":1,""siteLocations"":[{""end"":48,""residue"":""S"",""start"":48}]},{""description"":""dimerization interface"",""numLocations"":19,""siteLocations"":[{""end"":10,""residue"":""F"",""start"":10},{""end"":17,""residue"":""L"",""start"":17},{""end"":18,""residue"":""M"",""start"":18},{""end"":21,""residue"":""A"",""start"":21},{""end"":22,""residue"":""Y"",""start"":22},{""end"":24,""residue"":""L"",""start"":24},{""end"":25,""residue"":""S"",""start"":25},{""end"":28,""residue"":""C"",""start"":28},{""end"":33,""residue"":""A"",""start"":33},{""end"":35,""residue"":""I"",""start"":35},{""end"":37,""residue"":""F"",""start"":37},{""end"":43,""residue"":""L"",""start"":43},{""end"":45,""residue"":""Q"",""start"":45},{""end"":51,""residue"":""M"",""start"":51},{""end"":54,""residue"":""V"",""start"":54},{""end"":55,""residue"":""L"",""start"":55},{""end"":58,""residue"":""Y"",""start"":58},{""end"":61,""residue"":""Y"",""start"":61},{""end"":62,""residue"":""N"",""start"":62}]}]}"
+mef2c-Iso-2,Pfam,PF00319,,2,46,80.1,1.9e-19,80.9,1.1e-19,4,48,48,C_TERMINAL_COMPLETE,1,46,False,
+mef2c-Iso-2,SUPERFAMILY,SSF55455,0041235,2,78,,1.28e-25,,,,,93,,,,False,
+mef2c-Iso-2,PANTHER,PTHR11945,,2,81,87.5,3e-21,87.9,2.3e-21,12,85,130,INCOMPLETE,1,229,True,"{""name"":""MADS BOX PROTEIN""}"
+mef2c-Iso-2,CATH-Gene3D,G3DSA:3.40.1810.10,6byyD01,2,83,114.6,6.8e-33,115.7,3e-33,1,79,83,N_TERMINAL_COMPLETE,2,83,True,
+mef2c-Iso-2,CATH-FunFam,G3DSA:3.40.1810.10:FF:000001,3.40.1810.10-FF-000001,2,84,182.0,4.6e-54,182.6,2.9e-54,1,82,83,N_TERMINAL_COMPLETE,2,84,False,
+mef2c-Iso-2,PRINTS,PR00404,,12,27,77.98,,,8.9e-16,,,,,,,False,"{""graphscan"":"".II"",""motifNumber"":2,""pvalue"":1.38e-10}"
+mef2c-Iso-2,PRINTS,PR00404,,27,48,54.67,,,8.9e-16,,,,,,,False,"{""graphscan"":"".II"",""motifNumber"":3,""pvalue"":2.88e-12}"
+mef2c-Iso-2,MobiDB-lite,mobidb-lite,,80,107,,,,,,,,,,,False,
+mef2c-Iso-2,Pfam,PF12347,,84,143,63.7,3.2e-14,66.7,3.8e-15,1,59,60,N_TERMINAL_COMPLETE,84,144,True,
+mef2c-Iso-2,MobiDB-lite,mobidb-lite,,169,213,,,,,,,,,,,False,
+mef2c-Iso-2,MobiDB-lite,mobidb-lite,,347,430,,,,,,,,,,,False,
+mef2c-Iso-2,MobiDB-lite,mobidb-lite,,351,366,,,,,,,,,,,False,"{""sequence-feature"":""Polar""}"
+mef2c-Iso-2,MobiDB-lite,mobidb-lite,,376,389,,,,,,,,,,,False,"{""sequence-feature"":""Low complexity""}"
+mef2c-Iso-2,MobiDB-lite,mobidb-lite,,390,400,,,,,,,,,,,False,"{""sequence-feature"":""Polyampholyte""}"
+mef2c-Iso-3,Phobius,NON_CYTOPLASMIC_DOMAIN,,1,11,,,,,,,,,,,False,
+mef2c-Iso-3,Phobius,TRANSMEMBRANE,,12,32,,,,,,,,,,,False,
+mef2c-Iso-3,Phobius,CYTOPLASMIC_DOMAIN,,33,102,,,,,,,,,,,False,
+mef2c-Iso-8,SMART,SM00432,,1,49,93.6,2.3e-23,93.6,2.3e-23,1,60,60,COMPLETE,,,False,
+mef2c-Iso-8,PROSITE profiles,PS50066,,1,50,23.67473,,,,,,,,,,False,"{""alignment"":""-----------MDERNRQVTFTKRKFGLMKKAYELSVLCDCEIALIIFNSTNKLFQYASTD"",""cigarAlignment"":""11D50M""}"
+mef2c-Iso-8,CDD,cd00265,,1,67,117.653,2.04563e-34,,,,,,,,,False,"{""sites"":[{""description"":""putative phosphorylation site"",""numLocations"":1,""siteLocations"":[{""end"":48,""residue"":""S"",""start"":48}]},{""description"":""dimerization interface"",""numLocations"":19,""siteLocations"":[{""end"":10,""residue"":""F"",""start"":10},{""end"":17,""residue"":""L"",""start"":17},{""end"":18,""residue"":""M"",""start"":18},{""end"":21,""residue"":""A"",""start"":21},{""end"":22,""residue"":""Y"",""start"":22},{""end"":24,""residue"":""L"",""start"":24},{""end"":25,""residue"":""S"",""start"":25},{""end"":28,""residue"":""C"",""start"":28},{""end"":33,""residue"":""A"",""start"":33},{""end"":35,""residue"":""I"",""start"":35},{""end"":37,""residue"":""F"",""start"":37},{""end"":43,""residue"":""L"",""start"":43},{""end"":45,""residue"":""Q"",""start"":45},{""end"":51,""residue"":""M"",""start"":51},{""end"":54,""residue"":""V"",""start"":54},{""end"":55,""residue"":""L"",""start"":55},{""end"":58,""residue"":""Y"",""start"":58},{""end"":61,""residue"":""Y"",""start"":61},{""end"":62,""residue"":""N"",""start"":62}]}]}"
+mef2c-Iso-8,Pfam,PF00319,,2,46,81.1,9.8e-20,81.9,5.5e-20,4,48,48,C_TERMINAL_COMPLETE,1,46,False,
+mef2c-Iso-8,SUPERFAMILY,SSF55455,0041235,2,79,,5.62e-26,,,,,93,,,,False,
+mef2c-Iso-8,PANTHER,PTHR11945,,2,81,89.1,1e-21,89.1,1e-21,12,85,130,INCOMPLETE,1,227,True,"{""name"":""MADS BOX PROTEIN""}"
+mef2c-Iso-8,CATH-Gene3D,G3DSA:3.40.1810.10,6byyD01,2,83,115.7,3e-33,116.6,1.6e-33,1,79,83,N_TERMINAL_COMPLETE,2,83,True,
+mef2c-Iso-8,CATH-FunFam,G3DSA:3.40.1810.10:FF:000001,3.40.1810.10-FF-000001,2,84,183.2,2e-54,183.8,1.3e-54,1,82,83,N_TERMINAL_COMPLETE,2,84,False,
+mef2c-Iso-8,PRINTS,PR00404,,12,27,77.98,,,4.1e-16,,,,,,,False,"{""graphscan"":"".II"",""motifNumber"":2,""pvalue"":9.39e-11}"
+mef2c-Iso-8,PRINTS,PR00404,,27,48,54.67,,,4.1e-16,,,,,,,False,"{""graphscan"":"".II"",""motifNumber"":3,""pvalue"":1.96e-12}"
+mef2c-Iso-8,MobiDB-lite,mobidb-lite,,80,107,,,,,,,,,,,False,
+mef2c-Iso-8,Pfam,PF12347,,84,143,64.8,1.5e-14,66.5,4.2e-15,1,59,60,N_TERMINAL_COMPLETE,84,144,True,
+mef2c-Iso-8,MobiDB-lite,mobidb-lite,,169,217,,,,,,,,,,,False,
+nrxn1-Iso-1,Phobius,SIGNAL_PEPTIDE_N_REGION,,1,9,,,,,,,,,,,False,
+nrxn1-Iso-1,Phobius,SIGNAL_PEPTIDE,,1,25,,,,,,,,,,,False,
+nrxn1-Iso-1,Phobius,SIGNAL_PEPTIDE_H_REGION,,10,21,,,,,,,,,,,False,
+nrxn1-Iso-1,SUPERFAMILY,SSF49899,0038386,10,190,,1.58e-32,,,,,191,,,,False,
+nrxn1-Iso-1,Phobius,SIGNAL_PEPTIDE_C_REGION,,22,25,,,,,,,,,,,False,
+nrxn1-Iso-1,Phobius,NON_CYTOPLASMIC_DOMAIN,,26,1402,,,,,,,,,,,False,
+nrxn1-Iso-1,CDD,cd00110,,30,190,117.134,9.66546e-31,,,,,,,,,False,
+nrxn1-Iso-1,PROSITE profiles,PS50025,,30,217,32.712009,,,,,,,,,,True,"{""alignment"":""GLEFPGAEGQWTRFPKWNACC-ESEMSFQLKTRSARGLVLYFDDEGFCDFLELILtRGGRLQLSFSIFCAEPATLLADTPVNDGAWHSVRIRRQFRNTTLFIDQVEAKWVEVKSKRRDMTVFSGLFVGGLPPELRAAalkltlaSVREREPFKGWIRDVRVNSSQVLPVDSGEVKlddepPNSGGGspC"",""cigarAlignment"":""21M1D33M1I81M7I31M5I6M2I1M""}"
+nrxn1-Iso-1,CATH-FunFam,G3DSA:2.60.120.200:FF:000014,2.60.120.200-FF-000014,32,200,329.1,1.6e-98,476.7,7.1e-144,1,167,168,N_TERMINAL_COMPLETE,32,200,False,
+nrxn1-Iso-1,CATH-Gene3D,G3DSA:2.60.120.200,3qcwA02,32,200,102.1,1.2e-28,750.7,2e-227,11,176,195,INCOMPLETE,32,200,False,
+nrxn1-Iso-1,SMART,SM00282,,50,192,118.7,6.6e-31,719.2,1.1e-211,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-1,Pfam,PF02210,,58,191,79.5,9.5e-19,523.2,4.7e-156,1,125,126,N_TERMINAL_COMPLETE,58,192,False,
+nrxn1-Iso-1,MobiDB-lite,mobidb-lite,,198,221,,,,,,,,,,,False,
+nrxn1-Iso-1,SMART,SM00181,,216,256,15.9,5.7,54.6,1.3e-11,1,32,32,COMPLETE,,,True,
+nrxn1-Iso-1,PROSITE profiles,PS50026,,219,256,12.243384,,,,,,,,,,False,"{""alignment"":""AGEEGEgGVCLNGGVCSVVDD--QAVCDCSRtGFRGKDCS"",""cigarAlignment"":""6M1I14M2D8M1I8M""}"
+nrxn1-Iso-1,CATH-FunFam,G3DSA:2.10.25.10:FF:000167,2.10.25.10-FF-000167,221,258,85.5,4.6e-24,96.7,1.4e-27,1,38,38,COMPLETE,221,258,False,
+nrxn1-Iso-1,CATH-Gene3D,G3DSA:2.10.25.10,3asiA02,221,258,29.8,1.6e-06,135.2,2e-39,10,40,42,INCOMPLETE,221,258,False,
+nrxn1-Iso-1,CATH-FunFam,G3DSA:2.60.120.200:FF:000001,2.60.120.200-FF-000001,277,468,428.5,1.2e-128,535.4,2e-161,1,191,192,N_TERMINAL_COMPLETE,277,468,False,
+nrxn1-Iso-1,CATH-Gene3D,G3DSA:2.60.120.200,2h0bC00,277,468,189.3,2e-55,722.7,4.6e-219,3,183,184,INCOMPLETE,277,468,True,
+nrxn1-Iso-1,PANTHER,PTHR15036,PTHR15036:SF51,280,713,420.3,6e-122,420.3,6e-122,206,636,1135,INCOMPLETE,259,714,True,"{""ancestralNode"":""AN103"",""graftPoint"":""PTN004467706"",""name"":""PIKACHURIN-LIKE PROTEIN""}"
+nrxn1-Iso-1,SUPERFAMILY,SSF49899,0047109,281,450,,2.42e-34,,,,,218,,,,False,
+nrxn1-Iso-1,PROSITE profiles,PS50025,,283,473,36.600609,,,,,,,,,,False,"{""alignment"":""IATFKGSEYFCYDLSQNPIQSSSDEITLSFKTLQRNGLMLHTG--KSADYVNLALKNGAVSLVINLGSGAFEALVEPvnGKFNDNAWHDVKVTRNLRQHsgighamvTISVDGILTTTGYTQEDYTMLGSDDFFYVGGSPSTADLPGSPVSNNFMGCLKEVVYKNNDVRLELSRLAKqgdpkmkiHGVVAFkC"",""cigarAlignment"":""43M2D32M2I20M8I70M8I6M1I1M""}"
+nrxn1-Iso-1,CDD,cd00110,,284,443,116.749,1.42371e-30,,,,,,,,,False,
+nrxn1-Iso-1,SMART,SM00282,,304,446,123.6,2.2e-32,719.2,1.1e-211,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-1,Pfam,PF02210,,312,445,94.7,1.9e-23,523.2,4.7e-156,1,125,126,N_TERMINAL_COMPLETE,312,446,False,
+nrxn1-Iso-1,SUPERFAMILY,SSF49899,0046423,467,672,,6.06e-37,,,,,189,,,,True,
+nrxn1-Iso-1,CATH-FunFam,G3DSA:2.60.120.200:FF:000005,2.60.120.200-FF-000005,478,672,384.5,2.8e-115,560.0,4.8e-169,1,195,195,COMPLETE,478,672,False,
+nrxn1-Iso-1,CATH-Gene3D,G3DSA:2.60.120.200,3qcwA02,478,672,212.9,1.3e-62,750.7,2e-227,2,195,195,C_TERMINAL_COMPLETE,478,672,False,
+nrxn1-Iso-1,PROSITE profiles,PS50025,,480,672,43.035965,,,,,,,,,,False,"{""alignment"":""DPITFETPESFISLPKWNAKK-TGSISFDFRTTEPNGLILFSHGKprhqkdakhpqmIKVDFFAIEMLDGHLYLLLDMGSGTIKIKALLKKVNDGEWYHVDFQRDGRSGTISVN-TLRTPYTAPGESEILDLDDELYLGGLPENKAGLvfptevwTALLNYGYVGCIRDLFIDGQSKDIRQMAEVQstAGVKPSC"",""cigarAlignment"":""21M1D23M12I57M1D33M7I31M2I7M""}"
+nrxn1-Iso-1,CDD,cd00110,,481,650,139.476,1.35893e-38,,,,,,,,,False,
+nrxn1-Iso-1,SMART,SM00282,,500,652,156.1,3.7e-42,719.2,1.1e-211,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-1,Pfam,PF02210,,508,652,94.3,2.6e-23,523.2,4.7e-156,1,126,126,COMPLETE,508,652,False,
+nrxn1-Iso-1,CATH-FunFam,G3DSA:2.10.25.10:FF:000029,2.10.25.10-FF-000029,673,713,81.5,1.2e-22,123.2,1.1e-35,1,41,41,COMPLETE,673,713,False,
+nrxn1-Iso-1,CATH-Gene3D,G3DSA:2.10.25.10,3qcwA03,673,713,69.9,5.8e-19,117.3,9.4e-34,2,42,43,INCOMPLETE,673,715,True,
+nrxn1-Iso-1,PROSITE profiles,PS50026,,676,713,17.461628,,,,,,,,,,False,"{""alignment"":""TAKPCLsNPCKNNGMCRDGWN--RYVCDCSgTGYLGRSCE"",""cigarAlignment"":""6M1I14M2D7M1I9M""}"
+nrxn1-Iso-1,SMART,SM00181,,679,713,27.3,0.0021,54.6,1.3e-11,1,32,32,COMPLETE,,,False,
+nrxn1-Iso-1,Pfam,PF00008,,680,707,24.3,0.096,45.0,3.2e-08,1,28,32,N_TERMINAL_COMPLETE,680,710,False,
+nrxn1-Iso-1,CDD,cd00054,,680,713,48.0166,8.07381e-08,,,,,,,,,False,
+nrxn1-Iso-1,SUPERFAMILY,SSF49899,0038386,684,875,,9.98e-38,,,,,191,,,,False,
+nrxn1-Iso-1,PROSITE patterns,PS00010,,691,702,,,,,,,,,,,False,"{""alignment"":""CrDgwnrYvCdC"",""cigarAlignment"":""1M1I1M4I1M1I1M1I1M""}"
+nrxn1-Iso-1,CATH-FunFam,G3DSA:2.60.120.200:FF:000007,2.60.120.200-FF-000007,714,901,411.7,9.3e-124,488.9,2e-147,1,188,188,COMPLETE,714,901,False,
+nrxn1-Iso-1,CATH-Gene3D,G3DSA:2.60.120.200,2r16A00,714,901,167.1,1.2e-48,759.8,1.6e-230,3,182,182,C_TERMINAL_COMPLETE,712,902,True,
+nrxn1-Iso-1,CDD,cd00110,,718,875,80.9252,4.38099e-18,,,,,,,,,False,
+nrxn1-Iso-1,PROSITE profiles,PS50025,,718,891,27.098186,,,,,,,,,,False,"{""alignment"":""VLSYDGSMFMKIQLPVVMHT-EAEDVSLRFRSQRAYGILMATTSRDSADTLRLELDAGRVKLTVNldcirincNSSKGPETLFAGYNLNDNEWHTVRVVRRGKSLKLTVDDQQAMTGQMAGDHTRlefhnietGIITERRYLSSVP-----------SNFIGHLQSLTFNgMAYIDLCKNGD----IDY-C"",""cigarAlignment"":""20M1D44M8I52M8I13M11D13M1I11M4D3M1D1M""}"
+nrxn1-Iso-1,SMART,SM00282,,738,877,97.8,1.3e-24,719.2,1.1e-211,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-1,Pfam,PF02210,,746,876,69.7,1e-15,523.2,4.7e-156,1,125,126,N_TERMINAL_COMPLETE,746,877,False,
+nrxn1-Iso-1,SUPERFAMILY,SSF49899,0038386,879,1059,,8.01e-37,,,,,191,,,,False,
+nrxn1-Iso-1,CATH-FunFam,G3DSA:2.60.120.200:FF:000004,2.60.120.200-FF-000004,902,1081,353.0,7.9e-106,543.5,2.6e-164,1,180,180,COMPLETE,902,1081,False,
+nrxn1-Iso-1,CATH-Gene3D,G3DSA:2.60.120.200,3asiA01,902,1081,200.3,8.5e-59,722.7,4.3e-219,2,181,182,INCOMPLETE,900,1081,True,
+nrxn1-Iso-1,PROSITE profiles,PS50025,,905,1080,41.557201,,,,,,,,,,False,"{""alignment"":""DPVTFKTKSSYVALATLQAY-TSMHLFFQFKTTSLDGLILYNSG-DGNDFIVVELVKGYLHYVFDLGNGANLIKgSSNKPLNDNQWHNVMISRDTSNLhTVKID--TKITTQITAGARNLDLKSDLYIGGVAKETYKSlpkLVHAKEGFQGCLASVDLNGRLPDLISDALFCnGQIERGC"",""cigarAlignment"":""20M1D23M1D29M1I23M1I5M2D32M3I31M1I7M""}"
+nrxn1-Iso-1,CDD,cd00110,,906,1059,117.904,5.89884e-31,,,,,,,,,False,
+nrxn1-Iso-1,SMART,SM00282,,925,1061,130.8,1.5e-34,719.2,1.1e-211,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-1,Pfam,PF02210,,933,1061,108.2,1.3e-27,523.2,4.7e-156,1,126,126,COMPLETE,933,1061,False,
+nrxn1-Iso-1,CATH-Gene3D,G3DSA:2.10.25.10,3asiA02,1082,1118,67.1,3.8e-18,135.2,2e-39,1,42,42,COMPLETE,1082,1123,True,
+nrxn1-Iso-1,CATH-FunFam,G3DSA:2.10.25.10:FF:000015,2.10.25.10-FF-000015,1082,1121,76.4,4.5e-21,123.0,1.2e-35,1,40,41,N_TERMINAL_COMPLETE,1082,1122,False,
+nrxn1-Iso-1,PROSITE profiles,PS50026,,1083,1120,14.062479,,,,,,,,,,False,"{""alignment"":""PSTTCQeDSCSNQGVCLQQWD--GFSCDCSMtSFSGPLCN"",""cigarAlignment"":""6M1I14M2D8M1I8M""}"
+nrxn1-Iso-1,SMART,SM00181,,1086,1120,11.4,25.0,54.6,1.3e-11,1,32,32,COMPLETE,,,False,
+nrxn1-Iso-1,SUPERFAMILY,SSF49899,0038386,1092,1273,,4.75e-35,,,,,191,,,,False,
+nrxn1-Iso-1,CATH-Gene3D,G3DSA:2.60.120.200,3b3qE00,1119,1307,209.1,1.8e-61,806.9,1.2e-244,8,192,197,INCOMPLETE,1114,1307,True,
+nrxn1-Iso-1,CATH-FunFam,G3DSA:2.60.120.200:FF:000003,2.60.120.200-FF-000003,1122,1242,231.3,3.1e-68,436.8,4e-131,1,121,210,N_TERMINAL_COMPLETE,1121,1242,False,
+nrxn1-Iso-1,CDD,cd00110,,1125,1273,95.1776,4.58154e-23,,,,,,,,,False,
+nrxn1-Iso-1,PROSITE profiles,PS50025,,1126,1294,25.04435,,,,,,,,,,False,"{""alignment"":""YIFSKGGGQITYKWPPNDRPStRADRLAIGFSTVQKEAVLVRVDSSsGLGDYLELHIHQGKIGVKFNVGTDDIAIEESNAIINDGKYHVVRFTRSGGNATLQVDSWPVIERYPAGRQLTiFNSQATIIIGGKEQG---------QPFQGQLSGLYYNgLKVLNMAAENDANIAIVGNV"",""cigarAlignment"":""21M1I24M1I72M1I15M9D13M1I20M""}"
+nrxn1-Iso-1,SMART,SM00282,,1148,1275,92.3,5.6e-23,719.2,1.1e-211,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-1,Pfam,PF02210,,1156,1274,75.3,1.9e-17,523.2,4.7e-156,1,125,126,N_TERMINAL_COMPLETE,1156,1275,False,
+nrxn1-Iso-1,MobiDB-lite,mobidb-lite,,1325,1390,,,,,,,,,,,False,
+nrxn1-Iso-1,Phobius,TRANSMEMBRANE,,1403,1423,,,,,,,,,,,False,
+nrxn1-Iso-1,SMART,SM00294,,1422,1440,37.3,2e-06,37.3,2e-06,1,19,19,COMPLETE,,,True,
+nrxn1-Iso-1,Phobius,CYTOPLASMIC_DOMAIN,,1424,1477,,,,,,,,,,,False,
+nrxn1-Iso-1,MobiDB-lite,mobidb-lite,,1444,1477,,,,,,,,,,,False,
+nrxn1-Iso-2,Phobius,SIGNAL_PEPTIDE_N_REGION,,1,9,,,,,,,,,,,False,
+nrxn1-Iso-2,Phobius,SIGNAL_PEPTIDE,,1,25,,,,,,,,,,,False,
+nrxn1-Iso-2,Phobius,SIGNAL_PEPTIDE_H_REGION,,10,21,,,,,,,,,,,False,
+nrxn1-Iso-2,SUPERFAMILY,SSF49899,0038386,10,190,,1.58e-32,,,,,191,,,,False,
+nrxn1-Iso-2,Phobius,SIGNAL_PEPTIDE_C_REGION,,22,25,,,,,,,,,,,False,
+nrxn1-Iso-2,Phobius,NON_CYTOPLASMIC_DOMAIN,,26,1432,,,,,,,,,,,False,
+nrxn1-Iso-2,CDD,cd00110,,30,190,117.134,1.01655e-30,,,,,,,,,False,
+nrxn1-Iso-2,PROSITE profiles,PS50025,,30,217,32.712009,,,,,,,,,,True,"{""alignment"":""GLEFPGAEGQWTRFPKWNACC-ESEMSFQLKTRSARGLVLYFDDEGFCDFLELILtRGGRLQLSFSIFCAEPATLLADTPVNDGAWHSVRIRRQFRNTTLFIDQVEAKWVEVKSKRRDMTVFSGLFVGGLPPELRAAalkltlaSVREREPFKGWIRDVRVNSSQVLPVDSGEVKlddepPNSGGGspC"",""cigarAlignment"":""21M1D33M1I81M7I31M5I6M2I1M""}"
+nrxn1-Iso-2,CATH-FunFam,G3DSA:2.60.120.200:FF:000014,2.60.120.200-FF-000014,32,200,329.1,1.6e-98,475.5,1.6e-143,1,167,168,N_TERMINAL_COMPLETE,32,200,False,
+nrxn1-Iso-2,CATH-Gene3D,G3DSA:2.60.120.200,3qcwA02,32,200,102.1,1.2e-28,744.7,1.4e-225,11,176,195,INCOMPLETE,32,200,False,
+nrxn1-Iso-2,SMART,SM00282,,50,192,118.7,6.6e-31,707.9,2.7e-208,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-2,Pfam,PF02210,,58,191,79.5,9.7e-19,514.5,2.4e-153,1,125,126,N_TERMINAL_COMPLETE,58,192,False,
+nrxn1-Iso-2,MobiDB-lite,mobidb-lite,,198,221,,,,,,,,,,,False,
+nrxn1-Iso-2,SMART,SM00181,,216,256,15.9,5.7,54.6,1.3e-11,1,32,32,COMPLETE,,,True,
+nrxn1-Iso-2,PROSITE profiles,PS50026,,219,256,12.243384,,,,,,,,,,False,"{""alignment"":""AGEEGEgGVCLNGGVCSVVDD--QAVCDCSRtGFRGKDCS"",""cigarAlignment"":""6M1I14M2D8M1I8M""}"
+nrxn1-Iso-2,CATH-FunFam,G3DSA:2.10.25.10:FF:000167,2.10.25.10-FF-000167,221,258,85.4,4.7e-24,96.5,1.6e-27,1,38,38,COMPLETE,221,258,False,
+nrxn1-Iso-2,CATH-Gene3D,G3DSA:2.10.25.10,3asiA02,221,258,29.8,1.7e-06,135.1,2.2e-39,10,40,42,INCOMPLETE,221,258,False,
+nrxn1-Iso-2,CATH-FunFam,G3DSA:2.60.120.200:FF:000001,2.60.120.200-FF-000001,277,468,428.4,1.3e-128,534.3,4.4e-161,1,191,192,N_TERMINAL_COMPLETE,277,468,False,
+nrxn1-Iso-2,CATH-Gene3D,G3DSA:2.60.120.200,2h0bC00,277,468,189.2,2e-55,718.1,1.2e-217,3,183,184,INCOMPLETE,277,468,True,
+nrxn1-Iso-2,PANTHER,PTHR15036,PTHR15036:SF51,280,713,420.7,4.6e-122,420.7,4.6e-122,206,636,1135,INCOMPLETE,259,719,True,"{""ancestralNode"":""AN103"",""graftPoint"":""PTN004467706"",""name"":""PIKACHURIN-LIKE PROTEIN""}"
+nrxn1-Iso-2,SUPERFAMILY,SSF49899,0047109,281,450,,2.33e-34,,,,,218,,,,False,
+nrxn1-Iso-2,PROSITE profiles,PS50025,,283,473,36.600609,,,,,,,,,,False,"{""alignment"":""IATFKGSEYFCYDLSQNPIQSSSDEITLSFKTLQRNGLMLHTG--KSADYVNLALKNGAVSLVINLGSGAFEALVEPvnGKFNDNAWHDVKVTRNLRQHsgighamvTISVDGILTTTGYTQEDYTMLGSDDFFYVGGSPSTADLPGSPVSNNFMGCLKEVVYKNNDVRLELSRLAKqgdpkmkiHGVVAFkC"",""cigarAlignment"":""43M2D32M2I20M8I70M8I6M1I1M""}"
+nrxn1-Iso-2,CDD,cd00110,,284,443,116.749,1.52664e-30,,,,,,,,,False,
+nrxn1-Iso-2,SMART,SM00282,,304,446,123.6,2.2e-32,707.9,2.7e-208,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-2,Pfam,PF02210,,312,445,94.7,1.9e-23,514.5,2.4e-153,1,125,126,N_TERMINAL_COMPLETE,312,446,False,
+nrxn1-Iso-2,SUPERFAMILY,SSF49899,0046423,467,672,,6.24e-37,,,,,189,,,,True,
+nrxn1-Iso-2,CATH-FunFam,G3DSA:2.60.120.200:FF:000005,2.60.120.200-FF-000005,478,672,384.5,2.9e-115,555.3,1.4e-167,1,195,195,COMPLETE,478,672,False,
+nrxn1-Iso-2,CATH-Gene3D,G3DSA:2.60.120.200,3qcwA02,478,672,212.9,1.3e-62,744.7,1.4e-225,2,195,195,C_TERMINAL_COMPLETE,478,672,False,
+nrxn1-Iso-2,PROSITE profiles,PS50025,,480,672,43.035965,,,,,,,,,,False,"{""alignment"":""DPITFETPESFISLPKWNAKK-TGSISFDFRTTEPNGLILFSHGKprhqkdakhpqmIKVDFFAIEMLDGHLYLLLDMGSGTIKIKALLKKVNDGEWYHVDFQRDGRSGTISVN-TLRTPYTAPGESEILDLDDELYLGGLPENKAGLvfptevwTALLNYGYVGCIRDLFIDGQSKDIRQMAEVQstAGVKPSC"",""cigarAlignment"":""21M1D23M12I57M1D33M7I31M2I7M""}"
+nrxn1-Iso-2,CDD,cd00110,,481,650,139.476,1.40179e-38,,,,,,,,,False,
+nrxn1-Iso-2,SMART,SM00282,,500,652,156.1,3.7e-42,707.9,2.7e-208,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-2,Pfam,PF02210,,508,652,94.2,2.7e-23,514.5,2.4e-153,1,126,126,COMPLETE,508,652,False,
+nrxn1-Iso-2,CATH-FunFam,G3DSA:2.10.25.10:FF:000029,2.10.25.10-FF-000029,673,713,81.4,1.2e-22,123.1,1.1e-35,1,41,41,COMPLETE,673,713,False,
+nrxn1-Iso-2,CATH-Gene3D,G3DSA:2.10.25.10,3qcwA03,673,713,69.9,5.9e-19,117.2,1e-33,2,42,43,INCOMPLETE,673,715,True,
+nrxn1-Iso-2,PROSITE profiles,PS50026,,676,713,17.461628,,,,,,,,,,False,"{""alignment"":""TAKPCLsNPCKNNGMCRDGWN--RYVCDCSgTGYLGRSCE"",""cigarAlignment"":""6M1I14M2D7M1I9M""}"
+nrxn1-Iso-2,SMART,SM00181,,679,713,27.3,0.0021,54.6,1.3e-11,1,32,32,COMPLETE,,,False,
+nrxn1-Iso-2,Pfam,PF00008,,680,707,24.2,0.098,44.9,3.5e-08,1,28,32,N_TERMINAL_COMPLETE,680,710,False,
+nrxn1-Iso-2,CDD,cd00054,,680,713,48.0166,7.18129e-08,,,,,,,,,False,
+nrxn1-Iso-2,SUPERFAMILY,SSF49899,0038386,684,875,,1.03e-37,,,,,191,,,,False,
+nrxn1-Iso-2,PROSITE patterns,PS00010,,691,702,,,,,,,,,,,False,"{""alignment"":""CrDgwnrYvCdC"",""cigarAlignment"":""1M1I1M4I1M1I1M1I1M""}"
+nrxn1-Iso-2,CATH-FunFam,G3DSA:2.60.120.200:FF:000007,2.60.120.200-FF-000007,714,901,411.6,9.6e-124,481.1,4.8e-145,1,188,188,COMPLETE,714,901,False,
+nrxn1-Iso-2,CATH-Gene3D,G3DSA:2.60.120.200,2r16A00,714,901,167.1,1.2e-48,753.0,1.9e-228,3,182,182,C_TERMINAL_COMPLETE,712,902,True,
+nrxn1-Iso-2,CDD,cd00110,,718,875,80.9252,4.5631e-18,,,,,,,,,False,
+nrxn1-Iso-2,PROSITE profiles,PS50025,,718,891,27.098186,,,,,,,,,,False,"{""alignment"":""VLSYDGSMFMKIQLPVVMHT-EAEDVSLRFRSQRAYGILMATTSRDSADTLRLELDAGRVKLTVNldcirincNSSKGPETLFAGYNLNDNEWHTVRVVRRGKSLKLTVDDQQAMTGQMAGDHTRlefhnietGIITERRYLSSVP-----------SNFIGHLQSLTFNgMAYIDLCKNGD----IDY-C"",""cigarAlignment"":""20M1D44M8I52M8I13M11D13M1I11M4D3M1D1M""}"
+nrxn1-Iso-2,SMART,SM00282,,738,877,97.8,1.3e-24,707.9,2.7e-208,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-2,Pfam,PF02210,,746,876,69.7,1e-15,514.5,2.4e-153,1,125,126,N_TERMINAL_COMPLETE,746,877,False,
+nrxn1-Iso-2,SUPERFAMILY,SSF49899,0038386,879,1059,,8.2e-37,,,,,191,,,,False,
+nrxn1-Iso-2,CATH-FunFam,G3DSA:2.60.120.200:FF:000004,2.60.120.200-FF-000004,902,1081,352.9,8.1e-106,540.5,2.1e-163,1,180,180,COMPLETE,902,1081,False,
+nrxn1-Iso-2,CATH-Gene3D,G3DSA:2.60.120.200,3asiA01,902,1081,200.3,8.7e-59,715.3,8.2e-217,2,181,182,INCOMPLETE,900,1081,True,
+nrxn1-Iso-2,PROSITE profiles,PS50025,,905,1080,41.557201,,,,,,,,,,False,"{""alignment"":""DPVTFKTKSSYVALATLQAY-TSMHLFFQFKTTSLDGLILYNSG-DGNDFIVVELVKGYLHYVFDLGNGANLIKgSSNKPLNDNQWHNVMISRDTSNLhTVKID--TKITTQITAGARNLDLKSDLYIGGVAKETYKSlpkLVHAKEGFQGCLASVDLNGRLPDLISDALFCnGQIERGC"",""cigarAlignment"":""20M1D23M1D29M1I23M1I5M2D32M3I31M1I7M""}"
+nrxn1-Iso-2,CDD,cd00110,,906,1059,117.904,6.20399e-31,,,,,,,,,False,
+nrxn1-Iso-2,SMART,SM00282,,925,1061,130.8,1.5e-34,707.9,2.7e-208,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-2,Pfam,PF02210,,933,1061,108.1,1.3e-27,514.5,2.4e-153,1,126,126,COMPLETE,933,1061,False,
+nrxn1-Iso-2,CATH-Gene3D,G3DSA:2.10.25.10,3asiA02,1082,1120,67.1,3.9e-18,135.1,2.2e-39,1,42,42,COMPLETE,1082,1123,True,
+nrxn1-Iso-2,CATH-FunFam,G3DSA:2.10.25.10:FF:000015,2.10.25.10-FF-000015,1082,1121,76.4,4.6e-21,122.9,1.3e-35,1,40,41,N_TERMINAL_COMPLETE,1082,1122,False,
+nrxn1-Iso-2,PROSITE profiles,PS50026,,1083,1120,14.062479,,,,,,,,,,False,"{""alignment"":""PSTTCQeDSCSNQGVCLQQWD--GFSCDCSMtSFSGPLCN"",""cigarAlignment"":""6M1I14M2D8M1I8M""}"
+nrxn1-Iso-2,SMART,SM00181,,1086,1120,11.4,25.0,54.6,1.3e-11,1,32,32,COMPLETE,,,False,
+nrxn1-Iso-2,SUPERFAMILY,SSF49899,0038386,1092,1303,,2.06e-30,,,,,191,,,,False,"{""fragments"":[{""dc-status"":""C_TERMINAL_DISC"",""end"":1232,""start"":1092},{""dc-status"":""N_TERMINAL_DISC"",""end"":1303,""start"":1261}]}"
+nrxn1-Iso-2,CATH-Gene3D,G3DSA:2.60.120.200,2r1bA00,1121,1333,236.7,8.1e-70,819.1,6.4e-248,6,219,220,INCOMPLETE,1117,1333,True,
+nrxn1-Iso-2,CATH-FunFam,G3DSA:2.60.120.200:FF:000003,2.60.120.200-FF-000003,1122,1330,411.4,2.4e-123,521.4,5.3e-157,1,210,210,COMPLETE,1121,1330,False,
+nrxn1-Iso-2,CDD,cd00110,,1125,1244,84.0068,4.03385e-19,,,,,,,,,False,
+nrxn1-Iso-2,PROSITE profiles,PS50025,,1126,1324,23.127436,,,,,,,,,,False,"{""alignment"":""YIFSKGGGQITYKWPPNDRPStRADRLAIGFSTVQKEAVLVRVDSSsGLGDYLELHIHQGKIGVKFNVGTDDIAIEESNAIINDGKYHVVRFTRSGGNATLQVDSWPVIERYPAGNNDNerlaiarqripyrlgrvvdewlldkgrqltiFNSQATIIIGGKEQG---------QPFQGQLSGLYYNgLKVLNMAAENDANIAIVGNV"",""cigarAlignment"":""21M1I24M1I72M31I15M9D13M1I20M""}"
+nrxn1-Iso-2,SMART,SM00282,,1148,1305,81.1,1.4e-19,707.9,2.7e-208,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-2,Pfam,PF02210,,1156,1304,65.9,1.5e-14,514.5,2.4e-153,1,125,126,N_TERMINAL_COMPLETE,1156,1305,False,
+nrxn1-Iso-2,MobiDB-lite,mobidb-lite,,1389,1420,,,,,,,,,,,False,
+nrxn1-Iso-2,Phobius,TRANSMEMBRANE,,1433,1453,,,,,,,,,,,False,
+nrxn1-Iso-2,SMART,SM00294,,1452,1470,37.3,2e-06,37.3,2e-06,1,19,19,COMPLETE,,,True,
+nrxn1-Iso-2,Phobius,CYTOPLASMIC_DOMAIN,,1454,1507,,,,,,,,,,,False,
+nrxn1-Iso-2,MobiDB-lite,mobidb-lite,,1474,1507,,,,,,,,,,,False,
+nrxn1-Iso-3,Phobius,SIGNAL_PEPTIDE_N_REGION,,1,9,,,,,,,,,,,False,
+nrxn1-Iso-3,Phobius,SIGNAL_PEPTIDE,,1,25,,,,,,,,,,,False,
+nrxn1-Iso-3,Phobius,SIGNAL_PEPTIDE_H_REGION,,10,21,,,,,,,,,,,False,
+nrxn1-Iso-3,SUPERFAMILY,SSF49899,0038386,10,190,,1.58e-32,,,,,191,,,,False,
+nrxn1-Iso-3,Phobius,SIGNAL_PEPTIDE_C_REGION,,22,25,,,,,,,,,,,False,
+nrxn1-Iso-3,Phobius,NON_CYTOPLASMIC_DOMAIN,,26,1430,,,,,,,,,,,False,
+nrxn1-Iso-3,CDD,cd00110,,30,190,117.519,8.28341e-31,,,,,,,,,False,
+nrxn1-Iso-3,PROSITE profiles,PS50025,,30,217,32.712009,,,,,,,,,,True,"{""alignment"":""GLEFPGAEGQWTRFPKWNACC-ESEMSFQLKTRSARGLVLYFDDEGFCDFLELILtRGGRLQLSFSIFCAEPATLLADTPVNDGAWHSVRIRRQFRNTTLFIDQVEAKWVEVKSKRRDMTVFSGLFVGGLPPELRAAalkltlaSVREREPFKGWIRDVRVNSSQVLPVDSGEVKlddepPNSGGGspC"",""cigarAlignment"":""21M1D33M1I81M7I31M5I6M2I1M""}"
+nrxn1-Iso-3,CATH-FunFam,G3DSA:2.60.120.200:FF:000014,2.60.120.200-FF-000014,32,200,329.1,1.6e-98,484.2,3.5e-146,1,167,168,N_TERMINAL_COMPLETE,32,200,False,
+nrxn1-Iso-3,CATH-Gene3D,G3DSA:2.60.120.200,3qcwA02,32,200,102.1,1.2e-28,753.2,3.4e-228,11,176,195,INCOMPLETE,32,200,False,
+nrxn1-Iso-3,SMART,SM00282,,50,192,118.7,6.6e-31,720.4,4.9e-212,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-3,Pfam,PF02210,,58,191,79.5,9.7e-19,523.3,4.5e-156,1,125,126,N_TERMINAL_COMPLETE,58,192,False,
+nrxn1-Iso-3,MobiDB-lite,mobidb-lite,,198,221,,,,,,,,,,,False,
+nrxn1-Iso-3,SMART,SM00181,,216,256,15.9,5.7,54.6,1.3e-11,1,32,32,COMPLETE,,,True,
+nrxn1-Iso-3,PROSITE profiles,PS50026,,219,256,12.243384,,,,,,,,,,False,"{""alignment"":""AGEEGEgGVCLNGGVCSVVDD--QAVCDCSRtGFRGKDCS"",""cigarAlignment"":""6M1I14M2D8M1I8M""}"
+nrxn1-Iso-3,CATH-FunFam,G3DSA:2.10.25.10:FF:000167,2.10.25.10-FF-000167,221,258,85.4,4.7e-24,96.2,2e-27,1,38,38,COMPLETE,221,258,False,
+nrxn1-Iso-3,CATH-Gene3D,G3DSA:2.10.25.10,3asiA02,221,258,29.8,1.7e-06,135.1,2.2e-39,10,40,42,INCOMPLETE,221,258,False,
+nrxn1-Iso-3,SUPERFAMILY,SSF49899,0038386,228,435,,4.19e-37,,,,,191,,,,False,
+nrxn1-Iso-3,CATH-FunFam,G3DSA:2.60.120.200:FF:000001,2.60.120.200-FF-000001,277,460,401.9,1.7e-120,507.8,5.9e-153,1,191,192,N_TERMINAL_COMPLETE,277,460,False,
+nrxn1-Iso-3,CATH-Gene3D,G3DSA:2.60.120.200,2h0bC00,277,460,197.6,5.5e-58,726.6,2.8e-220,3,183,184,INCOMPLETE,277,460,True,
+nrxn1-Iso-3,PANTHER,PTHR15036,,280,705,426.4,8.5e-124,912.0,2e-270,206,636,1135,INCOMPLETE,259,706,True,"{""name"":""PIKACHURIN-LIKE PROTEIN""}"
+nrxn1-Iso-3,PROSITE profiles,PS50025,,283,465,38.271065,,,,,,,,,,False,"{""alignment"":""IATFKGSEYFCYDLSQNPIQSSSDEITLSFKTLQRNGLMLHTG--KSADYVNLALKNGAVSLVINLGSGAFEALVEPvnGKFNDNAWHDVKVTRNLRQVTISVDGILTTTGYTQEDYTMLGSDDFFYVGGSPSTADLPGSPVSNNFMGCLKEVVYKNNDVRLELSRLAKqgdpkmkiHGVVAFkC"",""cigarAlignment"":""43M2D32M2I90M8I6M1I1M""}"
+nrxn1-Iso-3,CDD,cd00110,,284,435,124.068,3.41833e-33,,,,,,,,,False,
+nrxn1-Iso-3,SMART,SM00282,,304,438,136.0,4e-36,720.4,4.9e-212,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-3,Pfam,PF02210,,312,437,103.3,4.2e-26,523.3,4.5e-156,1,125,126,N_TERMINAL_COMPLETE,312,438,False,
+nrxn1-Iso-3,SUPERFAMILY,SSF49899,0046423,459,664,,6.24e-37,,,,,189,,,,True,
+nrxn1-Iso-3,CATH-FunFam,G3DSA:2.60.120.200:FF:000005,2.60.120.200-FF-000005,470,664,384.5,2.9e-115,567.0,3.3e-171,1,195,195,COMPLETE,470,664,False,
+nrxn1-Iso-3,CATH-Gene3D,G3DSA:2.60.120.200,3qcwA02,470,664,212.9,1.3e-62,753.2,3.4e-228,2,195,195,C_TERMINAL_COMPLETE,470,664,False,
+nrxn1-Iso-3,PROSITE profiles,PS50025,,472,664,43.035965,,,,,,,,,,False,"{""alignment"":""DPITFETPESFISLPKWNAKK-TGSISFDFRTTEPNGLILFSHGKprhqkdakhpqmIKVDFFAIEMLDGHLYLLLDMGSGTIKIKALLKKVNDGEWYHVDFQRDGRSGTISVN-TLRTPYTAPGESEILDLDDELYLGGLPENKAGLvfptevwTALLNYGYVGCIRDLFIDGQSKDIRQMAEVQstAGVKPSC"",""cigarAlignment"":""21M1D23M12I57M1D33M7I31M2I7M""}"
+nrxn1-Iso-3,CDD,cd00110,,473,642,139.861,1.1422e-38,,,,,,,,,False,
+nrxn1-Iso-3,SMART,SM00282,,492,644,156.1,3.7e-42,720.4,4.9e-212,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-3,Pfam,PF02210,,500,644,94.2,2.7e-23,523.3,4.5e-156,1,126,126,COMPLETE,500,644,False,
+nrxn1-Iso-3,CATH-FunFam,G3DSA:2.10.25.10:FF:000029,2.10.25.10-FF-000029,665,705,81.4,1.2e-22,123.3,9.9e-36,1,41,41,COMPLETE,665,705,False,
+nrxn1-Iso-3,CATH-Gene3D,G3DSA:2.10.25.10,3qcwA03,665,705,69.9,5.9e-19,117.2,9.9e-34,2,42,43,INCOMPLETE,665,707,True,
+nrxn1-Iso-3,PROSITE profiles,PS50026,,668,705,17.461628,,,,,,,,,,False,"{""alignment"":""TAKPCLsNPCKNNGMCRDGWN--RYVCDCSgTGYLGRSCE"",""cigarAlignment"":""6M1I14M2D7M1I9M""}"
+nrxn1-Iso-3,PIRSR,PIRSR002421-1,,670,705,4.5,0.00067,4.5,0.00067,158,192,372,INCOMPLETE,646,717,False,"{""sites"":[{""description"":""DISULFID"",""numLocations"":2,""siteLocations"":[{""end"":683,""residue"":""CLSNPCKNNGMC"",""start"":672},{""end"":692,""residue"":""CKNNGMCRDGWNRYVC"",""start"":677}]}]}"
+nrxn1-Iso-3,SMART,SM00181,,671,705,27.3,0.0021,54.6,1.3e-11,1,32,32,COMPLETE,,,False,
+nrxn1-Iso-3,Pfam,PF00008,,672,699,24.2,0.098,44.8,3.5e-08,1,28,32,N_TERMINAL_COMPLETE,672,702,False,
+nrxn1-Iso-3,CDD,cd00054,,672,705,48.4018,6.56641e-08,,,,,,,,,False,
+nrxn1-Iso-3,SUPERFAMILY,SSF49899,0038386,676,867,,1.03e-37,,,,,191,,,,False,
+nrxn1-Iso-3,PROSITE patterns,PS00010,,683,694,,,,,,,,,,,False,"{""alignment"":""CrDgwnrYvCdC"",""cigarAlignment"":""1M1I1M4I1M1I1M1I1M"",""level"":""STRONG""}"
+nrxn1-Iso-3,CATH-FunFam,G3DSA:2.60.120.200:FF:000007,2.60.120.200-FF-000007,706,893,411.6,9.6e-124,491.9,2.4e-148,1,188,188,COMPLETE,706,893,False,
+nrxn1-Iso-3,CATH-Gene3D,G3DSA:2.60.120.200,2r16A00,706,893,167.1,1.2e-48,761.8,3.9e-231,3,182,182,C_TERMINAL_COMPLETE,704,894,True,
+nrxn1-Iso-3,CDD,cd00110,,710,867,80.9252,3.98009e-18,,,,,,,,,False,
+nrxn1-Iso-3,PROSITE profiles,PS50025,,710,883,27.098186,,,,,,,,,,False,"{""alignment"":""VLSYDGSMFMKIQLPVVMHT-EAEDVSLRFRSQRAYGILMATTSRDSADTLRLELDAGRVKLTVNldcirincNSSKGPETLFAGYNLNDNEWHTVRVVRRGKSLKLTVDDQQAMTGQMAGDHTRlefhnietGIITERRYLSSVP-----------SNFIGHLQSLTFNgMAYIDLCKNGD----IDY-C"",""cigarAlignment"":""20M1D44M8I52M8I13M11D13M1I11M4D3M1D1M""}"
+nrxn1-Iso-3,SMART,SM00282,,730,869,97.8,1.3e-24,720.4,4.9e-212,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-3,Pfam,PF02210,,738,868,69.7,1e-15,523.3,4.5e-156,1,125,126,N_TERMINAL_COMPLETE,738,869,False,
+nrxn1-Iso-3,SUPERFAMILY,SSF49899,0038386,871,1051,,8.2e-37,,,,,191,,,,False,
+nrxn1-Iso-3,CATH-FunFam,G3DSA:2.60.120.200:FF:000004,2.60.120.200-FF-000004,894,1073,352.9,8.1e-106,545.5,6.5e-165,1,180,180,COMPLETE,894,1073,False,
+nrxn1-Iso-3,CATH-Gene3D,G3DSA:2.60.120.200,3asiA01,894,1073,200.3,8.7e-59,722.7,4.4e-219,2,181,182,INCOMPLETE,892,1073,True,
+nrxn1-Iso-3,PROSITE profiles,PS50025,,897,1072,41.557201,,,,,,,,,,False,"{""alignment"":""DPVTFKTKSSYVALATLQAY-TSMHLFFQFKTTSLDGLILYNSG-DGNDFIVVELVKGYLHYVFDLGNGANLIKgSSNKPLNDNQWHNVMISRDTSNLhTVKID--TKITTQITAGARNLDLKSDLYIGGVAKETYKSlpkLVHAKEGFQGCLASVDLNGRLPDLISDALFCnGQIERGC"",""cigarAlignment"":""20M1D23M1D29M1I23M1I5M2D32M3I31M1I7M""}"
+nrxn1-Iso-3,CDD,cd00110,,898,1051,117.904,4.9584e-31,,,,,,,,,False,
+nrxn1-Iso-3,SMART,SM00282,,917,1053,130.8,1.5e-34,720.4,4.9e-212,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-3,Pfam,PF02210,,925,1053,108.1,1.3e-27,523.3,4.5e-156,1,126,126,COMPLETE,925,1053,False,
+nrxn1-Iso-3,CATH-Gene3D,G3DSA:2.10.25.10,3asiA02,1083,1121,67.1,3.9e-18,135.1,2.2e-39,1,42,42,COMPLETE,1083,1124,True,
+nrxn1-Iso-3,CATH-FunFam,G3DSA:2.10.25.10:FF:000015,2.10.25.10-FF-000015,1083,1122,76.4,4.6e-21,122.9,1.3e-35,1,40,41,N_TERMINAL_COMPLETE,1083,1123,False,
+nrxn1-Iso-3,PROSITE profiles,PS50026,,1084,1121,14.062479,,,,,,,,,,False,"{""alignment"":""PSTTCQeDSCSNQGVCLQQWD--GFSCDCSMtSFSGPLCN"",""cigarAlignment"":""6M1I14M2D8M1I8M""}"
+nrxn1-Iso-3,PIRSR,PIRSR002421-1,,1085,1120,8.1,5.4e-05,4.5,0.00067,157,191,372,INCOMPLETE,1073,1123,False,"{""sites"":[{""description"":""DISULFID"",""numLocations"":2,""siteLocations"":[{""end"":1099,""residue"":""CQEDSCSNQGVC"",""start"":1088},{""end"":1108,""residue"":""CSNQGVCLQQWDGFSC"",""start"":1093}]}]}"
+nrxn1-Iso-3,SMART,SM00181,,1087,1121,11.4,25.0,54.6,1.3e-11,1,32,32,COMPLETE,,,False,
+nrxn1-Iso-3,SUPERFAMILY,SSF49899,0038386,1093,1304,,2.06e-30,,,,,191,,,,False,"{""fragments"":[{""dc-status"":""C_TERMINAL_DISC"",""end"":1233,""start"":1093},{""dc-status"":""N_TERMINAL_DISC"",""end"":1304,""start"":1262}]}"
+nrxn1-Iso-3,CATH-Gene3D,G3DSA:2.60.120.200,2r1bA00,1122,1334,236.7,8.1e-70,828.8,6.5e-251,6,219,220,INCOMPLETE,1118,1334,True,
+nrxn1-Iso-3,CATH-FunFam,G3DSA:2.60.120.200:FF:000003,2.60.120.200-FF-000003,1123,1331,411.4,2.4e-123,526.1,1.9e-158,1,210,210,COMPLETE,1122,1331,False,
+nrxn1-Iso-3,CDD,cd00110,,1126,1245,84.0068,3.41774e-19,,,,,,,,,False,
+nrxn1-Iso-3,PROSITE profiles,PS50025,,1127,1325,23.127436,,,,,,,,,,False,"{""alignment"":""YIFSKGGGQITYKWPPNDRPStRADRLAIGFSTVQKEAVLVRVDSSsGLGDYLELHIHQGKIGVKFNVGTDDIAIEESNAIINDGKYHVVRFTRSGGNATLQVDSWPVIERYPAGNNDNerlaiarqripyrlgrvvdewlldkgrqltiFNSQATIIIGGKEQG---------QPFQGQLSGLYYNgLKVLNMAAENDANIAIVGNV"",""cigarAlignment"":""21M1I24M1I72M31I15M9D13M1I20M""}"
+nrxn1-Iso-3,SMART,SM00282,,1149,1306,81.1,1.4e-19,720.4,4.9e-212,1,137,137,COMPLETE,,,False,
+nrxn1-Iso-3,Pfam,PF02210,,1157,1305,65.9,1.5e-14,523.3,4.5e-156,1,125,126,N_TERMINAL_COMPLETE,1157,1306,False,
+nrxn1-Iso-3,MobiDB-lite,mobidb-lite,,1359,1418,,,,,,,,,,,False,
+nrxn1-Iso-3,Phobius,TRANSMEMBRANE,,1431,1451,,,,,,,,,,,False,
+nrxn1-Iso-3,SMART,SM00294,,1450,1468,37.3,2e-06,37.3,2e-06,1,19,19,COMPLETE,,,True,
+nrxn1-Iso-3,Phobius,CYTOPLASMIC_DOMAIN,,1452,1505,,,,,,,,,,,False,
+nrxn1-Iso-3,MobiDB-lite,mobidb-lite,,1472,1505,,,,,,,,,,,False,
+part1-Iso-3,Phobius,SIGNAL_PEPTIDE_N_REGION,,1,3,,,,,,,,,,,False,
+part1-Iso-3,Phobius,SIGNAL_PEPTIDE,,1,20,,,,,,,,,,,False,
+part1-Iso-3,Phobius,SIGNAL_PEPTIDE_H_REGION,,4,15,,,,,,,,,,,False,
+part1-Iso-3,Phobius,SIGNAL_PEPTIDE_C_REGION,,16,20,,,,,,,,,,,False,
+part1-Iso-3,Phobius,NON_CYTOPLASMIC_DOMAIN,,21,35,,,,,,,,,,,False,
+part1-Iso-3,Phobius,TRANSMEMBRANE,,36,56,,,,,,,,,,,False,
+part1-Iso-3,Phobius,CYTOPLASMIC_DOMAIN,,57,110,,,,,,,,,,,False,
+part1-Iso-3,MobiDB-lite,mobidb-lite,,85,110,,,,,,,,,,,False,
+part1-Iso-4,Phobius,NON_CYTOPLASMIC_DOMAIN,,1,19,,,,,,,,,,,False,
+part1-Iso-4,Phobius,TRANSMEMBRANE,,20,37,,,,,,,,,,,False,
+part1-Iso-4,Phobius,CYTOPLASMIC_DOMAIN,,38,138,,,,,,,,,,,False,
+part1-Iso-4,MobiDB-lite,mobidb-lite,,72,114,,,,,,,,,,,False,

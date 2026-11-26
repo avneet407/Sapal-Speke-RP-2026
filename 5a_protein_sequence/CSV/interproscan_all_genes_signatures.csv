@@ -1,0 +1,43 @@
+database,database_version,signature_accession,signature_name,signature_description,signature_type,interpro_accession
+CATH-FunFam,4.3.0,G3DSA:2.10.25.10:FF:000015,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.10.25.10:FF:000029,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.10.25.10:FF:000167,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000001,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000003,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000004,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000005,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000007,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000014,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.1810.10:FF:000001,,Myocyte-specific enhancer factor 2A homolog,Region,
+CATH-Gene3D,4.3.0,G3DSA:2.10.25.10,,Laminin,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.60.120.200,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.40.1810.10,,"Transcription factor, MADS-box",Homologous_superfamily,IPR036879
+CDD,3.21,cd00054,EGF_CA,,Domain,IPR000742
+CDD,3.21,cd00110,LamG,,Domain,IPR001791
+CDD,3.21,cd00265,MADS_MEF2_like,,Domain,IPR033896
+MobiDB-lite,4.0,mobidb-lite,disorder_prediction,Consensus disorder prediction,Region,
+PANTHER,19.0,PTHR11945,,MADS BOX PROTEIN,Family,
+PANTHER,19.0,PTHR15036,,PIKACHURIN-LIKE PROTEIN,Family,IPR050372
+PIRSR,2025_05,PIRSR002421-1,PIRSR002421-1,,Region,
+PRINTS,42.0,PR00404,MADSDOMAIN,,Domain,IPR002100
+PROSITE patterns,2026_01,PS00010,ASX_HYDROXYL,Aspartic acid and asparagine hydroxylation site,Conserved_site,IPR000152
+PROSITE profiles,2026_01,PS50025,LAM_G_DOMAIN,Laminin G domain profile,Domain,IPR001791
+PROSITE profiles,2026_01,PS50026,EGF_3,EGF-like domain profile,Domain,IPR000742
+PROSITE profiles,2026_01,PS50066,MADS_BOX_2,MADS-box domain profile,Domain,IPR002100
+Pfam,39.0,PF00008,EGF,EGF-like domain,Domain,IPR000742
+Pfam,39.0,PF00319,SRF-TF,SRF-type transcription factor (DNA-binding and dimerisation domain),Domain,IPR002100
+Pfam,39.0,PF02210,Laminin_G_2,Laminin G domain,Domain,IPR001791
+Pfam,39.0,PF12347,HJURP_C,Holliday junction regulator protein family C-terminal repeat,Domain,IPR022102
+Phobius,1.01,CYTOPLASMIC_DOMAIN,,Cytoplasmic domain,Region,
+Phobius,1.01,NON_CYTOPLASMIC_DOMAIN,,Non cytoplasmic domain,Region,
+Phobius,1.01,SIGNAL_PEPTIDE,,Signal Peptide,Region,
+Phobius,1.01,SIGNAL_PEPTIDE_C_REGION,,Signal peptide C-region,Region,
+Phobius,1.01,SIGNAL_PEPTIDE_H_REGION,,Signal peptide H-region,Region,
+Phobius,1.01,SIGNAL_PEPTIDE_N_REGION,,Signal peptide N-region,Region,
+Phobius,1.01,TRANSMEMBRANE,,Transmembrane region,Region,
+SMART,9.0,SM00181,EGF,Epidermal growth factor-like domain.,Domain,IPR000742
+SMART,9.0,SM00282,LamG,Laminin G domain,Domain,IPR001791
+SMART,9.0,SM00294,4.1m,putative band 4.1 homologues' binding motif,Domain,IPR003585
+SMART,9.0,SM00432,MADS,,Domain,IPR002100
+SUPERFAMILY,1.75,SSF49899,,Concanavalin A-like lectins/glucanases,Homologous_superfamily,IPR013320
+SUPERFAMILY,1.75,SSF55455,,SRF-like,Homologous_superfamily,IPR036879
