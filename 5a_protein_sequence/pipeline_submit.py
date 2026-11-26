@@ -31,9 +31,9 @@ ROOT_FOLDER = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from identify_protein_seq import (  # noqa: E402
-    DEFAULT_RANKING_CSV,
     _read_fasta,
     _translate_dna_to_protein,
+    share_ranked_isoforms,
 )
 from submitting_to_InterPro import (  # noqa: E402
     DEFAULT_DB_PATH,
@@ -55,6 +55,8 @@ GENES_CSV = STEP4_CSV / "promising_candidate_genes_cpm1_frac80%_share1.5pct_BY_F
 PAIRS_CSV = STEP4_CSV / "promising_candidate_pairs_cpm1_frac80%_share1.5pct_BY_FDR5.csv"
 TESTS_FOLDER = ROOT_FOLDER / "3b_isoform_gene_hypothesis_testing" / "CSV"
 CDS_FASTA = ROOT_FOLDER / "Long_Read_Data" / "cds_output.fa"
+MATRIX_PATH = ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms_matrix.tsv"
+GTF_PATH = ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms.gtf"
 
 
 def asymmetric_genes() -> list[str]:
@@ -90,14 +92,13 @@ def isoforms_per_gene(genes: list[str]) -> dict[str, set[str]]:
 
 
 def isoform_ranks(genes: list[str]) -> dict[str, dict[str, int]]:
-    """Expression rank of each isoform, matching identify_protein_seq's ranking."""
-    ranking = pd.read_csv(DEFAULT_RANKING_CSV, usecols=["gene", "isoform", "mean_cpm"])
-    ranks = {}
-    for gene in genes:
-        gene_rows = ranking[ranking["gene"].astype(str).str.casefold() == gene.casefold()]
-        ordered = gene_rows.sort_values("mean_cpm", ascending=False)["isoform"].tolist()
-        ranks[gene] = {isoform: rank for rank, isoform in enumerate(ordered, start=1)}
-    return ranks
+    """Isoform number of each isoform: mean % share rank across the adult samples, the same
+    numbering as the isoform visualisation (1 = highest share)."""
+    ranked = share_ranked_isoforms(genes, MATRIX_PATH, GTF_PATH)
+    return {
+        gene: {isoform: rank for rank, isoform in enumerate(ordered, start=1)}
+        for gene, ordered in ranked.items()
+    }
 
 
 def database_gene_names(db_path: Path) -> dict[str, str]:
