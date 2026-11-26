@@ -1,9 +1,12 @@
 """
 Visualise completed InterProScan proteins and annotations along amino-acid coordinates.
 
-Completed scan mappings come from the InterPro job database, so proteins with
-no annotation hits are still shown. Annotation CSV exports are used when
-available; otherwise annotations are read from the database.
+Everything is read from the exported InterProScan CSVs in 5a_protein_sequence/CSV
+(not the job database): the proteins table gives the FINISHED scans to draw, so
+proteins with no annotation hits are still shown, and the matches, signatures and
+entries tables give the annotations. Scans finished after the last export are not
+shown until you re-export with:
+    python 5a_protein_sequence/submitting_to_InterPro.py export
 
 Usage:
     python 5a_protein_sequence/protein_visualisation.py IRF3
@@ -52,12 +55,7 @@ from functions.graphs.isoform_structure import (
     ROW_HEIGHT_INCHES,
 )
 from isoform_visualisation import find_isoforms, read_gtf
-from submitting_to_InterPro import (
-    DEFAULT_DB_PATH,
-    load_annotations,
-    load_completed_isoforms,
-    read_condensed_export,
-)
+from submitting_to_InterPro import EXPORT_TABLES, read_condensed_export
 
 GTF_PATH = ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms.gtf"
 CSV_FOLDER = ROOT_FOLDER / "5a_protein_sequence" / "CSV"
@@ -111,6 +109,31 @@ def _find_annotation_csv(
             return candidate
 
     return None
+
+
+def _load_exported_proteins(csv_path: Path, gene_name: str) -> pd.DataFrame:
+    """One row per transcript of each FINISHED protein of the gene in the export.
+
+    ``csv_path`` may be any of the four exported tables; the proteins table is
+    found next to it by name.
+    """
+    prefix = csv_path.name
+    for table in EXPORT_TABLES:
+        prefix = prefix.removesuffix(f"_{table}.csv")
+    proteins = pd.read_csv(
+        csv_path.with_name(f"{prefix}_proteins.csv"), dtype=str, keep_default_na=False
+    )
+    proteins = proteins[
+        (proteins["status"] == "FINISHED")
+        & (proteins["gene_name"].str.casefold() == gene_name.casefold())
+    ].copy()
+    proteins["transcript_id"] = proteins["transcript_ids"].str.split(";")
+    proteins["isoform_rank"] = proteins["isoform_ranks"].str.split(";")
+    proteins = proteins.explode(["transcript_id", "isoform_rank"])
+    proteins["isoform_rank"] = proteins["isoform_rank"].astype(int)
+    return proteins[["transcript_id", "isoform_rank", "protein_sequence"]].sort_values(
+        ["isoform_rank", "transcript_id"]
+    )
 
 
 def _normalise_protein(sequence: Any) -> str:
@@ -546,7 +569,6 @@ def plot_gene(
     transcripts: dict[str, dict[str, Any]],
     max_proteins: int | None,
     annotation_csv: Path | None = None,
-    db_path: Path = DEFAULT_DB_PATH,
     *,
     show: bool = True,
 ):
@@ -557,16 +579,22 @@ def plot_gene(
 
     gene_name = transcripts[matching_transcripts[0]]["gene_name"] or gene
     gene_id = transcripts[matching_transcripts[0]]["gene_id"]
-    scan_mappings = load_completed_isoforms(db_path, gene_name=gene_name)
-    if scan_mappings.empty:
-        print(f"No FINISHED InterProScan jobs were found for '{gene_name}'.")
-        return None
-
     csv_path = _find_annotation_csv(gene_name, gene, annotation_csv)
     if csv_path is None:
-        annotations = load_annotations(db_path, gene_name=gene_name)
-    else:
-        annotations = read_condensed_export(csv_path)
+        print(
+            f"No exported InterProScan CSVs found in {CSV_FOLDER}. Export them with:\n"
+            "    python 5a_protein_sequence/submitting_to_InterPro.py export"
+        )
+        return None
+    scan_mappings = _load_exported_proteins(csv_path, gene_name)
+    if scan_mappings.empty:
+        print(
+            f"No FINISHED InterProScan proteins for '{gene_name}' in {csv_path.parent.name}/"
+            f"{csv_path.name} (re-export if its scans finished since the last export)."
+        )
+        return None
+
+    annotations = read_condensed_export(csv_path)
     required_columns = {"transcript_id", "protein_sequence", "start", "end"}
     missing_columns = required_columns - set(annotations.columns)
     if missing_columns:
@@ -610,13 +638,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--csv",
         type=Path,
-        help="Optional annotation CSV override; by default annotations are loaded from the InterPro database.",
-    )
-    parser.add_argument(
-        "--db",
-        type=Path,
-        default=DEFAULT_DB_PATH,
-        help="InterPro job database (default: %(default)s).",
+        help=(
+            "Any one of an export's four CSVs (proteins/matches/signatures/entries); "
+            "default: the gene's own export, else interproscan_all_genes_*.csv in CSV/."
+        ),
     )
     args = parser.parse_args(argv)
 
@@ -630,31 +655,19 @@ def main(argv: list[str] | None = None) -> int:
         else:
             genes.append(item)
 
-    print("Reading GTF and completed InterProScan mappings...")
+    print("Reading GTF...")
     transcripts = read_gtf(GTF_PATH)
 
     if genes:
         for gene in genes:
-            plot_gene(
-                gene,
-                transcripts,
-                max_proteins,
-                args.csv,
-                args.db,
-            )
+            plot_gene(gene, transcripts, max_proteins, args.csv)
         return 0
 
     while True:
         gene = input("Gene name / ID (blank to quit): ").strip()
         if not gene:
             break
-        plot_gene(
-            gene,
-            transcripts,
-            max_proteins,
-            args.csv,
-            args.db,
-        )
+        plot_gene(gene, transcripts, max_proteins, args.csv)
     return 0
 
 
