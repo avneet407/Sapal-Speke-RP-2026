@@ -1,33 +1,842 @@
 database,database_version,signature_accession,signature_name,signature_description,signature_type,interpro_accession
+CATH-FunFam,4.3.0,G3DSA:1.10.10.10:FF:000010,,Forkhead box P2 isoform B,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.10.10:FF:000066,,ETS-related transcription factor Elf-2 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.10.10:FF:000263,,Interferon regulatory factor 3,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.10.60:FF:000046,,SIX homeobox 3,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.10.60:FF:000070,,DNA-binding protein SATB,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.10.750:FF:000004,,Putative rab gtpase-activating protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.167.10:FF:000001,,Putative regulator of g-protein signaling 12,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.196.10:FF:000001,,Regulator of G-protein signaling 8,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.20.10:FF:000027,,Nuclear transcription factor Y subunit beta,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.260.40:FF:000003,,DNA-binding protein SATB,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.260.70:FF:000001,,DNA-binding protein SATB,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.4280:FF:000001,,transcription factor COE1 isoform X2,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000005,,potassium voltage-gated channel subfamily G member 1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000007,,Voltage-dependent L-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000008,,Voltage-dependent L-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000009,,Voltage-dependent L-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000014,,Voltage-dependent T-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000018,,Voltage-dependent T-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000021,,Voltage-dependent L-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000029,,Voltage-dependent T-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000032,,Voltage-dependent T-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.287.70:FF:000494,,T calcium channel alpha1G subunit +34+35 splice variant,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.30.10:FF:000003,,Putative transcription factor SOX-6,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.472.10:FF:000048,,"Retinoblastoma-like 2, isoform CRA_a",Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.472.10:FF:000049,,"Retinoblastoma-like 2, isoform CRA_a",Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.472.10:FF:000059,,RB transcriptional corepressor like 1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.472.140:FF:000001,,"Retinoblastoma-like 2, isoform CRA_a",Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.472.80:FF:000007,,Rab GTPase-activating protein 1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.510.10:FF:000033,,Non-specific serine/threonine protein kinase,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.510.10:FF:000230,,protein-tyrosine kinase 2-beta isoform X2,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.720.30:FF:000004,,heterogeneous nuclear ribonucleoprotein U isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.10.8.270:FF:000001,,TBC1 domain family member 1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.1070.10:FF:000115,,Melanin-concentrating hormone receptor 1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.330:FF:000007,,protein-tyrosine kinase 2-beta isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000001,,Voltage-dependent L-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000006,,Voltage-dependent L-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000007,,Voltage-dependent T-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000008,,Voltage-dependent T-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000009,,Voltage-dependent T-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000012,,Voltage-dependent T-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000027,,Voltage-dependent L-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000029,,Potassium voltage-gated channel subfamily S member 2,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000090,,Voltage-dependent L-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.120.350:FF:000127,,Voltage-dependent L-type calcium channel subunit alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.1390.10:FF:000004,,RNA-binding motif protein 25,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.140.150:FF:000002,,Voltage-dependent calcium channel gamma-2 subunit,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.140.150:FF:000004,,Voltage-dependent calcium channel gamma-4 subunit,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.5.170:FF:000051,,mitotic spindle assembly checkpoint protein MAD1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.5.340:FF:000005,,"Forkhead box P1, isoform CRA_f",Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.5.4010:FF:000001,,protein quaking isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.58.150:FF:000002,,clathrin coat assembly protein AP180,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.80.10:FF:000004,,Protein-tyrosine kinase 2-beta isoform 1,Region,
+CATH-FunFam,4.3.0,G3DSA:1.20.900.10:FF:000007,,rho guanine nucleotide exchange factor 19,Region,
+CATH-FunFam,4.3.0,G3DSA:1.25.40.1050:FF:000002,,5'-3' exoribonuclease,Region,
+CATH-FunFam,4.3.0,G3DSA:1.25.40.10:FF:000391,,Tetratricopeptide repeat domain 12,Region,
+CATH-FunFam,4.3.0,G3DSA:1.25.40.20:FF:000034,,Diacylglycerol kinase,Region,
+CATH-FunFam,4.3.0,G3DSA:1.25.40.20:FF:000079,,Protein phosphatase 1 regulatory subunit 16B,Region,
+CATH-FunFam,4.3.0,G3DSA:1.25.40.20:FF:000105,,protein phosphatase 1 regulatory inhibitor subunit 16B,Region,
+CATH-FunFam,4.3.0,G3DSA:1.25.40.90:FF:000001,,phosphatidylinositol-binding clathrin assembly protein-like isoform X1,Region,
 CATH-FunFam,4.3.0,G3DSA:2.10.25.10:FF:000015,,neurexin-1 isoform X1,Region,
 CATH-FunFam,4.3.0,G3DSA:2.10.25.10:FF:000029,,neurexin-1 isoform X1,Region,
 CATH-FunFam,4.3.0,G3DSA:2.10.25.10:FF:000167,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.10.70.80:FF:000001,,Sortilin-related VPS10 domain-containing receptor 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.130.10.10:FF:000388,,VPS10 domain-containing receptor SorCS3,Region,
+CATH-FunFam,4.3.0,G3DSA:2.170.190.11:FF:000001,,Molybdopterin molybdenumtransferase,Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.29.30:FF:000027,,Non-specific serine/threonine protein kinase,Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.29.30:FF:000127,,Neuronal guanine nucleotide exchange factor,Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.29.30:FF:000142,,protein-tyrosine kinase 2-beta isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.29.30:FF:000202,,rab GTPase-activating protein 1-like isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.30.140:FF:000001,,"Fragile X mental retardation 1, isoform CRA_e",Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.30.140:FF:000002,,"Fragile X mental retardation 1, isoform CRA_e",Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.30.140:FF:000082,,Fragile X mental retardation syndrome-related protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.30.40:FF:000015,,Voltage-dependent L-type calcium channel subunit beta-2,Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.30.40:FF:000068,,Voltage-dependent L-type calcium channel subunit beta-1 isoform 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.30.30.40:FF:000123,,Ephexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.40.340.10:FF:000001,,Molybdopterin molybdenumtransferase,Region,
 CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000001,,neurexin-1 isoform X1,Region,
 CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000003,,neurexin-1 isoform X1,Region,
 CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000004,,neurexin-1 isoform X1,Region,
 CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000005,,neurexin-1 isoform X1,Region,
 CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000007,,neurexin-1 isoform X1,Region,
 CATH-FunFam,4.3.0,G3DSA:2.60.120.200:FF:000014,,neurexin-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.120.260:FF:000027,,Beta-glucuronidase,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.120.260:FF:000170,,Glucuronidase beta,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.120.920:FF:000006,,heterogeneous nuclear ribonucleoprotein U isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.200.10:FF:000008,,Interferon regulatory factor 3,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.200.10:FF:000025,,Interferon regulatory factor 3,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.200.40:FF:000002,,Diacylglycerol kinase,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000004,,DCC isoform 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000005,,Neuronal cell adhesion molecule,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000013,,cell adhesion molecule 1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000028,,Neuronal cell adhesion molecule,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000035,,Contactin 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000044,,Contactin 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000047,,Contactin 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000052,,Contactin 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000054,,Contactin 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000064,,Contactin 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000083,,Sortilin-related VPS10 domain containing receptor 2,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000091,,Leucine-rich repeat and fibronectin type III domain-containing protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000113,,Opioid-binding protein/cell adhesion molecule,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000235,,Leucine-rich repeat and fibronectin type III domain-containing 2,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000500,,limbic system-associated membrane protein isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:000628,,Beta-glucuronidase,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.10:FF:001696,,Transcription factor COE3,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.1390:FF:000001,,Myelin gene regulatory factor,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.1390:FF:000008,,Myelin regulatory factor,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.1390:FF:000011,,Myelin regulatory factor-like,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.3180:FF:000004,,Transcription factor COE1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.3180:FF:000005,,EBF transcription factor 2,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.3180:FF:000006,,transcription factor COE1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.60:FF:000005,,Protocadherin 9,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.60:FF:000016,,Protocadherin 9,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.60:FF:000030,,Protocadherin 9,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.60:FF:000036,,Protocadherin 9,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.60:FF:000086,,Protocadherin 9,Region,
+CATH-FunFam,4.3.0,G3DSA:2.60.40.60:FF:000087,,Protocadherin 9,Region,
+CATH-FunFam,4.3.0,G3DSA:3.10.20.710:FF:000001,,DNA-binding protein SATB,Region,
+CATH-FunFam,4.3.0,G3DSA:3.10.20.90:FF:000080,,protein-tyrosine kinase 2-beta isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.20.20.80:FF:000029,,Beta-glucuronidase,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.10:FF:000004,,"Fragile X mental retardation 1, isoform CRA_e",Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.10:FF:000017,,Fragile X mental retardation syndrome-related protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.10:FF:000019,,RNA-binding protein Nova-1 isoform 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.10:FF:000020,,RNA-binding protein Nova-1 isoform 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.10:FF:000022,,RNA-binding protein Nova-1 isoform 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.10:FF:000028,,protein quaking isoform X2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.10:FF:000030,,"KH domain-containing, RNA-binding, signal transduction-associated protein 3 isoformX2",Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.10:FF:000055,,protein quaking isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.10:FF:000123,,"KH domain-containing, RNA-binding, signal transduction-associated protein 3 isoform X5",Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.1370.50:FF:000001,,R3H domain-containing protein 2 isoform 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.160.60:FF:000103,,FEZ family zinc finger 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.160.60:FF:000164,,Fez family zinc finger protein 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.160.60:FF:000194,,Fez family zinc finger protein 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.160.60:FF:000227,,fez family zinc finger protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.160.60:FF:000251,,FEZ family zinc finger 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.160.60:FF:000863,,fez family zinc finger protein 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.200.20:FF:000194,,protein-tyrosine kinase 2-beta isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.200.20:FF:000838,,Non-specific serine/threonine protein kinase,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.360.10:FF:000025,,Glucose-fructose oxidoreductase domain-containing protein 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.428.10:FF:000011,,Fragile histidine triad,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.450.20:FF:000012,,"Calcium channel, voltage-dependent, alpha2/delta subunit 3",Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.450.20:FF:000014,,voltage-dependent calcium channel subunit alpha-2/delta-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.450.20:FF:000024,,VWFA and cache domain-containing protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.450.20:FF:000029,,VWFA and cache domain-containing protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.457.60:FF:000002,,Mitotic spindle assembly checkpoint protein MAD1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.60.270:FF:000001,,Sortilin related VPS10 domain containing receptor 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000005,,ELAV-like protein,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000006,,ELAV-like 3,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000013,,CUGBP Elav-like family member 1 isoform 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000015,,CUGBP Elav-like family member 1 isoform 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000016,,CUGBP Elav-like family member 1 isoform 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000017,,ELAV-like protein,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000019,,heterogeneous nuclear ribonucleoproteins C1/C2 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000028,,Putative serine/arginine-rich splicing factor 4,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000031,,Heterogeneous nuclear ribonucleoprotein h3 isoform,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000033,,heterogeneous nuclear ribonucleoprotein M isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000034,,heterogeneous nuclear ribonucleoprotein M isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000040,,Heterogeneous nuclear ribonucleoprotein A2/B1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000048,,Heterogeneous nuclear ribonucleoprotein a1 isoform,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000054,,Cytoplasmic polyadenylation element-binding protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000071,,heterogeneous nuclear ribonucleoprotein H isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000075,,Heterogeneous nuclear ribonucleoprotein H1 (H),Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000084,,Serine/arginine-rich splicing factor 11 isoform 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000086,,Putative Cytoplasmic polyadenylation element-binding protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000108,,Heterogeneous nuclear ribonucleoproteins A2/B1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000114,,RNA-binding protein 10 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000131,,Heterogeneous nuclear ribonucleoprotein h3 isoform,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000138,,Serine/arginine-rich splicing factor 5 alpha,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000230,,RNA-binding motif protein 25,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000375,,RNA binding fox-1 homolog 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000515,,RNA-binding motif protein 5,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:000548,,Myelin expression factor 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.70.330:FF:001331,,RNA-binding protein fox-1 homolog 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.30.710.10:FF:000102,,Potassium voltage-gated channel subfamily S member 1,Region,
 CATH-FunFam,4.3.0,G3DSA:3.40.1810.10:FF:000001,,Myocyte-specific enhancer factor 2A homolog,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.10330:FF:000002,,Diacylglycerol kinase,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.12390:FF:000001,,5'-3' exoribonuclease,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.12390:FF:000003,,5'-3' exoribonuclease,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.300:FF:000023,,Voltage-dependent L-type calcium channel subunit beta-2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.300:FF:000376,,Putative heterogeneous nuclear ribonucleoprotein U,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.300:FF:000432,,Voltage-dependent L-type calcium channel subunit beta-1 isoform 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.410:FF:000006,,voltage-dependent calcium channel subunit alpha-2/delta-1 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.410:FF:000007,,Calcium voltage-gated channel auxiliary subunit alpha2delta 3,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.410:FF:000039,,VWFA and cache domain-containing protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.720:FF:000233,,Glucose-fructose oxidoreductase domain-containing protein 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.50.720:FF:001222,,Glucose-fructose oxidoreductase domain containing 2,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.640.10:FF:000016,,Glutamate decarboxylase like 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.980.10:FF:000001,,Molybdopterin molybdenumtransferase,Region,
+CATH-FunFam,4.3.0,G3DSA:3.40.980.10:FF:000002,,Molybdopterin molybdenumtransferase,Region,
+CATH-FunFam,4.3.0,G3DSA:3.80.10.10:FF:000016,,Leucine-rich repeat and fibronectin type III domain-containing protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:3.80.10.10:FF:000025,,Leucine rich repeat and fibronectin type III domain containing 5,Region,
+CATH-FunFam,4.3.0,G3DSA:3.80.10.10:FF:000059,,Chondroadherin like,Region,
+CATH-FunFam,4.3.0,G3DSA:3.80.10.10:FF:000311,,Chondroadherin-like a,Region,
+CATH-FunFam,4.3.0,G3DSA:3.80.10.10:FF:000368,,Chondroadherin like,Region,
+CATH-FunFam,4.3.0,G3DSA:3.90.105.10:FF:000004,,Molybdopterin molybdenumtransferase,Region,
+CATH-FunFam,4.3.0,G3DSA:3.90.550.10:FF:000069,,Glycosyltransferase 8 domain-containing protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.1060.10:FF:000004,,Zinc finger Ran-binding domain-containing protein 2,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.1060.10:FF:000007,,Zinc finger Ran-binding domain-containing protein 2,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.280.10:FF:000001,,Putative transcription factor 12,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.280.10:FF:000003,,microphthalmia-associated transcription factor isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.280.10:FF:000006,,Neurogenic differentiation factor,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.280.10:FF:000045,,upstream stimulatory factor 2 isoform X1,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.280.10:FF:000155,,Upstream stimulatory factor 2,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.640.40:FF:000002,,Putative Cytoplasmic polyadenylation element-binding protein 1,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.800.10:FF:000008,,tumor-associated calcium signal transducer 2,Region,
+CATH-FunFam,4.3.0,G3DSA:4.10.800.10:FF:000015,,Epithelial cell adhesion molecule,Region,
+CATH-Gene3D,4.3.0,G3DSA:1.10.10.10,,Winged helix-like DNA-binding domain superfamily/Winged helix DNA-binding domain,Homologous_superfamily,IPR036388
+CATH-Gene3D,4.3.0,G3DSA:1.10.10.60,,Homeodomain-like,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.10.10.750,,"Ypt/Rab-GAP domain of gyp1p, domain 1",Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.10.167.10,,"Regulator of G-protein Signalling 4, domain 2",Homologous_superfamily,IPR044926
+CATH-Gene3D,4.3.0,G3DSA:1.10.196.10,,,Homologous_superfamily,IPR024066
+CATH-Gene3D,4.3.0,G3DSA:1.10.20.10,,"Histone, subunit A",Homologous_superfamily,IPR009072
+CATH-Gene3D,4.3.0,G3DSA:1.10.260.40,,lambda repressor-like DNA-binding domains,Homologous_superfamily,IPR010982
+CATH-Gene3D,4.3.0,G3DSA:1.10.260.70,,"SATB, CULT domain",Homologous_superfamily,IPR038216
+CATH-Gene3D,4.3.0,G3DSA:1.10.287.4280,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.10.287.70,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.10.287.930,,Mammalian shaker kv1.2 potassium channel- beta subunit complex,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.10.30.10,,High mobility group box domain,Homologous_superfamily,IPR036910
+CATH-Gene3D,4.3.0,G3DSA:1.10.472.10,,Cyclin-like,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.10.472.140,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.10.472.80,,"Ypt/Rab-GAP domain of gyp1p, domain 3",Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.10.510.10,,Transferase(Phosphotransferase) domain 1,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.10.720.30,,SAP domain,Homologous_superfamily,IPR036361
+CATH-Gene3D,4.3.0,G3DSA:1.10.8.270,,putative rabgap domain of human tbc1 domain family member 14 like domains,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.20.1070.10,,Rhodopsin 7-helix transmembrane proteins,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.20.120.330,,Nucleotidyltransferases domain 2,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.20.120.350,,Voltage-gated potassium channels. Chain C,Homologous_superfamily,IPR027359
+CATH-Gene3D,4.3.0,G3DSA:1.20.1390.10,,PWI domain,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.20.140.150,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.20.5.170,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.20.5.340,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.20.5.4010,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.20.58.150,,ANTH domain,Homologous_superfamily,IPR014712
+CATH-Gene3D,4.3.0,G3DSA:1.20.80.10,,,Homologous_superfamily,IPR014352
+CATH-Gene3D,4.3.0,G3DSA:1.20.900.10,,Dbl homology (DH) domain,Homologous_superfamily,IPR035899
+CATH-Gene3D,4.3.0,G3DSA:1.25.10.10,,Leucine-rich Repeat Variant,Homologous_superfamily,IPR011989
+CATH-Gene3D,4.3.0,G3DSA:1.25.40.10,,Tetratricopeptide repeat domain,Homologous_superfamily,IPR011990
+CATH-Gene3D,4.3.0,G3DSA:1.25.40.1050,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:1.25.40.20,,Ankyrin repeat-containing domain,Homologous_superfamily,IPR036770
+CATH-Gene3D,4.3.0,G3DSA:1.25.40.90,,,Homologous_superfamily,IPR008942
 CATH-Gene3D,4.3.0,G3DSA:2.10.25.10,,Laminin,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.10.70.80,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.130.10.10,,YVTN repeat-like/Quinoprotein amine dehydrogenase,Homologous_superfamily,IPR015943
+CATH-Gene3D,4.3.0,G3DSA:2.170.190.11,,"Molybdopterin biosynthesis moea protein, domain 3.",Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.30.29.30,,Pleckstrin-homology domain (PH domain)/Phosphotyrosine-binding domain (PTB),Homologous_superfamily,IPR011993
+CATH-Gene3D,4.3.0,G3DSA:2.30.30.140,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.30.30.40,,SH3 Domains,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.40.340.10,,"MoeA, C-terminal, domain IV",Homologous_superfamily,IPR036688
 CATH-Gene3D,4.3.0,G3DSA:2.60.120.200,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.60.120.260,,Galactose-binding domain-like,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.60.120.920,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.60.200.10,,,Homologous_superfamily,IPR017855
+CATH-Gene3D,4.3.0,G3DSA:2.60.200.40,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:2.60.40.10,,Immunoglobulins,Homologous_superfamily,IPR013783
+CATH-Gene3D,4.3.0,G3DSA:2.60.40.1390,,NDT80 DNA-binding domain,Homologous_superfamily,IPR037141
+CATH-Gene3D,4.3.0,G3DSA:2.60.40.3180,,"Transcription factor COE1, DNA-binding domain",Homologous_superfamily,IPR038173
+CATH-Gene3D,4.3.0,G3DSA:2.60.40.60,,Cadherins,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.10.20.710,,"SATB, ubiquitin-like oligomerisation domain",Homologous_superfamily,IPR038224
+CATH-Gene3D,4.3.0,G3DSA:3.10.20.90,,"Phosphatidylinositol 3-kinase Catalytic Subunit; Chain A, domain 1",Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.20.20.80,,Glycosidases,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.30.1370.10,,"K Homology domain, type 1",Homologous_superfamily,IPR036612
+CATH-Gene3D,4.3.0,G3DSA:3.30.1370.50,,R3H-like domain,Homologous_superfamily,IPR036867
+CATH-Gene3D,4.3.0,G3DSA:3.30.160.60,,Classic Zinc Finger,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.30.200.20,,Phosphorylase Kinase; domain 1,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.30.360.10,,Dihydrodipicolinate Reductase; domain 2,Homologous_superfamily,IPR064897
+CATH-Gene3D,4.3.0,G3DSA:3.30.428.10,,HIT-like,Homologous_superfamily,IPR036265
+CATH-Gene3D,4.3.0,G3DSA:3.30.450.20,,PAS domain,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.30.457.60,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.30.60.20,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.30.60.270,,,Homologous_superfamily,IPR065560
+CATH-Gene3D,4.3.0,G3DSA:3.30.70.330,,,Homologous_superfamily,IPR012677
+CATH-Gene3D,4.3.0,G3DSA:3.30.710.10,,Potassium Channel Kv1.1; Chain A,Homologous_superfamily,IPR011333
 CATH-Gene3D,4.3.0,G3DSA:3.40.1810.10,,"Transcription factor, MADS-box",Homologous_superfamily,IPR036879
+CATH-Gene3D,4.3.0,G3DSA:3.40.50.10330,,Probable inorganic polyphosphate/atp-NAD kinase; domain 1,Homologous_superfamily,IPR017438
+CATH-Gene3D,4.3.0,G3DSA:3.40.50.12390,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.40.50.300,,P-loop containing nucleotide triphosphate hydrolases,Homologous_superfamily,IPR027417
+CATH-Gene3D,4.3.0,G3DSA:3.40.50.410,,"von Willebrand factor, type A domain",Homologous_superfamily,IPR036465
+CATH-Gene3D,4.3.0,G3DSA:3.40.50.720,,NAD(P)-binding Rossmann-like Domain,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.40.640.10,,Type I PLP-dependent aspartate aminotransferase-like (Major domain),Homologous_superfamily,IPR015421
+CATH-Gene3D,4.3.0,G3DSA:3.40.980.10,,MoaB/Mog-like domain,Homologous_superfamily,IPR036425
+CATH-Gene3D,4.3.0,G3DSA:3.60.10.10,,Endonuclease/exonuclease/phosphatase,Homologous_superfamily,IPR036691
+CATH-Gene3D,4.3.0,G3DSA:3.80.10.10,,Ribonuclease Inhibitor,Homologous_superfamily,IPR032675
+CATH-Gene3D,4.3.0,G3DSA:3.90.105.10,,"Molybdopterin biosynthesis moea protein, domain 2",Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.90.1150.10,,"Aspartate Aminotransferase, domain 1",Homologous_superfamily,IPR015422
+CATH-Gene3D,4.3.0,G3DSA:3.90.1150.170,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:3.90.550.10,,Spore Coat Polysaccharide Biosynthesis Protein SpsA; Chain A,Homologous_superfamily,IPR029044
+CATH-Gene3D,4.3.0,G3DSA:4.10.1060.10,,"Zinc finger, RanBP2-type",Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:4.10.280.10,,Helix-loop-helix DNA-binding domain,Homologous_superfamily,IPR036638
+CATH-Gene3D,4.3.0,G3DSA:4.10.640.40,,"Cytoplasmic polyadenylation element-binding protein, ZZ domain",Homologous_superfamily,IPR038446
+CATH-Gene3D,4.3.0,G3DSA:4.10.800.10,,Thyroglobulin type-1,Homologous_superfamily,IPR036857
+CATH-Gene3D,4.3.0,G3DSA:6.10.250.2180,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:6.10.250.2500,,,Homologous_superfamily,
+CATH-Gene3D,4.3.0,G3DSA:6.10.250.90,,,Homologous_superfamily,
+CDD,3.21,cd00043,CYCLIN_SF,Cyclin box fold superfamily,Domain,
 CDD,3.21,cd00054,EGF_CA,,Domain,IPR000742
+CDD,3.21,cd00063,FN3,,Domain,IPR003961
+CDD,3.21,cd00086,homeodomain,,Domain,IPR001356
+CDD,3.21,cd00103,IRF,,Domain,IPR001346
 CDD,3.21,cd00110,LamG,,Domain,IPR001791
+CDD,3.21,cd00160,RhoGEF,,Domain,IPR000219
+CDD,3.21,cd00191,TY,,Domain,IPR000716
 CDD,3.21,cd00265,MADS_MEF2_like,,Domain,IPR033896
+CDD,3.21,cd00886,MogA_MoaB,,Domain,IPR001453
+CDD,3.21,cd00887,MoeA,,Domain,IPR038987
+CDD,3.21,cd01175,IPT_COE,,Domain,IPR038006
+CDD,3.21,cd01211,PTB_Rab6GAP,GTPase activating protein for Rab 6 Phosphotyrosine-binding (PTB) domain,Domain,
+CDD,3.21,cd01221,PH_ephexin,Ephexin Pleckstrin homology (PH) domain,Domain,IPR047270
+CDD,3.21,cd01241,PH_PKB,Protein Kinase B-like pleckstrin homology (PH) domain,Domain,IPR039026
+CDD,3.21,cd01275,FHIT,,Domain,IPR039383
+CDD,3.21,cd01463,vWA_VGCC_like,,Domain,
+CDD,3.21,cd02642,R3H_encore_like,,Domain,
+CDD,3.21,cd04969,Ig5_Contactin,Fifth immunoglobulin (Ig) domain of contactin,Domain,
+CDD,3.21,cd05056,PTKc_FAK,"Catalytic domain of the Protein Tyrosine Kinase, Focal Adhesion Kinase",Domain,
+CDD,3.21,cd05593,STKc_PKB_gamma,"Catalytic domain of the Serine/Threonine Kinase, Protein Kinase B gamma (also called Akt3)",Domain,IPR034675
+CDD,3.21,cd05764,IgI_SALM5_like,Immunoglobulin domain of human Synaptic Adhesion-Like Molecule 5 (SALM5) and similar proteins; member of the I-set of IgSF domains,Domain,
+CDD,3.21,cd05853,Ig6_Contactin-4,Sixth immunoglobulin (Ig) domain of contactin-4,Domain,IPR033007
+CDD,3.21,cd06429,GT8_like_1,GT8_like_1 represents a subfamily of GT8 with unknown function,Domain,
+CDD,3.21,cd06450,DOPA_deC_like,,Domain,
+CDD,3.21,cd08717,RGS_RGS5,Regulator of G protein signaling (RGS) domain found in the RGS5 protein,Domain,IPR034956
+CDD,3.21,cd09031,KH-I_NOVA_rpt3,third type I K homology (KH) RNA-binding domain found in the family of neuro-oncological ventral antigen (Nova),Domain,IPR047274
+CDD,3.21,cd09076,L1-EN,"Endonuclease domain (L1-EN) of the non-LTR retrotransposon LINE-1 (L1), and related domains",Domain,
+CDD,3.21,cd10144,Peptidase_S74_CIMCD,"Peptidase S74 family, C-terminal intramolecular chaperone domain of Escherichia coli phage K1F endosialidase and related proteins",Domain,
+CDD,3.21,cd11304,Cadherin_repeat,Cadherin tandem repeat domain,Domain,
+CDD,3.21,cd11427,bHLH_TS_NeuroD,basic helix-loop-helix (bHLH) domain found in neurogenic differentiation factor (NeuroD) family,Domain,
+CDD,3.21,cd11585,SATB1_N,N-terminal domain of SATB1 and similar proteins,Domain,IPR032392
+CDD,3.21,cd11606,COE_DBD,Colier/Olf/Early B-cell factor (EBF) DNA Binding Domain,Domain,IPR032200
+CDD,3.21,cd11939,SH3_ephexin1,"Src homology 3 domain of the Rho guanine nucleotide exchange factor, ephexin-1 (also called NGEF or ARHGEF27)",Domain,IPR035635
+CDD,3.21,cd12040,SH3_CACNB2,Src Homology 3 domain of Voltage-dependent L-type calcium channel subunit beta2,Domain,IPR035605
+CDD,3.21,cd12041,SH3_CACNB1,Src Homology 3 domain of Voltage-dependent L-type calcium channel subunit beta-1,Domain,
+CDD,3.21,cd12043,SH3_CACNB4,Src Homology 3 domain of Voltage-dependent L-type calcium channel subunit beta4,Domain,
+CDD,3.21,cd12407,RRM_FOX1_like,RNA recognition motif (RRM) found in vertebrate RNA binding protein fox-1 homologs and similar proteins,Domain,IPR034237
+CDD,3.21,cd12446,RRM_RBM25,RNA recognition motif (RRM) found in eukaryotic RNA-binding protein 25 and similar proteins,Domain,IPR034268
+CDD,3.21,cd12506,RRM3_hnRNPH_CRSF1_like,"RNA recognition motif 3 (RRM3) found in heterogeneous nuclear ribonucleoprotein hnRNP H protein family, G-rich sequence factor 1 (GRSF-1) and similar proteins",Domain,
+CDD,3.21,cd12518,RRM_SRSF11,RNA recognition motif (RRM) found in serine/arginine-rich splicing factor 11 (SRSF11) and similar proteins,Domain,IPR034447
+CDD,3.21,cd12581,RRM2_hnRNPA2B1,RNA recognition motif 2 (RRM2) found in heterogeneous nuclear ribonucleoprotein A2/B1 (hnRNP A2/B1) and similar proteins,Domain,
+CDD,3.21,cd12595,RRM1_SRSF5,RNA recognition motif 1 (RRM1) found in vertebrate serine/arginine-rich splicing factor 5 (SRSF5),Domain,
+CDD,3.21,cd12603,RRM_hnRNPC,RNA recognition motif (RRM) found in vertebrate heterogeneous nuclear ribonucleoprotein C1/C2 (hnRNP C1/C2),Domain,
+CDD,3.21,cd12631,RRM1_CELF1_2_Bruno,"RNA recognition motif 1 (RRM1) found in CUGBP Elav-like family member CELF-1, CELF-2, Drosophila melanogaster Bruno protein and similar proteins",Domain,IPR034196
+CDD,3.21,cd12634,RRM2_CELF1_2,"RNA recognition motif 2 (RRM2) found in CUGBP Elav-like family member CELF-1, CELF-2 and similar proteins",Domain,IPR034198
+CDD,3.21,cd12638,RRM3_CELF1_2,"RNA recognition motif 3 (RRM3) found in CUGBP Elav-like family member CELF-1, CELF-2 and similar proteins",Domain,IPR034199
+CDD,3.21,cd12652,RRM2_Hu,RNA recognition motif 2 (RRM2) found in the Hu proteins family,Domain,
+CDD,3.21,cd12656,RRM3_HuD,RNA recognition motif 3 (RRM3) found in vertebrate Hu-antigen D (HuD),Domain,IPR034918
+CDD,3.21,cd12657,RRM1_hnRNPM,RNA recognition motif 1 (RRM1) found in vertebrate heterogeneous nuclear ribonucleoprotein M (hnRNP M),Domain,IPR065539
+CDD,3.21,cd12659,RRM2_hnRNPM,RNA recognition motif 2 (RRM2) found in vertebrate heterogeneous nuclear ribonucleoprotein M (hnRNP M),Domain,IPR065538
+CDD,3.21,cd12661,RRM3_hnRNPM,RNA recognition motif 3 (RRM3) found in vertebrate heterogeneous nuclear ribonucleoprotein M (hnRNP M),Domain,IPR034990
+CDD,3.21,cd12723,RRM1_CPEB1,RNA recognition motif 1 (RRM1) found in cytoplasmic polyadenylation element-binding protein 1 (CPEB-1) and similar proteins,Domain,IPR034977
+CDD,3.21,cd12725,RRM2_CPEB1,RNA recognition motif 2 (RRM2) found in cytoplasmic polyadenylation element-binding protein 1 (CPEB-1) and similar proteins,Domain,
+CDD,3.21,cd12729,RRM1_hnRNPH_hnRNPH2_hnRNPF,"RNA recognition motif 1 (RRM1) found in heterogeneous nuclear ribonucleoprotein hnRNP H , hnRNP H2, hnRNP F and similar proteins",Domain,IPR065495
+CDD,3.21,cd12731,RRM2_hnRNPH_hnRNPH2_hnRNPF,"RNA recognition motif 2 (RRM2) found in heterogeneous nuclear ribonucleoprotein hnRNP H, hnRNP H2, hnRNP F and similar proteins",Domain,IPR065493
+CDD,3.21,cd12732,RRM2_hnRNPH3,RNA recognition motif 2 (RRM2) found in heterogeneous nuclear ribonucleoprotein H3 (hnRNP H3) and similar proteins,Domain,IPR034970
+CDD,3.21,cd12734,RRM3_hnRNPH_hnRNPH2_hnRNPF,"RNA recognition motif 3 (RRM3) found in heterogeneous nuclear ribonucleoprotein hnRNP H , hnRNP H2, hnRNP F and similar proteins",Domain,
+CDD,3.21,cd12735,RRM3_hnRNPH3,RNA recognition motif 3 (RRM3) found in heterogeneous nuclear ribonucleoprotein H3 (hnRNP H3) and similar proteins,Domain,IPR034969
+CDD,3.21,cd12752,RRM1_RBM5,RNA recognition motif 1 (RRM1) found in vertebrate RNA-binding protein 5 (RBM5),Domain,IPR034991
+CDD,3.21,cd12755,RRM2_RBM5,RNA recognition motif 2 (RRM2) found in vertebrate RNA-binding protein 5 (RBM5),Domain,IPR034993
+CDD,3.21,cd12762,RRM1_hnRNPA2B1,RNA recognition motif 1 (RRM1) found in heterogeneous nuclear ribonucleoprotein A2/B1 (hnRNP A2/B1) and similar proteins,Domain,IPR034486
+CDD,3.21,cd12765,RRM2_SRSF5,RNA recognition motif 2 (RRM2) found in vertebrate serine/arginine-rich splicing factor 5 (SRSF5),Domain,
+CDD,3.21,cd12884,SPRY_hnRNP,SPRY domain in heterogeneous nuclear ribonucleoprotein U-like (hnRNP) protein 1,Domain,IPR035778
+CDD,3.21,cd12912,PDC2_MCP_like,second PDC (PhoQ/DcuS/CitA) domain of methyl-accepting chemotaxis proteins and similar domains,Domain,
+CDD,3.21,cd13190,FERM_C_FAK1,FERM domain C-lobe of Focal Adhesion Kinase 1 and 2,Domain,IPR041784
+CDD,3.21,cd14473,FERM_B-lobe,FERM domain B-lobe,Domain,IPR019748
+CDD,3.21,cd15338,7tmA_MCHR1,"melanin concentrating hormone receptor 1, member of the class A family of seven-transmembrane G protein-coupled receptors",Domain,
+CDD,3.21,cd16168,OCRE_RBM5,OCRE domain found in RNA-binding protein 5 (RBM5) and similar proteins,Domain,
+CDD,3.21,cd16985,ANTH_N_AP180,"ANTH (AP180 N-Terminal Homology) domain, N-terminal region, of adaptor protein 180 (AP180) subfamily",Domain,
+CDD,3.21,cd18384,BTB_POZ_Kv9_KCNS,"BTB (Broad-Complex, Tramtrack and Bric a brac)/POZ (poxvirus and zinc finger) domain found in KCNS/Kv9 subfamily of potassium voltage-gated channels",Domain,
+CDD,3.21,cd18673,PIN_XRN1-2-like,"FEN-like PIN domains of XRN1, XRN2, and related proteins",Domain,
+CDD,3.21,cd18923,bHLHzip_USF2,basic Helix-Loop-Helix-zipper (bHLHzip) domain found in upstream stimulatory factor 2 (USF2) and similar proteins,Domain,
+CDD,3.21,cd18926,bHLHzip_MITF,basic Helix-Loop-Helix-zipper (bHLHzip) domain found in microphthalmia-associated transcription factor (MITF) and similar proteins,Domain,
+CDD,3.21,cd18945,bHLH_E-protein_TCF4_E2-2,basic helix-loop-helix (bHLH) domain found in transcription factor 4 (TCF-4) and similar proteins,Domain,
+CDD,3.21,cd19722,bHLH_TS_NeuroD6_ATOH2,basic helix-loop-helix (bHLH) domain found in neurogenic differentiation factor 6 (NeuroD6) and similar proteins,Domain,
+CDD,3.21,cd19757,Bbox1,B-box-type 1 zinc finger (Bbox1),Domain,
+CDD,3.21,cd20065,FH_FOXP2,Forkhead (FH) domain found in Forkhead box protein P2 (FOXP2),Domain,IPR047412
+CDD,3.21,cd20472,Tudor_Agenet_FXR1_rpt1,first Tudor-like Agenet domain found in fragile X mental retardation syndrome-related protein 1 (FXR1) and similar proteins,Domain,IPR047425
+CDD,3.21,cd20475,Tudor_Agenet_FXR1_rpt2,second Tudor-like Agenet domain found in fragile X mental retardation syndrome-related protein 1 (FXR1) and similar proteins,Domain,IPR047427
+CDD,3.21,cd20606,CYCLIN_RBL2,cyclin box found in retinoblastoma-like protein 2 (RBL2) and similar proteins,Domain,
+CDD,3.21,cd20849,C1_DGKzeta_rpt1,first protein kinase C conserved region 1 (C1 domain) found in diacylglycerol kinase zeta (DAG kinase zeta) and similar proteins,Domain,IPR047485
+CDD,3.21,cd20895,C1_DGKzeta_rpt2,second protein kinase C conserved region 1 (C1 domain) found in diacylglycerol kinase zeta (DAG kinase zeta) and similar proteins,Domain,IPR047484
+CDD,3.21,cd22030,HMG-box_SoxD,high mobility group (HMG)-box found in group D SRY-related high-mobility group (HMG) box (Sox) transcription factors,Domain,
+CDD,3.21,cd22042,HMG-box_EGL13-like,high mobility group (HMG)-box found in Caenorhabditis elegans protein egg laying defective 13 (EGL-13) and similar proteins,Domain,
+CDD,3.21,cd22384,KH-I_KHDRBS,"type I K homology (KH) RNA-binding domain found in the KH domain-containing, RNA-binding, signal transduction-associated protein (KHDRBS) family",Domain,
+CDD,3.21,cd22435,KH-I_NOVA_rpt1,first type I K homology (KH) RNA-binding domain found in the family of neuro-oncological ventral antigen (Nova),Domain,IPR047275
+CDD,3.21,cd22436,KH-I_NOVA_rpt2,second type I K homology (KH) RNA-binding domain found in the family of neuro-oncological ventral antigen (Nova),Domain,IPR047276
+CDD,3.21,cd22465,KH-I_Hqk,type I K homology (KH) RNA-binding domain found in protein quaking (Hqk) and similar proteins,Domain,
+CDD,3.21,cd22469,KH-I_KHDRBS2,"type I K homology (KH) RNA-binding domain found in KH domain-containing, RNA-binding, signal transduction-associated protein 2 (KHDRBS2) and similar proteins",Domain,
+CDD,3.21,cd22470,KH-I_KHDRBS3,"type I K homology (KH) RNA-binding domain found in KH domain-containing, RNA-binding, signal transduction-associated protein 3 (KHDRBS3) and similar proteins",Domain,
+CDD,3.21,cd22504,KH_I_FXR1_rpt1,first type I K homology (KH) RNA-binding domain found in fragile X mental retardation syndrome-related protein 1 (FXR1) and similar proteins,Domain,IPR047494
+CDD,3.21,cd22507,KH_I_FXR1_rpt2,second type I K homology (KH) RNA-binding domain found in fragile X mental retardation syndrome-related protein 1 (FXR1) and similar proteins,Domain,IPR047495
+CDD,3.21,cd22510,KH_I_FXR1_rpt3,third type I K homology (KH) RNA-binding domain found in fragile X mental retardation syndrome-related protein 1 (FXR1) and similar proteins,Domain,IPR047496
+CDD,3.21,cd22907,HFD_NFYB,histone-fold domain found in nuclear transcription factor Y subunit beta (NF-YB) and similar proteins,Domain,
+COILS,2.2.1,Coil,,Coil,Region,
 MobiDB-lite,4.0,mobidb-lite,disorder_prediction,Consensus disorder prediction,Region,
+NCBIFAM,20.0,NF007538,uidA,beta-glucuronidase,Family,
+NCBIFAM,20.0,TIGR00177,molyb_syn,molybdenum cofactor biosynthesis domain,Domain,IPR001453
+NCBIFAM,20.0,TIGR01661,ELAV_HUD_SF,ELAV/HuD family splicing factor,Family,IPR006548
+PANTHER,19.0,PTHR10037,,VOLTAGE-GATED CATION CHANNEL CALCIUM AND SODIUM,Family,IPR043203
+PANTHER,19.0,PTHR10066,,BETA-GLUCURONIDASE,Family,
+PANTHER,19.0,PTHR10166,,VOLTAGE-DEPENDENT CALCIUM CHANNEL SUBUNIT ALPHA-2/DELTA-RELATED,Family,IPR051173
+PANTHER,19.0,PTHR10192,,MOLYBDOPTERIN BIOSYNTHESIS PROTEIN,Family,IPR038987
+PANTHER,19.0,PTHR10288,,KH DOMAIN CONTAINING RNA BINDING PROTEIN,Family,
+PANTHER,19.0,PTHR10352,,EUKARYOTIC TRANSLATION INITIATION FACTOR 3 SUBUNIT G,Family,
+PANTHER,19.0,PTHR10390,,HOMEOBOX PROTEIN SIX,Family,
+PANTHER,19.0,PTHR10603,,FRAGILE X MENTAL RETARDATION SYNDROME-RELATED PROTEIN,Family,IPR040148
+PANTHER,19.0,PTHR10747,,TRANSCRIPTION FACTOR COE FAMILY MEMBER,Family,IPR003523
+PANTHER,19.0,PTHR10845,,REGULATOR OF G PROTEIN SIGNALING,Family,
+PANTHER,19.0,PTHR10970,,CLUSTERIN,Family,IPR000753
+PANTHER,19.0,PTHR11064,,CCAAT-BINDING TRANSCRIPTION FACTOR-RELATED,Family,IPR027113
+PANTHER,19.0,PTHR11208,,RNA-BINDING PROTEIN RELATED,Family,IPR045071
+PANTHER,19.0,PTHR11255,,DIACYLGLYCEROL KINASE,Family,IPR037607
+PANTHER,19.0,PTHR11501,,MICROTUBULE-ASSOCIATED PROTEIN,Family,IPR027324
+PANTHER,19.0,PTHR11537,,VOLTAGE-GATED POTASSIUM CHANNEL,Family,IPR028325
+PANTHER,19.0,PTHR11793,,BASIC HELIX-LOOP-HELIX TRANSCRIPTION FACTOR,Family,IPR051098
+PANTHER,19.0,PTHR11824,,VOLTAGE-DEPENDENT CALCIUM CHANNEL BETA SUBUNIT,Family,IPR000584
+PANTHER,19.0,PTHR11849,,ETS,Family,IPR046328
 PANTHER,19.0,PTHR11945,,MADS BOX PROTEIN,Family,
+PANTHER,19.0,PTHR11949,,INTERFERON REGULATORY FACTOR,Family,
+PANTHER,19.0,PTHR12106,,SORTILIN RELATED,Family,IPR050310
+PANTHER,19.0,PTHR12107,,VOLTAGE-DEPENDENT CALCIUM CHANNEL GAMMA SUBUNIT,Family,IPR051072
+PANTHER,19.0,PTHR12138,,PRIMATE-EXPANDED PROTEIN FAMILY,Family,
+PANTHER,19.0,PTHR12191,,SOLUTE CARRIER FAMILY 39,Family,IPR050799
+PANTHER,19.0,PTHR12341,,5'->3' EXORIBONUCLEASE,Family,IPR027073
+PANTHER,19.0,PTHR12381,,HETEROGENEOUS NUCLEAR RIBONUCLEOPROTEIN U FAMILY MEMBER,Family,
+PANTHER,19.0,PTHR12566,,CYTOPLASMIC POLYADENYLATION ELEMENT BINDING PROTEIN CPEB,Family,IPR034819
+PANTHER,19.0,PTHR12845,,GUANINE NUCLEOTIDE EXCHANGE FACTOR,Family,IPR047271
+PANTHER,19.0,PTHR12999,,ZINC FINGER RAN-BINDING DOMAIN-CONTAINING PROTEIN 2 ZRANB2-RELATED,Family,
+PANTHER,19.0,PTHR13029,,,Family,IPR051577
+PANTHER,19.0,PTHR13742,,RETINOBLASTOMA-ASSOCIATED PROTEIN RB -RELATED,Family,IPR028309
+PANTHER,19.0,PTHR13778,,GLYCOSYLTRANSFERASE 8 DOMAIN-CONTAINING PROTEIN,Family,IPR050748
+PANTHER,19.0,PTHR13948,,RNA-BINDING PROTEIN,Family,
+PANTHER,19.0,PTHR13968,,HETEROGENEOUS NUCLEAR RIBONUCLEOPROTEIN,Family,IPR051186
+PANTHER,19.0,PTHR13976,,HETEROGENEOUS NUCLEAR RIBONUCLEOPROTEIN-RELATED,Family,IPR050666
+PANTHER,19.0,PTHR14168,,TUMOR-ASSOCIATED CALCIUM SIGNAL TRANSDUCER,Family,IPR043406
+PANTHER,19.0,PTHR14196,,ODD-SKIPPED - RELATED,Family,IPR050717
+PANTHER,19.0,PTHR14445,,GRB10 INTERACTING GYF PROTEIN,Family,IPR051640
 PANTHER,19.0,PTHR15036,,PIKACHURIN-LIKE PROTEIN,Family,IPR050372
+PANTHER,19.0,PTHR15116,,DNA-BINDING PROTEIN SATB FAMILY MEMBER,Family,IPR039673
+PANTHER,19.0,PTHR15439,,RETINOBLASTOMA-BINDING PROTEIN 6,Family,
+PANTHER,19.0,PTHR15597,,ATAXIN 2-BINDING PROTEIN 1-RELATED,Family,IPR047131
+PANTHER,19.0,PTHR15672,,CAMP-REGULATED PHOSPHOPROTEIN 21 RELATED R3H DOMAIN CONTAINING PROTEIN,Family,IPR051937
+PANTHER,19.0,PTHR16002,,TRANSMEMBRANE PROTEIN 248-LIKE,Family,IPR039493
+PANTHER,19.0,PTHR17601,,RAFTLIN-RELATED,Family,IPR028169
+PANTHER,19.0,PTHR18806,,RBM25 PROTEIN,Family,IPR052768
+PANTHER,19.0,PTHR19290,,BASIC HELIX-LOOP-HELIX PROTEIN NEUROGENIN-RELATED,Family,IPR050359
+PANTHER,19.0,PTHR19446,,REVERSE TRANSCRIPTASES,Family,
+PANTHER,19.0,PTHR21490,,ENKURIN-RELATED,Family,IPR052102
+PANTHER,19.0,PTHR22951,,CLATHRIN ASSEMBLY PROTEIN,Family,IPR045192
+PANTHER,19.0,PTHR23003,,RNA RECOGNITION MOTIF RRM DOMAIN CONTAINING PROTEIN,Family,
+PANTHER,19.0,PTHR23168,,MITOTIC SPINDLE ASSEMBLY CHECKPOINT PROTEIN MAD1 MITOTIC ARREST DEFICIENT-LIKE PROTEIN 1,Family,IPR008672
+PANTHER,19.0,PTHR23204,,CLEAVAGE AND POLYADENYLATION SPECIFIC FACTOR,Family,IPR034772
+PANTHER,19.0,PTHR24012,,RNA BINDING PROTEIN,Family,
+PANTHER,19.0,PTHR24028,,CADHERIN-87A,Family,
+PANTHER,19.0,PTHR24179,,PROTEIN PHOSPHATASE 1 REGULATORY SUBUNIT 12,Family,IPR051226
+PANTHER,19.0,PTHR24229,,NEUROPEPTIDES RECEPTOR,Family,
+PANTHER,19.0,PTHR24351,,RIBOSOMAL PROTEIN S6 KINASE,Family,
+PANTHER,19.0,PTHR24366,,IG(IMMUNOGLOBULIN) AND LRR(LEUCINE RICH REPEAT) DOMAINS,Family,
+PANTHER,19.0,PTHR24369,,"ANTIGEN BSP, PUTATIVE-RELATED",Family,IPR050541
+PANTHER,19.0,PTHR24373,,SLIT RELATED LEUCINE-RICH REPEAT NEURONAL PROTEIN,Family,IPR050328
+PANTHER,19.0,PTHR24394,,ZINC FINGER PROTEIN,Family,
+PANTHER,19.0,PTHR28453,,PROTEIN SNORC,Family,IPR031500
+PANTHER,19.0,PTHR32343,,SERINE/ARGININE-RICH SPLICING FACTOR,Family,
+PANTHER,19.0,PTHR42757,,IGLON FAMILY OF IMMUNOGLOBULIN SUPERFAMILY-RELATED,Family,IPR050876
+PANTHER,19.0,PTHR43818,,BCDNA.GH03377,Family,IPR050463
+PANTHER,19.0,PTHR44170,,PROTEIN SIDEKICK,Family,
+PANTHER,19.0,PTHR45628,,VOLTAGE-DEPENDENT CALCIUM CHANNEL TYPE A SUBUNIT ALPHA-1,Family,IPR050599
+PANTHER,19.0,PTHR45677,,GLUTAMATE DECARBOXYLASE-RELATED,Family,
+PANTHER,19.0,PTHR45776,,MIP04163P,Family,
+PANTHER,19.0,PTHR45789,,FI18025P1,Family,IPR051356
+PANTHER,19.0,PTHR45796,,"FORKHEAD BOX P, ISOFORM C",Family,IPR050998
+PANTHER,19.0,PTHR45842,,SYNAPTIC ADHESION-LIKE MOLECULE SALM,Family,IPR050467
+PANTHER,19.0,PTHR46117,,FI24210P1,Family,IPR051732
+PANTHER,19.0,PTHR46221,,FERM AND PDZ DOMAIN-CONTAINING PROTEIN FAMILY MEMBER,Family,
+PANTHER,19.0,PTHR46254,,PROTEIN GVQW1-RELATED,Family,
+PANTHER,19.0,PTHR46540,,TETRATRICOPEPTIDE REPEAT PROTEIN 12,Family,IPR043195
+PANTHER,19.0,PTHR46981,,BIS(5'-ADENOSYL)-TRIPHOSPHATASE,Family,IPR052677
+PANTHER,19.0,PTHR47219,,RAB GTPASE-ACTIVATING PROTEIN 1-LIKE,Family,IPR050302
+PANTHER,19.0,PTHR47728,,RAB GTPASE-ACTIVATING PROTEIN 1-LIKE,Family,
+PANTHER,19.0,PTHR48026,,HOMOLOGOUS TO DROSOPHILA SQD (SQUID) PROTEIN,Family,
+PIRSF,3.10,PIRSF002368,Clusterin,Clusterin,Family,IPR016016
+PIRSF,3.10,PIRSF015618,bHLH_NeuroD,Basic helix-loop-helix transcription factor NeuroD,Family,IPR016637
+PIRSF,3.10,PIRSF037239,Exonuclease_Xrn2,"5'-3' exonuclease, Xrn2 type",Family,IPR017151
+PIRSF,3.10,PIRSF037932,Ataxin_2_bd_A2BP,"Ataxin 2 binding protein, A2BP type",Family,IPR017325
+PIRSF,3.10,PIRSF037956,UCP037956_ZnF_Ran,"Uncharacterised protein with zinc finger Ran-binding domain, ZRANB2 type",Family,IPR017337
+PIRSF,3.10,PIRSF037992,hnRNP-C_Raly,"Heterogeneous nuclear ribonucleoprotein C, Raly type",Family,IPR017347
+PIRSF,3.10,PIRSF038159,PP1_16AB_vert,"Protein phosphatase 1, regulatory subunits 16A/B, vertebrate type",Family,IPR017417
+PIRSR,2025_05,PIRSR000412-50,PIRSR000412-50,,Region,
+PIRSR,2025_05,PIRSR000445-3,PIRSR000445-3,,Region,
+PIRSR,2025_05,PIRSR000550-1,PIRSR000550-1,,Region,
+PIRSR,2025_05,PIRSR000550-3,PIRSR000550-3,,Region,
+PIRSR,2025_05,PIRSR000551-50,PIRSR000551-50,,Region,
+PIRSR,2025_05,PIRSR000551-51,PIRSR000551-51,,Region,
+PIRSR,2025_05,PIRSR000552-1,PIRSR000552-1,,Region,
+PIRSR,2025_05,PIRSR000552-2,PIRSR000552-2,,Region,
+PIRSR,2025_05,PIRSR000554-1,PIRSR000554-1,,Region,
+PIRSR,2025_05,PIRSR000554-2,PIRSR000554-2,,Region,
+PIRSR,2025_05,PIRSR000556-1,PIRSR000556-1,,Region,
+PIRSR,2025_05,PIRSR000556-2,PIRSR000556-2,,Region,
+PIRSR,2025_05,PIRSR000559-1,PIRSR000559-1,,Region,
+PIRSR,2025_05,PIRSR000559-2,PIRSR000559-2,,Region,
+PIRSR,2025_05,PIRSR000604-1,PIRSR000604-1,,Region,
+PIRSR,2025_05,PIRSR000604-2,PIRSR000604-2,,Region,
+PIRSR,2025_05,PIRSR000605-50,PIRSR000605-50,,Region,
+PIRSR,2025_05,PIRSR000605-51,PIRSR000605-51,,Region,
+PIRSR,2025_05,PIRSR000606-51,PIRSR000606-51,,Region,
+PIRSR,2025_05,PIRSR000617-1,PIRSR000617-1,,Region,
+PIRSR,2025_05,PIRSR000617-2,PIRSR000617-2,,Region,
+PIRSR,2025_05,PIRSR000617-4,PIRSR000617-4,,Region,
+PIRSR,2025_05,PIRSR000619-1,PIRSR000619-1,,Region,
+PIRSR,2025_05,PIRSR000619-2,PIRSR000619-2,,Region,
+PIRSR,2025_05,PIRSR000620-1,PIRSR000620-1,,Region,
+PIRSR,2025_05,PIRSR000620-2,PIRSR000620-2,,Region,
+PIRSR,2025_05,PIRSR000624-1,PIRSR000624-1,,Region,
+PIRSR,2025_05,PIRSR000624-2,PIRSR000624-2,,Region,
+PIRSR,2025_05,PIRSR000628-1,PIRSR000628-1,,Region,
+PIRSR,2025_05,PIRSR000628-2,PIRSR000628-2,,Region,
+PIRSR,2025_05,PIRSR000628-3,PIRSR000628-3,,Region,
+PIRSR,2025_05,PIRSR000631-1,PIRSR000631-1,,Region,
+PIRSR,2025_05,PIRSR000632-1,PIRSR000632-1,,Region,
+PIRSR,2025_05,PIRSR000632-2,PIRSR000632-2,,Region,
+PIRSR,2025_05,PIRSR000636-1,PIRSR000636-1,,Region,
+PIRSR,2025_05,PIRSR000636-2,PIRSR000636-2,,Region,
+PIRSR,2025_05,PIRSR000660-1,PIRSR000660-1,,Region,
+PIRSR,2025_05,PIRSR000660-2,PIRSR000660-2,,Region,
+PIRSR,2025_05,PIRSR000661-50,PIRSR000661-50,,Region,
+PIRSR,2025_05,PIRSR000661-51,PIRSR000661-51,,Region,
+PIRSR,2025_05,PIRSR000666-1,PIRSR000666-1,,Region,
+PIRSR,2025_05,PIRSR000666-2,PIRSR000666-2,,Region,
+PIRSR,2025_05,PIRSR000846-1,PIRSR000846-1,,Region,
+PIRSR,2025_05,PIRSR001145-3,PIRSR001145-3,,Region,
+PIRSR,2025_05,PIRSR001979-1,PIRSR001979-1,,Region,
 PIRSR,2025_05,PIRSR002421-1,PIRSR002421-1,,Region,
+PIRSR,2025_05,PIRSR002490-1,PIRSR002490-1,,Region,
+PIRSR,2025_05,PIRSR037014-1,PIRSR037014-1,,Region,
+PIRSR,2025_05,PIRSR037014-2,PIRSR037014-2,,Region,
+PIRSR,2025_05,PIRSR037281-1,PIRSR037281-1,,Region,
+PIRSR,2025_05,PIRSR037281-2,PIRSR037281-2,,Region,
+PIRSR,2025_05,PIRSR037281-3,PIRSR037281-3,,Region,
+PIRSR,2025_05,PIRSR037393-1,PIRSR037393-1,,Region,
+PIRSR,2025_05,PIRSR037393-2,PIRSR037393-2,,Region,
+PIRSR,2025_05,PIRSR037568-1,PIRSR037568-1,,Region,
+PIRSR,2025_05,PIRSR037568-2,PIRSR037568-2,,Region,
+PIRSR,2025_05,PIRSR037921-1,PIRSR037921-1,,Region,
+PIRSR,2025_05,PIRSR037921-2,PIRSR037921-2,,Region,
+PIRSR,2025_05,PIRSR037932-1,PIRSR037932-1,,Region,
+PIRSR,2025_05,PIRSR037993-1,PIRSR037993-1,,Region,
+PIRSR,2025_05,PIRSR037993-2,PIRSR037993-2,,Region,
+PIRSR,2025_05,PIRSR038159-50,PIRSR038159-50,,Region,
+PIRSR,2025_05,PIRSR038165-50,PIRSR038165-50,,Region,
+PIRSR,2025_05,PIRSR038165-51,PIRSR038165-51,,Region,
+PIRSR,2025_05,PIRSR038172-1,PIRSR038172-1,,Region,
+PIRSR,2025_05,PIRSR038172-2,PIRSR038172-2,,Region,
+PIRSR,2025_05,PIRSR038189-1,PIRSR038189-1,,Region,
+PIRSR,2025_05,PIRSR038189-2,PIRSR038189-2,,Region,
+PIRSR,2025_05,PIRSR500947-50,PIRSR500947-50,,Region,
+PIRSR,2025_05,PIRSR500947-51,PIRSR500947-51,,Region,
+PIRSR,2025_05,PIRSR500948-1,PIRSR500948-1,,Region,
+PIRSR,2025_05,PIRSR500948-2,PIRSR500948-2,,Region,
+PIRSR,2025_05,PIRSR500950-50,PIRSR500950-50,,Region,
+PIRSR,2025_05,PIRSR500950-51,PIRSR500950-51,,Region,
+PIRSR,2025_05,PIRSR500951-1,PIRSR500951-1,,Region,
+PIRSR,2025_05,PIRSR500951-2,PIRSR500951-2,,Region,
+PIRSR,2025_05,PIRSR600239-51,PIRSR600239-51,,Region,
+PIRSR,2025_05,PIRSR601310-1,PIRSR601310-1,,Region,
+PIRSR,2025_05,PIRSR601310-3,PIRSR601310-3,,Region,
+PIRSR,2025_05,PIRSR602077-1,PIRSR602077-1,,Region,
+PIRSR,2025_05,PIRSR602129-50,PIRSR602129-50,,Region,
+PIRSR,2025_05,PIRSR603912-52,PIRSR603912-52,,Region,
+PIRSR,2025_05,PIRSR604808-1,PIRSR604808-1,,Region,
+PIRSR,2025_05,PIRSR604808-2,PIRSR604808-2,,Region,
+PIRSR,2025_05,PIRSR604808-3,PIRSR604808-3,,Region,
+PIRSR,2025_05,PIRSR606689-1,PIRSR606689-1,,Region,
+PIRSR,2025_05,PIRSR606689-2,PIRSR606689-2,,Region,
+PIRSR,2025_05,PIRSR620777-50,PIRSR620777-50,,Region,
+PIRSR,2025_05,PIRSR620777-51,PIRSR620777-51,,Region,
+PIRSR,2025_05,PIRSR628788-1,PIRSR628788-1,,Region,
+PIRSR,2025_05,PIRSR628788-2,PIRSR628788-2,,Region,
+PIRSR,2025_05,PIRSR630220-1,PIRSR630220-1,,Region,
+PIRSR,2025_05,PIRSR630220-2,PIRSR630220-2,,Region,
+PIRSR,2025_05,PIRSR630616-1,PIRSR630616-1,,Region,
+PIRSR,2025_05,PIRSR630616-2,PIRSR630616-2,,Region,
+PIRSR,2025_05,PIRSR630616-3,PIRSR630616-3,,Region,
+PIRSR,2025_05,PIRSR637770-1,PIRSR637770-1,,Region,
+PIRSR,2025_05,PIRSR637770-2,PIRSR637770-2,,Region,
+PIRSR,2025_05,PIRSR638784-1,PIRSR638784-1,,Region,
+PIRSR,2025_05,PIRSR639383-1,PIRSR639383-1,,Region,
+PIRSR,2025_05,PIRSR639383-2,PIRSR639383-2,,Region,
+PIRSR,2025_05,PIRSR639383-3,PIRSR639383-3,,Region,
+PRINTS,42.0,PR00053,FORKHEAD,,Domain,IPR001766
+PRINTS,42.0,PR00109,TYRKINASE,,Domain,IPR001245
+PRINTS,42.0,PR00132,GLHYDRLASE2,,Family,IPR006101
+PRINTS,42.0,PR00167,CACHANNEL,,Family,IPR002077
+PRINTS,42.0,PR00169,KCHANNEL,,Family,
+PRINTS,42.0,PR00205,CADHERIN,,Family,IPR002126
+PRINTS,42.0,PR00237,GPCRRHODOPSN,,Family,IPR000276
+PRINTS,42.0,PR00267,INTFRNREGFCT,,Family,IPR001346
 PRINTS,42.0,PR00404,MADSDOMAIN,,Domain,IPR002100
+PRINTS,42.0,PR00454,ETSDOMAIN,,Domain,IPR000418
+PRINTS,42.0,PR00615,CCAATSUBUNTA,,Family,
+PRINTS,42.0,PR00961,HUDSXLRNA,,Family,IPR002343
+PRINTS,42.0,PR01228,EGGSHELL,,Family,
+PRINTS,42.0,PR01261,TAUPROTEIN,,Family,IPR002955
+PRINTS,42.0,PR01301,RGSPROTEIN,,Family,IPR016137
+PRINTS,42.0,PR01491,KVCHANNEL,,Family,IPR003968
+PRINTS,42.0,PR01494,KV9CHANNEL,,Family,IPR003971
+PRINTS,42.0,PR01507,MCH1RECEPTOR,,Family,IPR004047
+PRINTS,42.0,PR01626,LCACHANNELB,,Family,IPR000584
+PRINTS,42.0,PR01627,LCACHANNELB1,,Family,IPR005443
+PRINTS,42.0,PR01628,LCACHANNELB2,,Family,IPR005444
+PRINTS,42.0,PR01629,TVDCCALPHA1,,Family,IPR005445
+PRINTS,42.0,PR01696,LCACHANNELB3,,Family,IPR008079
+PRINTS,42.0,PR01783,MCHRECEPTOR,,Family,IPR008361
+PRINTS,42.0,PR01792,VDCCGAMMA,,Family,IPR008368
+PRINTS,42.0,PR01796,VDCCGAMMA8,,Family,IPR008372
+PRINTS,42.0,PR02045,F138DOMAIN,FAM138 N-terminal domain,Domain,
 PROSITE patterns,2026_01,PS00010,ASX_HYDROXYL,Aspartic acid and asparagine hydroxylation site,Conserved_site,IPR000152
+PROSITE patterns,2026_01,PS00028,ZINC_FINGER_C2H2_1,Zinc finger C2H2 type domain signature,Conserved_site,IPR013087
+PROSITE patterns,2026_01,PS00107,PROTEIN_KINASE_ATP,Protein kinases ATP-binding region signature,Conserved_site,IPR017441
+PROSITE patterns,2026_01,PS00108,PROTEIN_KINASE_ST,Serine/Threonine protein kinases active-site signature,Conserved_site,IPR008271
+PROSITE patterns,2026_01,PS00109,PROTEIN_KINASE_TYR,Tyrosine protein kinases specific active-site signature,Conserved_site,IPR008266
+PROSITE patterns,2026_01,PS00229,TAU_MAP_1,Tau and MAP proteins tubulin-binding repeat signature,Conserved_site,IPR001084
+PROSITE patterns,2026_01,PS00232,CADHERIN_1,Cadherin domain signature,Conserved_site,IPR020894
+PROSITE patterns,2026_01,PS00345,ETS_DOMAIN_1,Ets-domain signature 1,Conserved_site,IPR000418
+PROSITE patterns,2026_01,PS00346,ETS_DOMAIN_2,Ets-domain signature 2,Conserved_site,IPR000418
+PROSITE patterns,2026_01,PS00392,DDC_GAD_HDC_YDC,DDC / GAD / HDC / TyrDC pyridoxal-phosphate attachment site,Conserved_site,IPR021115
+PROSITE patterns,2026_01,PS00484,THYROGLOBULIN_1_1,Thyroglobulin type-1 repeat signature,Conserved_site,IPR000716
+PROSITE patterns,2026_01,PS00492,CLUSTERIN_1,Clusterin signature 1,Conserved_site,IPR033986
+PROSITE patterns,2026_01,PS00493,CLUSTERIN_2,Clusterin signature 2,Conserved_site,IPR033986
+PROSITE patterns,2026_01,PS00601,IRF_1,IRF tryptophan pentad repeat DNA-binding domain signature,Conserved_site,IPR019817
+PROSITE patterns,2026_01,PS00608,GLYCOSYL_HYDROL_F2_2,Glycosyl hydrolases family 2 acid/base catalyst,Conserved_site,IPR023232
+PROSITE patterns,2026_01,PS00658,FORK_HEAD_2,Fork head domain signature 2,Conserved_site,IPR030456
+PROSITE patterns,2026_01,PS00685,NFYB_HAP3,NF-YB/HAP3 subunit signature,Conserved_site,IPR003956
+PROSITE patterns,2026_01,PS00719,GLYCOSYL_HYDROL_F2_1,Glycosyl hydrolases family 2 signature 1,Conserved_site,IPR023230
+PROSITE patterns,2026_01,PS00892,HIT_1,HIT domain signature,Conserved_site,IPR019808
+PROSITE patterns,2026_01,PS01078,MOCF_BIOSYNTHESIS_1,Molybdenum cofactor biosynthesis proteins signature 1,Conserved_site,IPR008284
+PROSITE patterns,2026_01,PS01079,MOCF_BIOSYNTHESIS_2,Molybdenum cofactor biosynthesis proteins signature 2,Conserved_site,IPR008284
+PROSITE patterns,2026_01,PS01345,COE,COE family signature,Conserved_site,IPR018350
+PROSITE patterns,2026_01,PS01358,ZF_RANBP2_1,Zinc finger RanBP2-type signature,Conserved_site,IPR001876
+PROSITE profiles,2026_01,PS01179,PID,Phosphotyrosine interaction domain (PID) profile,Domain,IPR006020
+PROSITE profiles,2026_01,PS50002,SH3,Src homology 3 (SH3) domain profile,Domain,IPR001452
+PROSITE profiles,2026_01,PS50003,PH_DOMAIN,PH domain profile,Domain,IPR001849
+PROSITE profiles,2026_01,PS50005,TPR,TPR repeat profile,Domain,IPR019734
+PROSITE profiles,2026_01,PS50010,DH_2,Dbl homology (DH) domain profile,Domain,IPR000219
+PROSITE profiles,2026_01,PS50011,PROTEIN_KINASE_DOM,Protein kinase domain profile,Domain,IPR000719
 PROSITE profiles,2026_01,PS50025,LAM_G_DOMAIN,Laminin G domain profile,Domain,IPR001791
 PROSITE profiles,2026_01,PS50026,EGF_3,EGF-like domain profile,Domain,IPR000742
+PROSITE profiles,2026_01,PS50039,FORK_HEAD_3,Fork head domain profile,Domain,IPR001766
+PROSITE profiles,2026_01,PS50057,FERM_3,FERM domain profile,Domain,IPR000299
+PROSITE profiles,2026_01,PS50061,ETS_DOMAIN_3,Ets-domain profile,Domain,IPR000418
 PROSITE profiles,2026_01,PS50066,MADS_BOX_2,MADS-box domain profile,Domain,IPR002100
+PROSITE profiles,2026_01,PS50071,HOMEOBOX_2,Homeobox domain profile,Domain,IPR001356
+PROSITE profiles,2026_01,PS50084,KH_TYPE_1,Type-1 KH domain profile,Domain,
+PROSITE profiles,2026_01,PS50086,TBC_RABGAP,TBC/rab GAP domain profile,Domain,IPR000195
+PROSITE profiles,2026_01,PS50088,ANK_REPEAT,Ankyrin repeat profile,Domain,IPR002110
+PROSITE profiles,2026_01,PS50093,PKD,Polycystic kidney disease (PKD) domain profile,Domain,IPR000601
+PROSITE profiles,2026_01,PS50102,RRM,Eukaryotic RNA Recognition Motif (RRM) profile,Domain,IPR000504
+PROSITE profiles,2026_01,PS50118,HMG_BOX_2,HMG boxes A and B DNA-binding domains profile,Domain,IPR009071
+PROSITE profiles,2026_01,PS50132,RGS,RGS domain profile,Domain,IPR016137
+PROSITE profiles,2026_01,PS50146,DAGK,DAG-kinase catalytic (DAGKc) domain profile,Domain,IPR001206
+PROSITE profiles,2026_01,PS50157,ZINC_FINGER_C2H2_2,Zinc finger C2H2 type domain profile,Domain,IPR013087
+PROSITE profiles,2026_01,PS50174,G_PATCH,G-patch domain profile,Domain,IPR000467
+PROSITE profiles,2026_01,PS50188,B302_SPRY,B30.2/SPRY domain profile,Domain,IPR001870
+PROSITE profiles,2026_01,PS50199,ZF_RANBP2_2,Zinc finger RanBP2 type profile,Domain,IPR001876
+PROSITE profiles,2026_01,PS50234,VWFA,VWFA domain profile,Domain,IPR002035
+PROSITE profiles,2026_01,PS50262,G_PROTEIN_RECEP_F1_2,G-protein coupled receptors family 1 profile,Domain,IPR017452
+PROSITE profiles,2026_01,PS50268,CADHERIN_2,Cadherins domain profile,Domain,IPR002126
+PROSITE profiles,2026_01,PS50297,ANK_REP_REGION,Ankyrin repeat region circular profile,Domain,
+PROSITE profiles,2026_01,PS50800,SAP,SAP motif profile,Domain,IPR003034
+PROSITE profiles,2026_01,PS50835,IG_LIKE,Ig-like domain profile,Domain,IPR007110
+PROSITE profiles,2026_01,PS50853,FN3,Fibronectin type-III domain profile,Domain,IPR003961
+PROSITE profiles,2026_01,PS50888,BHLH,"Myc-type, basic helix-loop-helix (bHLH) domain profile",Domain,IPR011598
+PROSITE profiles,2026_01,PS50942,ENTH,ENTH domain profile,Domain,IPR013809
+PROSITE profiles,2026_01,PS51025,PWI,PWI domain profile,Domain,IPR002483
+PROSITE profiles,2026_01,PS51042,CUT,CUT domain profile,Domain,IPR003350
+PROSITE profiles,2026_01,PS51061,R3H,R3H domain profile,Domain,IPR001374
+PROSITE profiles,2026_01,PS51084,HIT_2,HIT domain profile,Domain,IPR011146
+PROSITE profiles,2026_01,PS51162,THYROGLOBULIN_1_2,Thyroglobulin type-1 domain profile,Domain,IPR000716
+PROSITE profiles,2026_01,PS51285,AGC_KINASE_CTER,AGC-kinase C-terminal domain profile,Domain,IPR000961
+PROSITE profiles,2026_01,PS51450,LRR,Leucine-rich repeat profile,Domain,IPR001611
+PROSITE profiles,2026_01,PS51491,TAU_MAP_2,Tau and MAP proteins tubulin-binding repeat profile,Domain,IPR001084
+PROSITE profiles,2026_01,PS51507,IRF_2,IRF tryptophan pentad repeat DNA-binding domain profile,Domain,IPR001346
+PROSITE profiles,2026_01,PS51517,NDT80,NDT80 DNA-binding domain profile,Domain,IPR024061
+PROSITE profiles,2026_01,PS51641,AGENET_LIKE,Agenet-like domain profile,Domain,IPR041560
+PROSITE profiles,2026_01,PS51665,ENKURIN,Enkurin domain profile,Domain,IPR027012
+PROSITE profiles,2026_01,PS51673,SUZ,SUZ domain profile,Domain,IPR024771
+PROSITE profiles,2026_01,PS51688,ICA,Intramolecular chaperone auto-processing (ICA) domain profile,Domain,IPR030392
+PROSITE profiles,2026_01,PS51982,CMP,COMPASS (CMP) domain profile,Domain,IPR032392
+PROSITE profiles,2026_01,PS51983,CUTL,CUT repeat-like (CUTL) domain profile,Domain,IPR032355
+PROSITE profiles,2026_01,PS52072,VPS10P,Vacuolar protein sorting 10 protein (Vps10p) domain profile,Domain,IPR006581
+PROSITE profiles,2026_01,PS52079,FOXP_ZIP,Forkhead box protein P (FoxP) family leucine zipper (ZIP) domain profile,Domain,IPR032354
+Pfam,39.0,PF00001,7tm_1,7 transmembrane receptor (rhodopsin family),Domain,IPR000276
 Pfam,39.0,PF00008,EGF,EGF-like domain,Domain,IPR000742
+Pfam,39.0,PF00010,HLH,Helix-loop-helix DNA-binding domain,Domain,IPR011598
+Pfam,39.0,PF00013,KH_1,KH domain,Domain,IPR004088
+Pfam,39.0,PF00018,SH3_1,SH3 domain,Domain,IPR001452
+Pfam,39.0,PF00028,Cadherin,Cadherin domain,Domain,IPR002126
+Pfam,39.0,PF00041,fn3,Fibronectin type III domain,Domain,IPR003961
+Pfam,39.0,PF00046,Homeodomain,Homeodomain,Domain,IPR001356
+Pfam,39.0,PF00069,Pkinase,Protein kinase domain,Domain,IPR000719
+Pfam,39.0,PF00076,RRM_1,RNA recognition motif,Domain,IPR000504
+Pfam,39.0,PF00086,Thyroglobulin_1,Thyroglobulin type-1 repeat,Domain,IPR000716
+Pfam,39.0,PF00092,VWA,von Willebrand factor type A domain,Domain,IPR002035
+Pfam,39.0,PF00096,zf-C2H2,"Zinc finger, C2H2 type",Domain,IPR013087
+Pfam,39.0,PF00130,C1_1,Phorbol esters/diacylglycerol binding domain (C1 domain),Domain,IPR002219
+Pfam,39.0,PF00169,PH,PH domain,Domain,IPR001849
+Pfam,39.0,PF00178,Ets,Ets-domain,Domain,IPR000418
+Pfam,39.0,PF00250,Forkhead,Forkhead domain,Domain,IPR001766
+Pfam,39.0,PF00282,Pyridoxal_deC,Pyridoxal-dependent decarboxylase conserved domain,Domain,IPR002129
 Pfam,39.0,PF00319,SRF-TF,SRF-type transcription factor (DNA-binding and dimerisation domain),Domain,IPR002100
+Pfam,39.0,PF00373,FERM_M,FERM central domain,Domain,IPR019748
+Pfam,39.0,PF00418,Tubulin-binding,"Tau and MAP protein, tubulin-binding repeat",Family,IPR001084
+Pfam,39.0,PF00433,Pkinase_C,Protein kinase C terminal domain,Family,IPR017892
+Pfam,39.0,PF00505,HMG_box,HMG (high mobility group) box,Domain,IPR009071
+Pfam,39.0,PF00515,TPR_1,Tetratricopeptide repeat,Repeat,IPR019734
+Pfam,39.0,PF00520,Ion_trans,Ion transport protein,Family,IPR005821
+Pfam,39.0,PF00566,RabGAP-TBC,Rab-GTPase-TBC domain,Family,IPR000195
+Pfam,39.0,PF00605,IRF,Interferon regulatory factor transcription factor,Domain,IPR001346
+Pfam,39.0,PF00609,DAGK_acc,Diacylglycerol kinase accessory domain,Family,IPR000756
+Pfam,39.0,PF00615,RGS,Regulator of G protein signaling domain,Domain,IPR016137
+Pfam,39.0,PF00621,RhoGEF,RhoGEF domain,Domain,IPR000219
+Pfam,39.0,PF00622,SPRY,SPRY domain,Domain,IPR003877
+Pfam,39.0,PF00625,Guanylate_kin,Guanylate kinase,Domain,IPR008145
+Pfam,39.0,PF00640,PID,Phosphotyrosine interaction domain (PTB/PID),Domain,IPR006020
+Pfam,39.0,PF00641,Zn_ribbon_RanBP,Zn-finger in Ran binding protein and others,Domain,IPR001876
+Pfam,39.0,PF00703,Glyco_hydro_2,Glycosyl hydrolases family 2,Domain,IPR006102
+Pfam,39.0,PF00781,DAGK_cat,Diacylglycerol kinase catalytic domain,Family,IPR001206
+Pfam,39.0,PF00801,PKD,PKD domain,Domain,IPR000601
+Pfam,39.0,PF00808,CBFD_NFYB_HMF,Histone-like transcription factor (CBF/NF-Y) and archaeal histone,Domain,IPR003958
+Pfam,39.0,PF00822,PMP22_Claudin,PMP-22/EMP/MP20/Claudin family,Family,IPR004031
+Pfam,39.0,PF00994,MoCF_biosynth,Probable molybdopterin binding domain,Domain,IPR001453
+Pfam,39.0,PF01034,Syndecan,Syndecan domain,Family,IPR027789
+Pfam,39.0,PF01093,Clusterin,Clusterin,Family,IPR000753
+Pfam,39.0,PF01230,HIT,HIT domain,Domain,IPR011146
+Pfam,39.0,PF01408,GFO_IDH_MocA,"Oxidoreductase family, NAD-binding Rossmann fold",Domain,IPR000683
+Pfam,39.0,PF01424,R3H,R3H domain,Domain,IPR001374
+Pfam,39.0,PF01480,PWI,PWI domain,Family,IPR002483
+Pfam,39.0,PF01501,Glyco_transf_8,Glycosyl transferase family 8,Family,IPR002495
+Pfam,39.0,PF01585,G-patch,G-patch domain,Family,IPR000467
+Pfam,39.0,PF01833,TIG,IPT/TIG domain,Domain,IPR002909
+Pfam,39.0,PF01857,RB_B,Retinoblastoma-associated protein B domain,Domain,IPR002719
+Pfam,39.0,PF01858,RB_A,Retinoblastoma-associated protein A domain,Domain,IPR002720
+Pfam,39.0,PF02037,SAP,SAP domain,Domain,IPR003034
 Pfam,39.0,PF02210,Laminin_G_2,Laminin G domain,Domain,IPR001791
+Pfam,39.0,PF02214,BTB_2,BTB/POZ domain,Domain,IPR003131
+Pfam,39.0,PF02376,CUT,CUT domain,Domain,IPR003350
+Pfam,39.0,PF02535,Zip,ZIP Zinc transporter,Family,IPR003689
+Pfam,39.0,PF02836,Glyco_hydro_2_C,"Glycosyl hydrolases family 2, TIM barrel domain",Domain,IPR006103
+Pfam,39.0,PF02837,Glyco_hydro_2_N,"Glycosyl hydrolases family 2, sugar binding domain",Domain,IPR006104
+Pfam,39.0,PF03159,XRN_N,XRN 5'-3' exonuclease N-terminus,Family,IPR004859
+Pfam,39.0,PF03372,Exo_endo_phos,Endonuclease/Exonuclease/phosphatase family,Domain,IPR005135
+Pfam,39.0,PF03453,MoeA_N,MoeA N-terminal region (domain I and II),Family,IPR005110
+Pfam,39.0,PF03454,MoeA_C,MoeA C-terminal region (domain IV),Domain,IPR005111
+Pfam,39.0,PF03623,Focal_AT,Focal adhesion targeting region,Domain,IPR005189
+Pfam,39.0,PF05224,NDT80_PhoG,NDT80 / PhoG like DNA-binding family,Family,IPR024061
+Pfam,39.0,PF05557,MAD,Mitotic checkpoint protein,Coiled_coil,IPR008672
+Pfam,39.0,PF05641,Agenet,Agenet domain,Domain,IPR008395
+Pfam,39.0,PF05920,Homeobox_KN,Homeobox KN domain,Family,IPR008422
+Pfam,39.0,PF07651,ANTH,ANTH domain,Repeat,IPR011417
+Pfam,39.0,PF07679,I-set,Immunoglobulin I-set domain,Domain,IPR013098
+Pfam,39.0,PF07714,PK_Tyr_Ser-Thr,Protein tyrosine and serine/threonine kinase,Domain,IPR001245
+Pfam,39.0,PF08080,zf-RNPHF,RNPHF zinc finger,Domain,IPR012996
+Pfam,39.0,PF08266,Cadherin_2,Cadherin-like,Domain,IPR013164
+Pfam,39.0,PF08374,Protocadherin,Protocadherin,Family,IPR013585
+Pfam,39.0,PF08399,VWA_N,VWA N-terminal,Family,IPR013608
+Pfam,39.0,PF08473,VGCC_alpha2,Neuronal voltage-dependent calcium channel alpha 2acd,Family,IPR013680
+Pfam,39.0,PF08763,Ca_chan_IQ,Voltage gated calcium channel IQ domain,Domain,IPR014873
+Pfam,39.0,PF10401,IRF-3,Interferon-regulatory factor 3,Family,IPR019471
+Pfam,39.0,PF11532,HnRNP_M_NLS,HnRNP M nuclear localisation signal,Conserved_site,IPR024666
+Pfam,39.0,PF11627,HnRNPA1_LC,"Heterogeneous nuclear ribonucleoprotein A1, LC domain",Domain,IPR021662
+Pfam,39.0,PF11851,DUF3371,Domain of unknown function (DUF3371),Family,IPR021802
+Pfam,39.0,PF11934,DUF3452,Domain of unknown function (DUF3452),Family,IPR024599
+Pfam,39.0,PF12052,VGCC_beta4Aa_N,Voltage gated calcium channel subunit beta domain 4Aa N terminal,Domain,IPR046937
+Pfam,39.0,PF12235,FXMRP1_C_core,Fragile X-related 1 protein core C terminal,Family,IPR022034
+Pfam,39.0,PF12310,Elf-1_N,Transcription factor protein N terminal,Family,IPR022084
 Pfam,39.0,PF12347,HJURP_C,Holliday junction regulator protein family C-terminal repeat,Domain,IPR022102
+Pfam,39.0,PF12414,Fox-1_C,Calcitonin gene-related peptide regulator C terminal,Family,IPR025670
+Pfam,39.0,PF12473,DUF3694,Kinesin protein,Family,IPR022164
+Pfam,39.0,PF12533,Neuro_bHLH,Neuronal helix-loop-helix transcription factor,Family,IPR022575
+Pfam,39.0,PF12752,SUZ,SUZ domain,Domain,IPR024771
+Pfam,39.0,PF12796,Ank_2,Ankyrin repeats (3 copies),Repeat,IPR002110
+Pfam,39.0,PF13181,TPR_8,Tetratricopeptide repeat,Repeat,IPR019734
+Pfam,39.0,PF13671,AAA_33,AAA domain,Domain,
+Pfam,39.0,PF13768,VWA_3,von Willebrand factor type A domain,Domain,IPR002035
+Pfam,39.0,PF13855,LRR_8,Leucine rich repeat,Repeat,IPR001611
+Pfam,39.0,PF13864,Enkurin,Calmodulin-binding,Family,IPR027012
+Pfam,39.0,PF13884,Peptidase_S74,Chaperone of endosialidase,Domain,IPR030392
+Pfam,39.0,PF13887,MYRF_ICA,Myelin regulatory factor ICA domain,Domain,IPR026932
+Pfam,39.0,PF13888,MRF_C2,Myelin gene regulatory factor C-terminal domain 2,Domain,IPR025719
+Pfam,39.0,PF13912,zf-C2H2_6,C2H2-type zinc finger,Domain,IPR013087
+Pfam,39.0,PF13927,Ig_3,Immunoglobulin domain,Domain,
+Pfam,39.0,PF14940,TMEM219,Transmembrane 219,Family,IPR039587
+Pfam,39.0,PF15250,Raftlin,Raftlin,Family,IPR028169
+Pfam,39.0,PF15756,DUF4690,Small Novel Rich in Cartilage,Family,IPR031500
+Pfam,39.0,PF15901,Sortilin_C,"Sortilin, neurotensin receptor 3, C-terminal",Domain,IPR031777
+Pfam,39.0,PF15902,Sortilin-Vps10,"Sortilin, neurotensin receptor 3,",Repeat,IPR031778
+Pfam,39.0,PF15951,MITF_TFEB_C_3_N,MITF/TFEB/TFEC/TFE3 N-terminus,Family,IPR031867
+Pfam,39.0,PF16096,FXR_C1,Fragile X-related 1 protein C-terminal region 2,Disordered,IPR032172
+Pfam,39.0,PF16097,FXR_C3,Fragile X-related 1 protein C-terminal region 3,Family,IPR032177
+Pfam,39.0,PF16159,FOXP-CC,FOXP coiled-coil domain,Coiled_coil,IPR032354
+Pfam,39.0,PF16274,Qua1,Qua1 domain,Domain,IPR032571
+Pfam,39.0,PF16366,CEBP_ZZ,Cytoplasmic polyadenylation element-binding protein ZZ domain,Domain,IPR032296
+Pfam,39.0,PF16367,RRM_7,RNA recognition motif,Domain,IPR000504
+Pfam,39.0,PF16368,CEBP1_N,Cytoplasmic polyadenylation element-binding protein 1 N-terminus,Family,IPR032292
+Pfam,39.0,PF16422,COE1_DBD,Transcription factor COE1 DNA-binding domain,Domain,IPR032200
+Pfam,39.0,PF16423,COE1_HLH,Transcription factor COE1 helix-loop-helix domain,Domain,IPR032201
+Pfam,39.0,PF16534,ULD,Ubiquitin-like oligomerisation domain of SATB,Domain,IPR032392
+Pfam,39.0,PF16544,STAR_dimer,Homodimerisation region of STAR domain protein,Domain,IPR032377
+Pfam,39.0,PF16551,Quaking_NLS,Putative nuclear localisation signal of quaking,Domain,IPR032367
+Pfam,39.0,PF16557,CUTL,CUT1-like DNA-binding domain of SATB,Domain,IPR032355
+Pfam,39.0,PF16568,Sam68-YY,Tyrosine-rich domain of Sam68,Domain,IPR032335
+Pfam,39.0,PF16878,SIX1_SD,"Transcriptional regulator, SIX1, N-terminal SD domain",Domain,IPR031701
+Pfam,39.0,PF16885,CAC1F_C,"Voltage-gated calcium channel subunit alpha, C-term",Family,IPR031688
+Pfam,39.0,PF16905,GPHH,"Voltage-dependent L-type calcium channel, IQ-associated",Family,IPR031649
+Pfam,39.0,PF17780,OCRE,OCRE domain,Domain,IPR041591
+Pfam,39.0,PF17846,XRN_M,Xrn1 helical domain,Domain,IPR041412
+Pfam,39.0,PF17904,KH_9,FMRP KH0 domain,Domain,IPR040472
+Pfam,39.0,PF18038,FERM_N_2,FERM N-terminal domain,Domain,IPR041390
+Pfam,39.0,PF18336,Tudor_FRX1,"Fragile X messenger ribonucleoprotein 1, Tudor domain",Domain,IPR041560
+Pfam,39.0,PF18635,EpCAM_N,"Epithelial cell adhesion molecule, N-terminal domain",Domain,IPR041630
+Pfam,39.0,PF21283,EPCAM-Trop-2_C,"EPCAM/Trop-2, C-terminal",Domain,IPR049420
+Pfam,39.0,PF21477,FERM_C_FAK1,"FAK1/PYK2, FERM domain C-lobe",Domain,IPR049385
+Pfam,39.0,PF22675,KH-I_KHDC4-BBP,"KHDC4/BBP-like, KH-domain type I",Domain,IPR055256
+Pfam,39.0,PF22697,SOS1_NGEF_PH,SOS1/NGEF-like PH domain,Domain,IPR055251
+Pfam,39.0,PF22725,GFO_IDH_MocA_C3,GFO/IDH/MocA C-terminal domain,Domain,IPR055170
+Pfam,39.0,PF23436,RabGap-TBC_2,RabGAP TBC domain,Domain,IPR000195
+Pfam,39.0,PF23578,DGKI,Diacylglycerol kinase iota-like domain,Domain,IPR056383
+Pfam,39.0,PF27776,CACHD1_C,CACHD1 C-terminal domain,Domain,IPR060632
+Pfam,39.0,PF28441,RRM_11,RRM domain,Domain,IPR000504
+Pfam,39.0,PF29843,ORF2p_C,ORF2p C-terminal domain,Domain,IPR063070
+Pfam,39.0,PF29845,PUB_ORF2p,ORF2p PUB domain,Domain,IPR063544
+Pfam,39.0,PF30670,CACHD1_middle,CACHD1 middle domain,Domain,IPR063621
+Pfam,39.0,PF30734,CACHD1_mid,CACHD1 central domain,Domain,IPR063911
+Pfam,39.0,PF30891,SorCS_stalk,SorCS receptor membrane-proximal stalk domain,Domain,IPR063160
+Pfam,39.0,PF32031,RBM25_mid,RNA-binding protein 25 middle domain,Domain,
+Pfam,39.0,PF32927,SOX_D,SOX group D transcription factor domain,Domain,
+Pfam,39.0,PF32930,SOX_D_coiled,"SOX group D transcription factor, coiled-coil domain",Coiled_coil,
+Pfam,39.0,PF33301,PPP1R16_N,PPP1R16 N-terminal domain,Coiled_coil,
+Pfam,39.0,PF37491,SorCS_C,SorCS C-terminal alpha-helix,Family,
+Pfam,39.0,PF38855,TPR_TTC12,"TTC12, TPR repeats",Repeat,
+Pfam,39.0,PF38856,TPR_TTC12_2,"Tetratricopeptide repeat protein 12, TPR repeats",Repeat,
+Pfam,39.0,PF45350,TCF4_N,"Transcription factor 4-like, N-terminal disordered region",Disordered,
+Pfam,39.0,PF54580,FOXP_N,FOXP N-terminal zinc finger domain,Domain,
 Phobius,1.01,CYTOPLASMIC_DOMAIN,,Cytoplasmic domain,Region,
 Phobius,1.01,NON_CYTOPLASMIC_DOMAIN,,Non cytoplasmic domain,Region,
 Phobius,1.01,SIGNAL_PEPTIDE,,Signal Peptide,Region,
@@ -35,9 +844,123 @@ Phobius,1.01,SIGNAL_PEPTIDE_C_REGION,,Signal peptide C-region,Region,
 Phobius,1.01,SIGNAL_PEPTIDE_H_REGION,,Signal peptide H-region,Region,
 Phobius,1.01,SIGNAL_PEPTIDE_N_REGION,,Signal peptide N-region,Region,
 Phobius,1.01,TRANSMEMBRANE,,Transmembrane region,Region,
+SMART,9.0,SM00013,LRRNT,Leucine rich repeat N-terminal domain,Domain,IPR000372
+SMART,9.0,SM00028,TPR,Tetratricopeptide repeats,Domain,IPR019734
+SMART,9.0,SM00030,CLb,CLUSTERIN Beta chain,Domain,IPR016014
+SMART,9.0,SM00035,CLa,CLUSTERIN alpha chain,Domain,IPR016015
+SMART,9.0,SM00045,DAGKa,Diacylglycerol kinase accessory domain (presumed),Domain,IPR000756
+SMART,9.0,SM00046,DAGKc,Diacylglycerol kinase catalytic domain (presumed),Domain,IPR001206
+SMART,9.0,SM00060,FN3,Fibronectin type 3 domain,Domain,IPR003961
+SMART,9.0,SM00072,GuKc,Guanylate kinase homologues.,Domain,IPR008145
+SMART,9.0,SM00082,LRRCT,Leucine rich repeat C-terminal domain,Domain,IPR000483
+SMART,9.0,SM00109,C1,Protein kinase C conserved region 1 (C1) domains (Cysteine-rich domains),Domain,IPR002219
+SMART,9.0,SM00112,CA,Cadherin repeats.,Domain,IPR002126
+SMART,9.0,SM00133,S_TK_X,Extension to Ser/Thr-type protein kinases,Domain,IPR000961
+SMART,9.0,SM00164,TBC,"Domain in Tre-2, BUB2p, and Cdc16p. Probable Rab-GAPs.",Domain,IPR000195
 SMART,9.0,SM00181,EGF,Epidermal growth factor-like domain.,Domain,IPR000742
+SMART,9.0,SM00211,TY,Thyroglobulin type I repeats.,Domain,IPR000716
+SMART,9.0,SM00219,TyrKc,"Tyrosine kinase, catalytic domain",Domain,IPR020635
+SMART,9.0,SM00220,S_TKc,"Serine/Threonine protein kinases, catalytic domain",Domain,IPR000719
+SMART,9.0,SM00225,BTB,"Broad-Complex, Tramtrack and Bric a brac",Domain,IPR000210
+SMART,9.0,SM00233,PH,Pleckstrin homology domain.,Domain,IPR001849
+SMART,9.0,SM00248,ANK,ankyrin repeats,Domain,IPR002110
+SMART,9.0,SM00273,ENTH,Epsin N-terminal homology (ENTH) domain,Domain,IPR013809
 SMART,9.0,SM00282,LamG,Laminin G domain,Domain,IPR001791
 SMART,9.0,SM00294,4.1m,putative band 4.1 homologues' binding motif,Domain,IPR003585
+SMART,9.0,SM00295,B41,Band 4.1 homologues,Domain,IPR019749
+SMART,9.0,SM00311,PWI,"PWI, domain in splicing factors",Domain,IPR002483
+SMART,9.0,SM00315,RGS,Regulator of G protein signalling domain,Domain,IPR016137
+SMART,9.0,SM00322,KH,K homology RNA-binding domain,Domain,IPR004087
+SMART,9.0,SM00325,RhoGEF,Guanine nucleotide exchange factor for Rho/Rac/Cdc42-like GTPases,Domain,IPR000219
+SMART,9.0,SM00326,SH3,Src homology 3 domains,Domain,IPR001452
+SMART,9.0,SM00327,VWA,von Willebrand factor (vWF) type A domain,Domain,IPR002035
+SMART,9.0,SM00339,FH,FORKHEAD,Domain,IPR001766
+SMART,9.0,SM00348,IRF,interferon regulatory factor,Domain,IPR001346
+SMART,9.0,SM00353,HLH,helix loop helix domain,Domain,IPR011598
+SMART,9.0,SM00355,ZnF_C2H2,zinc finger,Domain,IPR013087
+SMART,9.0,SM00360,RRM,RNA recognition motif,Domain,IPR000504
+SMART,9.0,SM00364,LRR_BAC,"Leucine-rich repeats, bacterial type",Domain,
+SMART,9.0,SM00369,LRR_TYP,"Leucine-rich repeats, typical (most populated) subfamily",Domain,IPR003591
+SMART,9.0,SM00385,CYCLIN,"domain present in cyclins, TFIIB and Retinoblastoma",Domain,IPR013763
+SMART,9.0,SM00389,HOX,Homeodomain,Domain,IPR001356
+SMART,9.0,SM00393,R3H,Putative single-stranded nucleic acids-binding domain,Domain,IPR001374
+SMART,9.0,SM00398,HMG,high mobility group,Domain,IPR009071
+SMART,9.0,SM00408,IGc2,Immunoglobulin C-2 Type,Domain,IPR003598
+SMART,9.0,SM00409,IG,Immunoglobulin,Domain,IPR003599
+SMART,9.0,SM00413,ETS,erythroblast transformation specific domain,Domain,IPR000418
+SMART,9.0,SM00429,IPT,"ig-like, plexins, transcription factors",Domain,IPR002909
 SMART,9.0,SM00432,MADS,,Domain,IPR002100
+SMART,9.0,SM00443,G_patch,glycine rich nucleic binding domain,Domain,IPR000467
+SMART,9.0,SM00449,SPRY,Domain in SPla and the RYanodine Receptor.,Domain,IPR003877
+SMART,9.0,SM00462,PTB,"Phosphotyrosine-binding domain, phosphotyrosine-interaction (PI) domain",Domain,IPR006020
+SMART,9.0,SM00513,SAP,Putative DNA-binding (bihelical) motif predicted to be involved in chromosomal organisation,Domain,IPR003034
+SMART,9.0,SM00547,ZnF_RBZ,Zinc finger domain,Domain,IPR001876
+SMART,9.0,SM00602,VPS10,,Domain,IPR006581
+SMART,9.0,SM00852,MoCF_biosynth,Probable molybdopterin binding domain,Domain,IPR001453
+SMART,9.0,SM01062,Ca_chan_IQ,Voltage gated calcium channel IQ domain,Domain,IPR014873
+SMART,9.0,SM01109,CUT,,Domain,IPR003350
+SMART,9.0,SM01243,IRF-3,Interferon-regulatory factor 3,Domain,IPR019471
+SMART,9.0,SM01367,DUF3452,Domain of unknown function (DUF3452),Domain,IPR024599
+SMART,9.0,SM01368,RB_A,Retinoblastoma-associated protein A domain,Domain,IPR002720
+SMART,9.0,SM01369,Rb_C,Rb C-terminal domain,Domain,IPR015030
+SUPERFAMILY,1.75,SSF101233,,PWI domain,Homologous_superfamily,IPR036483
+SUPERFAMILY,1.75,SSF103190,,Sensory domain-like,Homologous_superfamily,IPR029151
+SUPERFAMILY,1.75,SSF110296,,Oligoxyloglucan reducing end-specific cellobiohydrolase,Homologous_superfamily,
+SUPERFAMILY,1.75,SSF111331,,NAD kinase/diacylglycerol kinase-like,Homologous_superfamily,IPR016064
+SUPERFAMILY,1.75,SSF46689,,Homeodomain-like,Homologous_superfamily,IPR009057
+SUPERFAMILY,1.75,SSF46785,,"""Winged helix"" DNA-binding domain",Homologous_superfamily,IPR036390
+SUPERFAMILY,1.75,SSF47031,,Second domain of FERM,Homologous_superfamily,IPR035963
+SUPERFAMILY,1.75,SSF47095,,HMG-box,Homologous_superfamily,IPR036910
+SUPERFAMILY,1.75,SSF47113,,Histone-fold,Homologous_superfamily,IPR009072
+SUPERFAMILY,1.75,SSF47413,,lambda repressor-like DNA-binding domains,Homologous_superfamily,IPR010982
+SUPERFAMILY,1.75,SSF47459,,"HLH, helix-loop-helix DNA-binding domain",Homologous_superfamily,IPR036638
+SUPERFAMILY,1.75,SSF47923,,Ypt/Rab-GAP domain of gyp1p,Homologous_superfamily,IPR035969
+SUPERFAMILY,1.75,SSF47954,,Cyclin-like,Homologous_superfamily,IPR036915
+SUPERFAMILY,1.75,SSF48065,,DBL homology domain (DH-domain),Homologous_superfamily,IPR035899
+SUPERFAMILY,1.75,SSF48097,,"Regulator of G-protein signaling, RGS",Homologous_superfamily,IPR036305
+SUPERFAMILY,1.75,SSF48371,,ARM repeat,Homologous_superfamily,IPR016024
+SUPERFAMILY,1.75,SSF48403,,Ankyrin repeat,Homologous_superfamily,IPR036770
+SUPERFAMILY,1.75,SSF48452,,TPR-like,Homologous_superfamily,IPR011990
+SUPERFAMILY,1.75,SSF48464,,ENTH/VHS domain,Homologous_superfamily,IPR008942
+SUPERFAMILY,1.75,SSF48726,,Immunoglobulin,Homologous_superfamily,IPR036179
+SUPERFAMILY,1.75,SSF49265,,Fibronectin type III,Homologous_superfamily,IPR036116
+SUPERFAMILY,1.75,SSF49299,,PKD domain,Homologous_superfamily,IPR035986
+SUPERFAMILY,1.75,SSF49303,,beta-Galactosidase/glucuronidase domain,Homologous_superfamily,IPR036156
+SUPERFAMILY,1.75,SSF49313,,Cadherin-like,Homologous_superfamily,IPR015919
+SUPERFAMILY,1.75,SSF49417,,p53-like transcription factors,Homologous_superfamily,IPR008967
+SUPERFAMILY,1.75,SSF49785,,Galactose-binding domain-like,Homologous_superfamily,IPR008979
+SUPERFAMILY,1.75,SSF49879,,SMAD/FHA domain,Homologous_superfamily,IPR008984
 SUPERFAMILY,1.75,SSF49899,,Concanavalin A-like lectins/glucanases,Homologous_superfamily,IPR013320
+SUPERFAMILY,1.75,SSF50044,,SH3-domain,Homologous_superfamily,IPR036028
+SUPERFAMILY,1.75,SSF50729,,PH domain-like,Homologous_superfamily,
+SUPERFAMILY,1.75,SSF51445,,(Trans)glycosidases,Homologous_superfamily,IPR017853
+SUPERFAMILY,1.75,SSF51735,,NAD(P)-binding Rossmann-fold domains,Homologous_superfamily,IPR036291
+SUPERFAMILY,1.75,SSF52058,,L domain-like,Homologous_superfamily,
+SUPERFAMILY,1.75,SSF52540,,P-loop containing nucleoside triphosphate hydrolases,Homologous_superfamily,IPR027417
+SUPERFAMILY,1.75,SSF53218,,Molybdenum cofactor biosynthesis proteins,Homologous_superfamily,IPR036425
+SUPERFAMILY,1.75,SSF53300,,vWA-like,Homologous_superfamily,IPR036465
+SUPERFAMILY,1.75,SSF53383,,PLP-dependent transferases,Homologous_superfamily,IPR015424
+SUPERFAMILY,1.75,SSF53448,,Nucleotide-diphospho-sugar transferases,Homologous_superfamily,IPR029044
+SUPERFAMILY,1.75,SSF54197,,HIT-like,Homologous_superfamily,IPR036265
+SUPERFAMILY,1.75,SSF54236,,Ubiquitin-like,Homologous_superfamily,IPR029071
+SUPERFAMILY,1.75,SSF54695,,POZ domain,Homologous_superfamily,IPR011333
+SUPERFAMILY,1.75,SSF54791,,Eukaryotic type KH-domain (KH-domain type I),Homologous_superfamily,IPR036612
+SUPERFAMILY,1.75,SSF54928,,"RNA-binding domain, RBD",Homologous_superfamily,IPR035979
+SUPERFAMILY,1.75,SSF55347,,"Glyceraldehyde-3-phosphate dehydrogenase-like, C-terminal domain",Homologous_superfamily,IPR064897
 SUPERFAMILY,1.75,SSF55455,,SRF-like,Homologous_superfamily,IPR036879
+SUPERFAMILY,1.75,SSF56112,,Protein kinase-like (PK-like),Homologous_superfamily,IPR011009
+SUPERFAMILY,1.75,SSF56219,,DNase I-like,Homologous_superfamily,IPR036691
+SUPERFAMILY,1.75,SSF57196,,EGF/Laminin,Homologous_superfamily,
+SUPERFAMILY,1.75,SSF57610,,Thyroglobulin type-1 domain,Homologous_superfamily,IPR036857
+SUPERFAMILY,1.75,SSF57667,,beta-beta-alpha zinc fingers,Homologous_superfamily,IPR036236
+SUPERFAMILY,1.75,SSF63867,,MoeA C-terminal domain-like,Homologous_superfamily,IPR036688
+SUPERFAMILY,1.75,SSF63882,,MoeA N-terminal region -like,Homologous_superfamily,IPR036135
+SUPERFAMILY,1.75,SSF68906,,SAP domain,Homologous_superfamily,IPR036361
+SUPERFAMILY,1.75,SSF68993,,FAT domain of focal adhesion kinase,Homologous_superfamily,IPR036137
+SUPERFAMILY,1.75,SSF75704,,"Mitotic arrest deficient-like 1, Mad1",Homologous_superfamily,
+SUPERFAMILY,1.75,SSF81296,,E set domains,Homologous_superfamily,IPR014756
+SUPERFAMILY,1.75,SSF81321,,Family A G protein-coupled receptor-like,Homologous_superfamily,
+SUPERFAMILY,1.75,SSF81324,,Voltage-gated potassium channels,Homologous_superfamily,
+SUPERFAMILY,1.75,SSF82708,,R3H domain,Homologous_superfamily,IPR036867
+SUPERFAMILY,1.75,SSF89009,,GAT-like domain,Homologous_superfamily,
+SUPERFAMILY,1.75,SSF90209,,Ran binding protein zinc finger-like,Homologous_superfamily,IPR036443
