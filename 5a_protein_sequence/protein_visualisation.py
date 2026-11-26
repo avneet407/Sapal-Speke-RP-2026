@@ -47,6 +47,7 @@ for import_folder in (
         sys.path.insert(0, str(import_folder))
 
 from functions.graphs.isoform_structure import (
+    CDS_COLOUR,
     FIGURE_WIDTH_INCHES,
     ROW_HEIGHT_INCHES,
 )
@@ -71,6 +72,14 @@ DOMAIN_LABEL_FONT_SIZE = 5
 DOMAIN_LABEL_GAP = 0.08
 PROTEIN_ROW_GAP = 0.28
 UTR_MARKER_FRACTION = 0.015
+PROTEIN_COLOUR = CDS_COLOUR  # red, matching the CDS in the isoform structure plots
+# tab20 without its reds and pinks (indices 6, 7, 12, 13), so no annotation looks
+# like the red protein bar
+ANNOTATION_COLOURS = [
+    colour
+    for index, colour in enumerate(plt.get_cmap("tab20").colors)
+    if index not in (6, 7, 12, 13)
+]
 
 
 def _safe_gene_token(gene_name: str) -> str:
@@ -393,9 +402,9 @@ def _draw_protein_plot(
             for feature in group["features"]
         }
     )
-    palette = plt.get_cmap("tab20")
     domain_colors = {
-        key: palette(index % palette.N) for index, key in enumerate(domain_keys)
+        key: ANNOTATION_COLOURS[index % len(ANNOTATION_COLOURS)]
+        for index, key in enumerate(domain_keys)
     }
 
     for group in groups:
@@ -410,7 +419,7 @@ def _draw_protein_plot(
                 (0, protein_y - half_bar_height),
                 protein_length,
                 PROTEIN_BAR_HEIGHT,
-                facecolor="#dceaf5",
+                facecolor=PROTEIN_COLOUR,
                 edgecolor="#333333",
                 linewidth=0.5,
                 zorder=2,
@@ -499,7 +508,7 @@ def _draw_protein_plot(
     title.set_y(0.98)
 
     legend_handles = [
-        Patch(facecolor="#dceaf5", edgecolor="#333333", label="Protein sequence"),
+        Patch(facecolor=PROTEIN_COLOUR, edgecolor="#333333", label="Protein sequence"),
         Patch(
             facecolor="#d3d3d3",
             edgecolor="#555555",
