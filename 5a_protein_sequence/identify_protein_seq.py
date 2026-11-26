@@ -9,9 +9,11 @@ Examples:
 With no gene or isoform arguments, the script prompts for them repeatedly.
 Enter a blank gene name or blank isoform-rank list to quit.
 
-Adult samples are used for the default expression rank, consistent with the
-project's isoform analysis workflow. If a previously generated ranking CSV is
-available, it will be used first so the rank order matches the earlier pipeline.
+Isoforms are numbered exactly as in 1_data_processing/.py/isoform_visualisation.py:
+all of the gene's isoforms ranked by mean % share of the gene across the adult
+samples (1 = highest share), using the shared functions in
+functions/data_loading/expression_data.py. A ranking CSV is only used if one is
+given explicitly with --rank-order-csv.
 
 The script then extracts the CDS and translates it into amino-acid sequence
 suitable for InterProScan submission.
@@ -28,10 +30,11 @@ from pathlib import Path
 import pandas as pd
 
 ROOT_FOLDER = Path(__file__).resolve().parents[1]
-DEFAULT_RANKING_CSV = ROOT_FOLDER / "1_data_processing" / "CSV" / "isoform_shares_adults.csv"
 sys.path.insert(0, str(ROOT_FOLDER))
 
-from functions.data_loading.expression_data import load_matrix, read_isoform_genes
+from functions.data_loading.expression_data import (
+    load_matrix, mean_isoform_share, rank_isoforms_by_share, read_isoform_genes,
+)
 
 CODON_TABLE = {
     "TTT": "F", "TTC": "F", "TTA": "L", "TTG": "L",
@@ -132,25 +135,32 @@ def _ranked_isoforms_from_previous_csv(gene_name, csv_path):
     return ranked
 
 
+def share_ranked_isoforms(genes, matrix_path, gtf_path, *, adult_only=True):
+    """{gene: [transcript IDs, isoform 1 first]} for the given gene names (case-insensitive).
+    Same numbering as the isoform visualisation: every isoform of the gene, in GTF order,
+    ranked by mean % share of the gene across the (adult) samples, 1 = highest share."""
+    expression = load_matrix(matrix_path)
+    if adult_only:
+        expression = expression[[sample for sample in expression.columns if "_Fetal_" not in sample]]
+    gene_of_isoform = read_isoform_genes(gtf_path)   # in GTF order, like the visualisation
+    mean_share = mean_isoform_share(expression, gene_of_isoform)
+    gene_folded = gene_of_isoform.astype(str).str.casefold()
+    ranked = {}
+    for gene in genes:
+        isoforms = list(gene_of_isoform.index[gene_folded == str(gene).casefold()])
+        ranked[gene] = rank_isoforms_by_share(isoforms, mean_share)
+    return ranked
+
+
 def _ranked_isoforms_for_gene(gene_name, matrix_path, gtf_path, *, adult_only=True, rank_csv_path=None):
     previous_rank = _ranked_isoforms_from_previous_csv(gene_name, rank_csv_path)
     if previous_rank is not None:
         return previous_rank
 
-    expression = load_matrix(matrix_path)
-    if adult_only:
-        expression = expression[[sample for sample in expression.columns if "_Fetal_" not in sample]]
-    gene_of_isoform = read_isoform_genes(gtf_path)
-    matched = gene_of_isoform[
-        gene_of_isoform.astype(str).str.casefold() == str(gene_name).casefold()
-    ].index
-    if matched.empty:
+    ranked = share_ranked_isoforms([gene_name], matrix_path, gtf_path, adult_only=adult_only)[gene_name]
+    if not ranked:
         raise ValueError(f"No isoforms for gene {gene_name!r} were found in {gtf_path}")
-
-    ranked = expression.loc[matched].sum(axis=1).sort_values(ascending=False)
-    if ranked.empty:
-        raise ValueError(f"Gene {gene_name!r} has no expression values in the matrix")
-    return ranked.index.tolist()
+    return ranked
 
 
 def _cds_from_gtf(gene_name, transcript_ids, gtf_path, genome_fasta_path, *, gene_name_attribute="gene_name"):
@@ -206,7 +216,7 @@ def get_ranked_isoform_proteins(
     cds_fasta_path=None,
     adult_only=True,
     gene_name_attribute="gene_name",
-    rank_csv_path=DEFAULT_RANKING_CSV,
+    rank_csv_path=None,
 ):
     """Return a dict of expression-rank -> (transcript_id, protein_sequence)."""
     ranks = list(isoform_numbers)
@@ -332,7 +342,7 @@ def _run_interactive(args):
                 genome_fasta_path=str(args.genome) if args.genome else None,
                 cds_fasta_path=str(args.cds) if args.cds else None,
                 adult_only=args.adult_only,
-                rank_csv_path=str(args.rank_order_csv),
+                rank_csv_path=args.rank_order_csv,
             )
         except ValueError as error:
             print(f"Could not process {gene_name!r}: {error}")
@@ -383,8 +393,8 @@ def main(argv=None):
     parser.add_argument(
         "--rank-order-csv",
         type=Path,
-        default=DEFAULT_RANKING_CSV,
-        help="Previously generated isoform ranking CSV; defaults to the project adult-only rank table",
+        default=None,
+        help="Optional isoform ranking CSV to use instead of the default mean-share ranking",
     )
     parser.add_argument(
         "--all-samples",
@@ -426,7 +436,7 @@ def main(argv=None):
         genome_fasta_path=str(args.genome) if args.genome else None,
         cds_fasta_path=str(args.cds) if args.cds else None,
         adult_only=args.adult_only,
-        rank_csv_path=str(args.rank_order_csv),
+        rank_csv_path=args.rank_order_csv,
     )
 
     output_text = _format_protein_fasta(proteins)

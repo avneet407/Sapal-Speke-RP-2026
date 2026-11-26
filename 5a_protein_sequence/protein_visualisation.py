@@ -8,6 +8,13 @@ entries tables give the annotations. Scans finished after the last export are no
 shown until you re-export with:
     python 5a_protein_sequence/submitting_to_InterPro.py export
 
+Isoform numbers are worked out here, at plotting time, exactly as in
+1_data_processing/.py/isoform_visualisation.py: all of the gene's isoforms ranked by
+mean % share of the gene across the 45 adult samples, 1 = highest share. The
+isoform_rank stored in the job database (set when the protein was submitted, and
+by mean CPM for older submissions) is NOT used, so old and new scans are numbered
+the same way as the isoform structure figure and the isoform_consistency tables.
+
 Usage:
     python 5a_protein_sequence/protein_visualisation.py IRF3
     python 5a_protein_sequence/protein_visualisation.py IRF3 all
@@ -54,7 +61,8 @@ from functions.graphs.isoform_structure import (
     FIGURE_WIDTH_INCHES,
     ROW_HEIGHT_INCHES,
 )
-from isoform_visualisation import find_isoforms, read_gtf
+from functions.data_loading.expression_data import rank_isoforms_by_share
+from isoform_visualisation import find_isoforms, read_abundance, read_gtf
 from submitting_to_InterPro import EXPORT_TABLES, read_condensed_export
 
 GTF_PATH = ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms.gtf"
@@ -197,15 +205,22 @@ def _build_protein_groups(
     transcripts: dict[str, dict[str, Any]],
     max_proteins: int | None,
     features_by_protein: dict[str, list[dict[str, Any]]],
+    isoform_numbers: dict[str, int],
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """isoform_numbers: transcript ID -> isoform number (mean-share rank, as in the isoform
+    visualisation). Used instead of the isoform_rank stored in the job database."""
     proteins: dict[str, dict[str, Any]] = {}
     rank_by_transcript: dict[str, int] = {}
     missing_structures = []
+    missing_numbers = []
 
     for row in scan_mappings.itertuples(index=False):
         transcript_id = str(row.transcript_id)
         if transcript_id not in transcripts or not transcripts[transcript_id]["cds"]:
             missing_structures.append(transcript_id)
+            continue
+        if transcript_id not in isoform_numbers:
+            missing_numbers.append(transcript_id)
             continue
 
         protein = _normalise_protein(row.protein_sequence)
@@ -213,10 +228,8 @@ def _build_protein_groups(
             raise ValueError(
                 f"Finished InterProScan mapping for {transcript_id!r} has no protein sequence"
             )
-        rank = int(row.isoform_rank)
-        rank_by_transcript[transcript_id] = min(
-            rank, rank_by_transcript.get(transcript_id, rank)
-        )
+        rank = isoform_numbers[transcript_id]
+        rank_by_transcript[transcript_id] = rank
         group = proteins.setdefault(
             protein,
             {
@@ -235,6 +248,12 @@ def _build_protein_groups(
         print(
             f"Note: {len(missing_structures)} completed scan mapping(s) have no "
             f"coding structure in the current GTF and will be omitted; examples: {examples}"
+        )
+    if missing_numbers:
+        examples = ", ".join(dict.fromkeys(missing_numbers[:5]))
+        print(
+            f"Note: {len(missing_numbers)} completed scan mapping(s) are not isoforms of "
+            f"this gene in the current GTF and will be omitted; examples: {examples}"
         )
 
     groups = list(proteins.values())
@@ -570,12 +589,26 @@ def plot_gene(
     max_proteins: int | None,
     annotation_csv: Path | None = None,
     *,
+    mean_share: pd.Series | None = None,
     show: bool = True,
 ):
     matching_transcripts = find_isoforms(gene, transcripts)
     if not matching_transcripts:
         print(f"No isoforms found for '{gene}' - check the gene name / ID")
         return None
+
+    # Number ALL of the gene's isoforms by mean % share, exactly as the isoform visualisation
+    # does (same GTF order, same shared ranking function), so the numbers match that figure
+    if mean_share is None:
+        _, mean_share = read_abundance(transcripts)
+    if mean_share is None:
+        raise FileNotFoundError("Expression matrix not found - cannot number isoforms by share")
+    isoform_numbers = {
+        transcript_id: number
+        for number, transcript_id in enumerate(
+            rank_isoforms_by_share(matching_transcripts, mean_share), start=1
+        )
+    }
 
     gene_name = transcripts[matching_transcripts[0]]["gene_name"] or gene
     gene_id = transcripts[matching_transcripts[0]]["gene_id"]
@@ -616,6 +649,7 @@ def plot_gene(
         transcripts,
         max_proteins,
         features_by_protein,
+        isoform_numbers,
     )
     if not groups:
         print(f"No FINISHED protein scans with current coding structures for '{gene_name}'.")
@@ -655,19 +689,32 @@ def main(argv: list[str] | None = None) -> int:
         else:
             genes.append(item)
 
-    print("Reading GTF...")
+    print("Reading GTF and expression matrix...")
     transcripts = read_gtf(GTF_PATH)
+    _, mean_share = read_abundance(transcripts)   # read once, used to number isoforms
 
     if genes:
         for gene in genes:
-            plot_gene(gene, transcripts, max_proteins, args.csv)
+            plot_gene(
+                gene,
+                transcripts,
+                max_proteins,
+                args.csv,
+                mean_share=mean_share,
+            )
         return 0
 
     while True:
         gene = input("Gene name / ID (blank to quit): ").strip()
         if not gene:
             break
-        plot_gene(gene, transcripts, max_proteins, args.csv)
+        plot_gene(
+            gene,
+            transcripts,
+            max_proteins,
+            args.csv,
+            mean_share=mean_share,
+        )
     return 0
 
 
