@@ -52,9 +52,9 @@ from functions.data_loading.expression_data import (
 # --- Settings ---------------------------------------------------------------
 CANDIDATES_FILE = None
 # None selects the latest promising_candidate_pairs_*.csv from promising_candidates.py.
-N_GENES = 10
-# How many asymmetric genes to include, most candidate pairs first.
-MIN_PAIRS = 2
+N_GENES = None
+# How many asymmetric genes to include, most candidate pairs first. None = every gene.
+MIN_PAIRS = 1
 # A gene must be the asymmetric gene in at least this many pairs to be included.
 
 MATRIX_PATH = ROOT_FOLDER / "Long_Read_Data" / "expressed_isoforms_matrix.tsv"
