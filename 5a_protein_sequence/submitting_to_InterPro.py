@@ -82,6 +82,9 @@ class InterProConfig:
     retry_attempts: int = 3
     retry_backoff_seconds: float = 2.0
     stale_submission_seconds: float = 300.0
+    # A SUBMISSION_UNKNOWN job (no job ID came back, e.g. EBI dropped the connection)
+    # is re-queued automatically until it has been tried this many times, then FAILED
+    max_submission_attempts: int = 3
 
     def __post_init__(self) -> None:
         if not 1 <= self.max_active_jobs <= API_MAX_JOBS:
@@ -94,6 +97,8 @@ class InterProConfig:
             raise ValueError("request_timeout_seconds must be positive")
         if self.retry_attempts < 1:
             raise ValueError("retry_attempts must be at least 1")
+        if self.max_submission_attempts < 1:
+            raise ValueError("max_submission_attempts must be at least 1")
         if self.retry_backoff_seconds < 0 or self.stale_submission_seconds <= 0:
             raise ValueError("retry_backoff_seconds must be non-negative and stale timeout positive")
 
@@ -516,6 +521,55 @@ def submit_sequences(
     }
 
 
+def _requeue_unknown_submissions(
+    connection: sqlite3.Connection, config: InterProConfig
+) -> None:
+    """Put SUBMISSION_UNKNOWN jobs back in the queue, or fail them after too many tries.
+
+    These jobs never got a job ID, so their results could never be collected even
+    if EBI did accept them; sending them again at worst duplicates a job on EBI's
+    side. Left alone they count as active and would block every later batch.
+    """
+    now = _utc_now()
+    unknown = connection.execute(
+        "SELECT id, attempt FROM jobs WHERE status = 'SUBMISSION_UNKNOWN' ORDER BY id"
+    ).fetchall()
+    for job in unknown:
+        if int(job["attempt"]) < config.max_submission_attempts:
+            connection.execute(
+                """
+                UPDATE jobs SET status = 'QUEUED', attempt = attempt + 1,
+                    updated_at = ?, error = NULL WHERE id = ?
+                """,
+                (now, job["id"]),
+            )
+            LOGGER.warning(
+                "Job %s had no confirmed submission; re-queued (attempt %d of %d)",
+                job["id"],
+                int(job["attempt"]) + 1,
+                config.max_submission_attempts,
+            )
+        else:
+            connection.execute(
+                """
+                UPDATE jobs SET status = 'FAILED', updated_at = ?, completed_at = ?,
+                    error = ? WHERE id = ?
+                """,
+                (
+                    now,
+                    now,
+                    f"No confirmed submission after {config.max_submission_attempts} attempts",
+                    job["id"],
+                ),
+            )
+            LOGGER.error(
+                "Job %s gave up after %d submission attempts; marked FAILED "
+                "(retry with --retry-failed)",
+                job["id"],
+                config.max_submission_attempts,
+            )
+
+
 def _dispatch_queued(
     db_path: str | Path,
     config: InterProConfig,
@@ -525,6 +579,7 @@ def _dispatch_queued(
     initialize_database(db_path)
     with _database(db_path) as connection:
         connection.execute("BEGIN IMMEDIATE")
+        _requeue_unknown_submissions(connection, config)
         if _active_job_count(connection):
             return []
         rows = connection.execute(
@@ -1271,12 +1326,9 @@ def check_jobs(
                     "SELECT COUNT(*) FROM jobs WHERE status IN ('SUBMISSION_UNKNOWN', 'SUBMITTING')"
                 ).fetchone()[0]
             )
-        if checkable == 0 and queued == 0:
-            if unknown_submissions:
-                LOGGER.error(
-                    "%d submission(s) have no confirmed job ID; inspect the database before retrying.",
-                    unknown_submissions,
-                )
+        # Unconfirmed submissions are re-queued (or failed, after max_submission_attempts)
+        # on the next pass, so keep watching while any remain
+        if checkable == 0 and queued == 0 and unknown_submissions == 0:
             stop_event.set()
             return counts
         if not stop_prompt_started:
